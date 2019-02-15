@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+   <head>
+      <title>Processing Papyrus</title>
+      <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+      <meta http-equiv="Content-Style-Type" content="text/css" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"/>
+   </head>
+   
+   <body class="w3-black">
+      <div class="w3-bar w3-black w3-hide-small">
+        <a class="w3-bar-item">Welcome on Papyrus Parser !</a>
+        <a href="#" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
+      </div>
+   
+      <div class="w3-row">
+        <div class="w3-col s10 m10 l10 w3-white w3-center" style="height:90vh"></div>
+        <div class="w3-col s2 m2 l2 w3-dark-grey w3-center" style="height:90vh"></div>
+      </div> 
+      
+   </body>
+</html>
