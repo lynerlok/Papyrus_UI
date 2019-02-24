@@ -1,11 +1,3 @@
-papyrus.controller('CanvasCrtl', ['$scope','$rootScope',
-  function($scope,$rootScope) {
-  $scope.Coord = function(coord) {
-    $scope.x = coord.clientX;
-    $scope.y = coord.clientY;
-  }
-}]);
-
 papyrus.controller('PictCrtl', ['$scope','$rootScope',
   function($scope,$rootScope) {
     $rootScope.showPict = false;
@@ -53,24 +45,61 @@ papyrus.controller('RepeatPapyrus', ['$scope','$rootScope', function($scope,$roo
 	};
 }]);
 
+papyrus.directive('dragPicture', ['$document', function($document) {
+  return {
+    link: function(scope, element, attr) {
+    
+      var elem =  document.getElementById("Canvas");
+      var dragElem = document.getElementById("Drag");
+      
+      var top = elem.getBoundingClientRect().top;
+      var bottom = elem.getBoundingClientRect().bottom;
+      var left = elem.getBoundingClientRect().left;
+      var right = elem.getBoundingClientRect().right;
+      var widthDragElem = dragElem.naturalWidth;
+      var heightDragElem = dragElem.naturalHeight;
+    
+      var startX = dragElem.getBoundingClientRect().left, startY = dragElem.getBoundingClientRect().top, x = startX, y = startY;
+      
+      element.css({
+        position:  'fixed',
+        cursor: 'pointer'
+      });
+      
+      console.log(widthDragElem);
+      console.log(heightDragElem);
+      
+      element.on('mousedown', function(coord) {
+        // Prevent default dragging of selected content
+        coord.preventDefault();
+        startX = coord.clientX - x;
+        startY = coord.clientY - y;
+        $document.on('mousemove', mousemove);
+        $document.on('mouseup', mouseup);
+      });
 
-papyrus.directive('PictDir',function(){
-    return {
-        restrict:'A',
-        scope:{
-            number:'@'
-        },
-        link:function(scope,element,value){
-            element.html('je suis la directive numero ' + scope.number);
+      function mousemove(coord) {
+        
+        x = coord.clientX - startX;
+        y = coord.clientY - startY;
+
+        if ((x>(left-1)) && (x<(right-(widthDragElem+1)))){
+          element.css({
+            left:  x + 'px'
+          });
         }
-    };
-});
+        
+        if ((y>(top-1)) && (y<(bottom-(heightDragElem+4)))){
+          element.css({
+            top: y + 'px'
+          });
+        }
+      }
 
-function mainController($scope, $compile){
-    var number=0;
-    $scope.addItem = function(){
-        var compiled = $compile("<div demo-dir number='" + number + "'>coucou</div>")($scope);
-        angular.element(document.getElementById('placeholder')).append(compiled);
-        number+=1;
+      function mouseup() {
+        $document.off('mousemove', mousemove);
+        $document.off('mouseup', mouseup);
+      }
     }
-};
+  };
+}]);

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 
 <html lang="fr">
 
@@ -7,14 +7,17 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" type="text/css" href="Canvas.css">
       <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
-      <script type="text/javascript" src="file:///home/user/Documents/Projet_S8/Papyrus_UI/App.js"></script>
-      <script type="text/javascript" src="file:///home/user/Documents/Projet_S8/Papyrus_UI/Crtl.js"></script>
+      <script type="text/javascript" src="angular.min.js"></script>
+      <script type="text/javascript" src="angular-animate.js"></script>
+      <script type="text/javascript" src="App.js"></script>
+      <script type="text/javascript" src="Crtl.js"></script>
+      <script type="text/javascript" src="DisplayPapyrus.js"></script>
+      <script type="text/javascript" src="CreateCanvas.js"></script>
    </head>
    
-   <body ng-app="PapyrusApp" class="w3-black">
+   <body ng-app="PapyrusApp" class="w3-black" onload="startGame()">
       <div class="w3-bar w3-black w3-hide-small">
         <a class="w3-bar-item">Welcome on Papyrus Parser !</a>
         <a href="#" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
@@ -37,13 +40,8 @@
       </div>
       <!-- END ACCORDION -->
       
-      <!-- CANVAS -->
-      <div ng-controller="CanvasCrtl">
-         <div ng-mousemove="Coord($event)" class="w3-white w3-center" style="height:90vh;margin-left:15%">
-            <!--https://nicophil.wordpress.com/2014/06/11/angularjs-ajouter-une-directive-dynamiquement/-->
-            <div id="PictHolder"></div>
-         </div>
-      </div>
+      <!-- CANVAS Penser à : --> <!-- <img drag-picture id="Drag" src="TEST2.jpg" alt="TESTTEST"></img> -->
+      <div id="CanvasHolder" class="w3-center" style="height:90vh;margin-left:15%"></div>
       <!-- ACCORDION -->
    </body>
 </html>
