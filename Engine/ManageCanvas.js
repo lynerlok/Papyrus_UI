@@ -1,9 +1,10 @@
 var PapyrusPict;
 
 function startCanvas() {
+  
   var elem =  document.getElementById("CanvasHolder");
 
-	var left = elem.getBoundingClientRect().left;
+  var left = elem.getBoundingClientRect().left;
   var top = elem.getBoundingClientRect().top;
   
   Area.start();
@@ -61,6 +62,7 @@ var Area = {
     
     window.addEventListener('keydown', function (e) {
       e.preventDefault();
+      //console.log(e.keyCode);
       Area.keys = (Area.keys || []);
       Area.keys[e.keyCode] = (e.type == "keydown");
     });
@@ -100,16 +102,33 @@ function component(width, height, color, x, y, type) {
 
 function updateArea() {
   Area.clear();
-  if (Area.canvas.width) {
-    if (Area.x && Area.y) {
-      PapyrusPict.x = Area.x;
-      PapyrusPict.y = Area.y;
+    
+  if (Area.x && Area.y) {
+    PapyrusPict.x = Area.x;
+    PapyrusPict.y = Area.y;
+  }
+
+  if (Area.keys && (Area.keys[37] || Area.keys[81])) {PapyrusPict.angle -= 5 * Math.PI / 180}
+  if (Area.keys && (Area.keys[39] || Area.keys[68])) {PapyrusPict.angle += 5 * Math.PI / 180}
+   
+  if (Area.keys && Area.keys[73]) {
+    var newWidth = PapyrusPict.width*0.05;
+    var newHeight = PapyrusPict.height*0.05;
+    if ((newWidth < (Area.canvas.width/60)) || (newHeight < (Area.canvas.height/60))){
+      PapyrusPict.width += newWidth;
+      PapyrusPict.height += newHeight;
     }
   }
   
-  if (Area.keys && Area.keys[37]) {PapyrusPict.angle -= 1 * Math.PI / 180}
-  if (Area.keys && Area.keys[39]) {PapyrusPict.angle += 1 * Math.PI / 180}
-    
+  if (Area.keys && Area.keys[79]) {
+   var newWidth = PapyrusPict.width*0.05;
+    var newHeight = PapyrusPict.height*0.05;
+    if ((newWidth >= 1) || (newHeight >= 1)){
+      PapyrusPict.width -= newWidth;
+      PapyrusPict.height -= newHeight;
+    }
+  }
+ 
   if (Area.keys && Area.keys[116]) {location.reload(true)}
   PapyrusPict.update();
 }
