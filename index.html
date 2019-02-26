@@ -7,17 +7,18 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
-      <link rel="stylesheet" type="text/css" href="Canvas.css">
+      <link rel="stylesheet" type="text/css" href="Css/Canvas.css">
       <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-      <script type="text/javascript" src="angular.min.js"></script>
-      <script type="text/javascript" src="angular-animate.js"></script>
-      <script type="text/javascript" src="App.js"></script>
-      <script type="text/javascript" src="Crtl.js"></script>
-      <script type="text/javascript" src="DisplayPapyrus.js"></script>
-      <script type="text/javascript" src="CreateCanvas.js"></script>
+      <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular.min.js"></script>
+      <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular-animate.min.js"></script>
+      <script type="text/javascript" src="Engine/PapyrusTable.js"></script>
+      <script type="text/javascript" src="Engine/App.js"></script>
+      <script type="text/javascript" src="Engine/Crtl.js"></script>
+      <script type="text/javascript" src="Engine/ManageCanvas.js"></script>
+      <script type="text/javascript" src="Engine/ManagePict.js"></script>
    </head>
    
-   <body ng-app="PapyrusApp" class="w3-black" onload="startGame()">
+   <body ng-app="PapyrusApp" class="w3-black" onload="startCanvas()">
       <div class="w3-bar w3-black w3-hide-small">
         <a class="w3-bar-item">Welcome on Papyrus Parser !</a>
         <a href="#" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
@@ -40,7 +41,7 @@
       </div>
       <!-- END ACCORDION -->
       
-      <!-- CANVAS Penser à : --> <!-- <img drag-picture id="Drag" src="TEST2.jpg" alt="TESTTEST"></img> -->
+      <!-- CANVAS -->
       <div id="CanvasHolder" class="w3-center" style="height:90vh;margin-left:15%"></div>
       <!-- ACCORDION -->
    </body>
