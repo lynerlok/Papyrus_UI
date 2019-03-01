@@ -8,7 +8,7 @@ function startCanvas() {
   var top = elem.getBoundingClientRect().top;
   
   Area.start();
-  PapyrusPict = new component(80, 80, "red", left, top, "rect");
+  PapyrusPict = new component("1319_r_CL.JPG");
 }
 
 var Area = {
@@ -39,20 +39,19 @@ var Area = {
       
       if (Area.x <= 0){
         mouseIsDown = false;
-        Area.x = PapyrusPict.width/2;
+        Area.x = PapyrusPict.image.width/2;
       }
       if (Area.y <= 0){
         mouseIsDown = false;
-        Area.y = PapyrusPict.height/2;
+        Area.y = PapyrusPict.image.height/2;
       }
       if (Area.y >= height){
         mouseIsDown = false;
-        Area.y = height - PapyrusPict.height/2;
+        Area.y = height - PapyrusPict.image.height/2;
 }
     });
     
     window.addEventListener('mousedown', function (e) {
-      if (e.button == 1) {displayMeta()} // NOTE : 0 left button | 1 middle button | 2 right button
       mouseIsDown = true;
     });
     
@@ -62,7 +61,6 @@ var Area = {
     
     window.addEventListener('keydown', function (e) {
       e.preventDefault();
-      //console.log(e.keyCode);
       Area.keys = (Area.keys || []);
       Area.keys[e.keyCode] = (e.type == "keydown");
     });
@@ -81,28 +79,43 @@ var Area = {
 }
 
 
-function component(width, height, color, x, y, type) {
-
-    this.type = type;
-    this.width = width;
-    this.height = height;
+function component(src) {
+   
+    this.image = new Image();
+    
+    this.image.onload = function() {
+  
+      if (this.naturalWidth > this.naturalHeight) {
+        while (this.width > (Area.canvas.width/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
+      }
+      if (this.naturalWidth < this.naturalHeight) {
+        while (this.height > (Area.canvas.height/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
+      }
+    }
+    this.image.src = src;
+    
+    this.x = Area.canvas.width/2;
+    this.y = Area.canvas.height/2;
+   
     this.angle = 0;
-    this.x = x;
-    this.y = y;    
+    this.scale = 1;
+    
     this.update = function() {
         ctx = Area.context;
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
-        ctx.fillStyle = color;
-        ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
-        ctx.restore();    
+        ctx.scale(this.scale,this.scale);
+        ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height);
+        ctx.restore();
     }
 }
 
 function updateArea() {
   Area.clear();
-    
+  var scale = 1;
+  var ctx = Area.context;
+  
   if (Area.x && Area.y) {
     PapyrusPict.x = Area.x;
     PapyrusPict.y = Area.y;
@@ -112,23 +125,19 @@ function updateArea() {
   if (Area.keys && (Area.keys[39] || Area.keys[68])) {PapyrusPict.angle += 5 * Math.PI / 180}
    
   if (Area.keys && Area.keys[73]) {
-    var newWidth = PapyrusPict.width*0.05;
-    var newHeight = PapyrusPict.height*0.05;
-    if ((newWidth < (Area.canvas.width/60)) || (newHeight < (Area.canvas.height/60))){
-      PapyrusPict.width += newWidth;
-      PapyrusPict.height += newHeight;
-    }
-  }
+    if (PapyrusPict.scale < 1.5) {
+      PapyrusPict.scale += 0.05;
+    };
+  };
   
   if (Area.keys && Area.keys[79]) {
-   var newWidth = PapyrusPict.width*0.05;
-    var newHeight = PapyrusPict.height*0.05;
-    if ((newWidth >= 1) || (newHeight >= 1)){
-      PapyrusPict.width -= newWidth;
-      PapyrusPict.height -= newHeight;
-    }
-  }
- 
-  if (Area.keys && Area.keys[116]) {location.reload(true)}
+    if (PapyrusPict.scale > 0.2) {
+      PapyrusPict.scale -= 0.05;
+    };
+  };
+  
+  if (Area.keys && Area.keys[77]) {displayMeta();}; 
+  
+  if (Area.keys && Area.keys[116]) {location.reload(true);};
   PapyrusPict.update();
 }
