@@ -9,12 +9,13 @@ function startCanvas() {
 
   Area.start();
   PapyrusPict = new component("1319_r_CL.JPG");
+  Area.images.push(PapyrusPict);
 }
 
 var Area = {
   canvas : document.createElement("canvas"),
   start : function() {
-
+    
     var elem =  document.getElementById("CanvasHolder");
     var mouseIsDown = false;
 
@@ -27,7 +28,12 @@ var Area = {
     this.canvas.height = height;
     this.canvas.style.cursor = "crosshair";
     this.context = this.canvas.getContext("2d");
-
+    
+    // BEGIN MODIFICATION
+    this.images = [];  
+    this.selection = null;
+    // END MODIFICATION
+    
     elem.appendChild(this.canvas);
 
     this.interval = setInterval(updateArea, 30);
@@ -36,16 +42,36 @@ var Area = {
       if (!mouseIsDown) return ;
       Area.x = e.clientX - left;
       Area.y = e.clientY - top;
+      Area.selection.x = Area.x;
+      Area.selection.y = Area.y;
     });
 
     window.addEventListener('mousedown', function (e) {
       var offset = 100;
-      if ((e.clientX-left) >= (PapyrusPict.x-offset) && (e.clientX-left) <= (PapyrusPict.x+offset) && (e.clientY-top) >= (PapyrusPict.y-offset) && (e.clientY-top) <= (PapyrusPict.y+offset)){
-        mouseIsDown = true;
-      }
-      else {
-        mouseIsDown = false;
-      }
+      // BEGIN MODIFICATION
+      var mx = e.clientX - left;
+      var my = e.clientY - top;
+      var images = Area.images;
+      var l = images.length;
+      
+      for (var i = l-1; i >= 0; i--) {
+        if (images[i].contains(mx, my)) {
+          var mySel = images[i];
+          // Keep track of where in the object we clicked
+          // so we can move it smoothly (see mousemove)
+         // myState.dragoffx = mx - mySel.x;
+         // myState.dragoffy = my - mySel.y;
+          mouseIsDown = true;
+          Area.selection = mySel;
+          return;
+        }
+        // END MODIFICATION
+        else {
+          mouseIsDown = false;
+        }
+      };
+      
+      if (Area.selection) {Area.selection = null};
     });
 
     window.addEventListener('mouseup', function (e) {
@@ -70,7 +96,6 @@ var Area = {
     clearInterval(this.interval);
   }
 }
-
 
 function component(src) {
 
@@ -102,6 +127,18 @@ function component(src) {
         ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height);
         ctx.restore();
     }
+}
+
+component.prototype.contains = function(mx, my) {
+  
+  var elem =  document.getElementById("CanvasHolder");
+
+  var top = elem.getBoundingClientRect().top;
+  var left = elem.getBoundingClientRect().left;
+  var offset = 100;
+
+  return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) && 
+            (my-top) >= (this.y-offset) && (my-top) <= (this.y+offset);
 }
 
 function updateArea() {
