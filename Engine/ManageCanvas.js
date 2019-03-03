@@ -31,55 +31,21 @@ var Area = {
     elem.appendChild(this.canvas);
 
     this.interval = setInterval(updateArea, 30);
-
+      
     window.addEventListener('mousemove', function (e) {
       if (!mouseIsDown) return ;
       Area.x = e.clientX - left;
       Area.y = e.clientY - top;
-
-      if (Area.x /*- PapyrusPict.image.width/2*/<= 0){
-        mouseIsDown = false;
-        Area.x = PapyrusPict.image.width/2 + 1;
-        //mouseIsDown = true;
-
-      }
-      if (Area.x /*+ PapyrusPict.image.width/2*/>= width) {
-        mouseIsDown = false;
-        Area.x = width - PapyrusPict.image.width/2 - 1; //si fenêtre réduite
-        //mouseIsDown = true;
-
-
-      }
-      if (Area.y /*- PapyrusPict.image.height/2*/ <= 0){
-        mouseIsDown = false;
-        Area.y = PapyrusPict.image.height/2 + 1;
-        //mouseIsDown = true;
-      }
-      if (Area.y /*+ PapyrusPict.image.height/2*/ >= height){
-        mouseIsDown = false;
-        Area.y = height - PapyrusPict.image.height/2 - 1;
-        //mouseIsDown = true;
-
-}
     });
 
     window.addEventListener('mousedown', function (e) {
-    /*  var posX = e.clientX - left;
-      var posY = e.clientY - top;
-      var PapyrusLeft = PapyrusPict.x-PapyrusPict.image.width/2;
-      var PapyrusRight = PapyrusPict.x+PapyrusPict.image.width/2;
-      var PapyrusTop = PapyrusPict.y - PapyrusPict.image.height/2;
-      var PapyrusBottom = PapyrusPict.y + PapyrusPict.image.height/2;
-        //test si curseur est positionné sur l'image
-      if (posX >= PapyrusLeft  && posX <= PapyrusRight  && posY >= PapyrusTop && posY <= PapyrusBottom){
+      var offset = 100;
+      if ((e.clientX-left) >= (PapyrusPict.x-offset) && (e.clientX-left) <= (PapyrusPict.x+offset) && (e.clientY-top) >= (PapyrusPict.y-offset) && (e.clientY-top) <= (PapyrusPict.y+offset)){
         mouseIsDown = true;
       }
       else {
         mouseIsDown = false;
       }
-      */
-      mouseIsDown = true;
-
     });
 
     window.addEventListener('mouseup', function (e) {
