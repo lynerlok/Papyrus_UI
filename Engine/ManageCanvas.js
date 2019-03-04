@@ -15,7 +15,7 @@ function startCanvas() {
 var Area = {
   canvas : document.createElement("canvas"),
   start : function() {
-    
+
     var elem =  document.getElementById("CanvasHolder");
     var mouseIsDown = false;
 
@@ -28,16 +28,16 @@ var Area = {
     this.canvas.height = height;
     this.canvas.style.cursor = "crosshair";
     this.context = this.canvas.getContext("2d");
-    
+
     // BEGIN MODIFICATION
-    this.images = [];  
+    this.images = [];
     this.selection = null;
     // END MODIFICATION
-    
+
     elem.appendChild(this.canvas);
 
     this.interval = setInterval(updateArea, 30);
-      
+
     window.addEventListener('mousemove', function (e) {
       if (!mouseIsDown) return ;
       Area.x = e.clientX - left;
@@ -48,19 +48,24 @@ var Area = {
 
     window.addEventListener('mousedown', function (e) {
       var offset = 100;
+
       // BEGIN MODIFICATION
+      var myState=this;
       var mx = e.clientX - left;
       var my = e.clientY - top;
       var images = Area.images;
       var l = images.length;
-      
+
+
       for (var i = l-1; i >= 0; i--) {
-        if (images[i].contains(mx, my)) {
+        if (images[i].contains(mx+left, my+top)) {
           var mySel = images[i];
+          console.log(mySel);
           // Keep track of where in the object we clicked
           // so we can move it smoothly (see mousemove)
-         // myState.dragoffx = mx - mySel.x;
-         // myState.dragoffy = my - mySel.y;
+          //myState.dragoffx = mx - mySel.x;
+          //myState.dragoffy = my - mySel.y;
+
           mouseIsDown = true;
           Area.selection = mySel;
           return;
@@ -70,7 +75,7 @@ var Area = {
           mouseIsDown = false;
         }
       };
-      
+
       if (Area.selection) {Area.selection = null};
     });
 
@@ -96,6 +101,8 @@ var Area = {
     clearInterval(this.interval);
   }
 }
+
+
 
 function component(src) {
 
@@ -130,14 +137,14 @@ function component(src) {
 }
 
 component.prototype.contains = function(mx, my) {
-  
+
   var elem =  document.getElementById("CanvasHolder");
 
   var top = elem.getBoundingClientRect().top;
   var left = elem.getBoundingClientRect().left;
-  var offset = 100;
+  var offset = 100 ;
 
-  return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) && 
+  return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) &&
             (my-top) >= (this.y-offset) && (my-top) <= (this.y+offset);
 }
 
