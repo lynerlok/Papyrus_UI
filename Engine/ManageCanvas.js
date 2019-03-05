@@ -68,14 +68,20 @@ var Area = {
           //myState.dragoffy = my - mySel.y;
 
           mouseIsDown = true;
+<<<<<<< HEAD
           Area.setOpp = false;
+=======
+>>>>>>> db3acc328175ea0e5f2bebabf9ed5cad452bbdc1
           Area.selection = mySel;
           return;
         }
         // END MODIFICATION
         else {
           mouseIsDown = false;
+<<<<<<< HEAD
           Area.setOpp = true;
+=======
+>>>>>>> db3acc328175ea0e5f2bebabf9ed5cad452bbdc1
         }
       };
 
