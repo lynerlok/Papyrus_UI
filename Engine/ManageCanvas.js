@@ -9,7 +9,9 @@ function startCanvas() {
 
   Area.start();
   PapyrusPict = new component("1319_r_CL.JPG");
+  PapyrusPict2 = new component("88_a_r_CL.JPG");
   Area.images.push(PapyrusPict);
+  Area.images.push(PapyrusPict2);
 }
 
 var Area = {
@@ -18,12 +20,14 @@ var Area = {
 
     var elem =  document.getElementById("CanvasHolder");
     var mouseIsDown = false;
-	this.setOpp = false;
+    this.setOpp = false;
 	
     var width = elem.getBoundingClientRect().width;
     var height = elem.getBoundingClientRect().height;
     var top = elem.getBoundingClientRect().top;
     var left = elem.getBoundingClientRect().left;
+    this.expLeft = left;
+    this.expTop = top;
 
     this.canvas.width = width;
     this.canvas.height = height;
@@ -52,16 +56,16 @@ var Area = {
 
       // BEGIN MODIFICATION
       var myState=this;
-      var mx = e.clientX - left;
-      var my = e.clientY - top;
+      var mx = e.clientX;
+      var my = e.clientY;
       var images = Area.images;
       var l = images.length;
 
 
       for (var i = l-1; i >= 0; i--) {
-        if (images[i].contains(mx+left, my+top)) {
+        if (images[i].contains(mx, my)) {
           var mySel = images[i];
-          console.log(mySel);
+        //  console.log(mySel);
           // Keep track of where in the object we clicked
           // so we can move it smoothly (see mousemove)
           //myState.dragoffx = mx - mySel.x;
@@ -120,8 +124,6 @@ var Area = {
   }
 }
 
-
-
 function component(src) {
 
     this.image = new Image();
@@ -136,7 +138,7 @@ function component(src) {
       }
     }
     this.image.src = src;
-	this.image.id = "papyrus";
+    this.image.id = "papyrus";
 	
     this.x = Area.canvas.width/2;
     this.y = Area.canvas.height/2;
@@ -171,31 +173,40 @@ component.prototype.contains = function(mx, my) {
 function updateArea() {
   Area.clear();
   var scale = 1;
+  var images = Area.images;
+  var l = images.length;
 
-  if (Area.x && Area.y) {
-    PapyrusPict.x = Area.x;
-    PapyrusPict.y = Area.y;
-  }
 
-  if (Area.keys && (Area.keys[37] || Area.keys[81])) {PapyrusPict.angle -= 5 * Math.PI / 180}
-  if (Area.keys && (Area.keys[39] || Area.keys[68])) {PapyrusPict.angle += 5 * Math.PI / 180}
+  for (var i = l-1; i >= 0; i--) {
+    if (images[i].contains(Area.x+Area.expLeft, Area.y+Area.expTop)) {
+      var mySel = images[i];
 
-  if (Area.keys && Area.keys[73]) {
-    if (PapyrusPict.scale < 1.5) {
-      PapyrusPict.scale += 0.05;
-
-    };
+      if (Area.x && Area.y) {
+        mySel.x = Area.x;
+        mySel.y = Area.y;
+      }
+    
+      if (Area.keys && (Area.keys[37] || Area.keys[81])) {mySel.angle -= 5 * Math.PI / 180}
+      
+      if (Area.keys && (Area.keys[39] || Area.keys[68])) {mySel.angle += 5 * Math.PI / 180}
+    
+      if (Area.keys && Area.keys[73]) {
+        if (mySel.scale < 1.5) {
+          mySel.scale += 0.05;
+        };
+      };
+    
+      if (Area.keys && Area.keys[79]) {
+        if (mySel.scale > 0.2) {
+          mySel.scale -= 0.05;
+        };
+      };
+    
+      if (Area.keys && Area.keys[77]) {displayMeta()};
+    
+      if (Area.keys && Area.keys[116]) {location.reload(true)};
+      
+      mySel.update();
+    }
   };
-
-  if (Area.keys && Area.keys[79]) {
-    if (PapyrusPict.scale > 0.2) {
-      PapyrusPict.scale -= 0.05;
-    };
-  };
-
-  if (Area.keys && Area.keys[77]) {displayMeta()};
-
-  if (Area.keys && Area.keys[116]) {location.reload(true)};
-  
-  PapyrusPict.update();
 }
