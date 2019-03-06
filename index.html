@@ -8,6 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
       <link rel="stylesheet" type="text/css" href="Css/Canvas.css">
+      <link rel="stylesheet" type="text/css" href="Css/Sidebar.css">
       <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular.min.js"></script>
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular-animate.min.js"></script>
@@ -25,10 +26,13 @@
       </div>
      
       <!-- ACCORDION -->
-      <div class="w3-sidebar w3-card w3-bar-block w3-red" style="height:90vh;width:15%">
+      <div class="w3-sidebar w3-card w3-bar-block w3-red" style="height:100vh;width:15%">
          <div ng-controller="RepeatPapyrus">
             <div ng-repeat="item in papyrus" >
-               <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">Papyrus {{item.Ref}}<i class="fa fa-caret-down"></i></div>
+               <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">
+				   Papyrus {{item.Ref}} <img id="thumb" src={{item.RCL}} alt="Thumb not found"></img>
+				   <i class="fa fa-caret-down"></i>
+               </div>
                
                <div id={{item.Ref}} ng-controller="PictCrtl" class="w3-hide w3-animate-zoom w3-white w3-card-4">
                   <a ng-click="showFunc(item.RCL)" class="w3-bar-item w3-button">Recto_CL</a>
@@ -42,7 +46,7 @@
       <!-- END ACCORDION -->
       
       <!-- CANVAS -->
-      <div id="CanvasHolder" class="w3-center" style="height:90vh;margin-left:15%"></div>
+      <div id="CanvasHolder" class="w3-center"></div>
       <!-- ACCORDION -->
    </body>
 </html>
