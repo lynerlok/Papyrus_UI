@@ -1,0 +1,260 @@
+<?xml-model href="http://thot.philo.ulg.ac.be/tei/thot-tei.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>inv. 0088a : papyrus [donnée, donnée 130]</title>
+      </titleStmt>
+      <editionStmt>
+        <edition/>
+        <respStmt xml:id="metadata">
+          <resp>Metadata</resp>
+          <name>
+          <persName ref="#JDoe" corresp="lien">John Doe</persName> titre </name>
+        </respStmt>
+        <respStmt xml:id="transliteration">
+          <resp>Text Transliteration</resp>
+          <name>
+          <persName ref="#JDoe" corresp="lien">John Doe</persName> titre </name>
+        </respStmt>
+        <respStmt xml:id="translation">
+          <resp>Text Translation</resp>
+          <name>
+          <persName ref="#JDoe" corresp="lien">John Doe</persName> titre </name>
+        </respStmt>
+        <respStmt xml:id="gram">
+          <resp>Lexical analysis</resp>
+          <name>
+          <persName ref="#JDoe" corresp="lien">John Doe</persName> titre </name>
+        </respStmt>
+        <respStmt xml:id="tei">
+          <resp>TEI encoding</resp>
+          <name>
+          <persName ref="#JDoe" corresp="JDoe">John Doe</persName> titre </name>
+        </respStmt>
+      </editionStmt>
+      
+      <publicationStmt>
+	
+        <publisher>Institut [...]</publisher>
+        <pubPlace>
+          <address>
+            <addrLine> Adresse </addrLine>
+            </address>t
+        </pubPlace>
+        <idno type="filename">0088a</idno>
+        <availability xml:lang="fr" status="free">
+          <licence target="http://creativecommons.org/licenses/by-sa/4.0/">Metadata and texts are released as Creative Commons, Attribution-ShareAlike 4.0 (CC BY-SA 4.0)</licence>
+        </availability>
+        <date when="2018">2018</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <msName>Inv. Sorb. 88 a</msName>
+          </msIdentifier>
+          <msContents>
+            <summary>comptes</summary>
+            <textLang mainLang="egy-x-demop" otherLangs="gr"/>
+          </msContents>
+          <physDesc>
+            <objectDesc>
+              <supportDesc>
+                <support>
+                  <objectType ref="http://thot.philo.ulg.ac.be/concept/thot-2048">[...]</objectType>
+                  <material ref="http://thot.philo.ulg.ac.be/concept/thot-6351">Papyrus</material>
+		  <dimensions unit="cm">
+		    <height>13.5</height>
+		    <width>4.8</width>
+		  </dimensions>
+		</support>
+                <condition> Condition du support: <rs ref="#id-state-in-thesaurus">fragments</rs>
+                </condition>
+              </supportDesc>
+              <layoutDesc>
+                <summary> Description </summary>
+                <!--<layout ana="#perfibral"/>--><!--ajouter l'indication du recto peut-être ?-->
+                <layout xml:id="Colonne_1" columns="1" ruledLines="11" writtenLines="11"><!--ajouter l'indication du recto-->
+                  <desc>Description</desc>
+                </layout>
+                <!--<layout ana="#transfibral"/>--><!--ajouter l'indication du verso peut-être ?-->
+                <layout xml:id="Colonne_2" columns="2" ruledLines="9" writtenLines="1"><!--ajouter l'indication du verso-->
+                  <desc>Description</desc>
+                </layout>
+                <layout xml:id="Colonne_3" columns="3" ruledLines="9" writtenLines="9"><!--ajouter l'indication du verso-->
+                  <desc>Description</desc>
+                </layout>
+              </layoutDesc>
+            </objectDesc>
+            <handDesc>
+              <handNote scribe="unknown" script="cursive"/>
+            </handDesc>
+            <scriptDesc>
+              <scriptNote scriptRef="#id-script-type-in-thesaurus" medium="calame"/>
+            </scriptDesc>
+          </physDesc>
+          <history>
+            <origin>
+              <origDate>
+                <date/>
+
+                <note> -  - </note>
+              </origDate>
+              <origPlace cert="low" ref="#ancient-place-topbib-no" type="found">
+                <country ref="http://www.trismegistos.org/place/8881">Pays</country>
+                <region ref="http://www.trismegistos.org/place/332">Région</region>
+                <settlement ref="http://www.trismegistos.org/place/715">settlement</settlement>
+              </origPlace>
+            </origin>
+          </history>
+          <additional>
+            <surrogates>
+            </surrogates>
+            
+          </additional>
+          <msPart>
+            <msIdentifier>
+              <country ref="http://geotree.geonames.org/3017382/">France</country>
+              <settlement ref="http://geotree.geonames.org/2988507/">Paris</settlement>
+              <institution ref="www.trismegistos.org/collection/275">Paris, Sorbonne, Institut de Papyrologie</institution>
+              <repository ref="http://thot.philo.ulg.ac.be/concept/thot-4792">Sorbonne - Institut de Papyrologie</repository>
+              <idno>0088a</idno>
+              <altIdentifier>
+                <idno type="TM" corresp="http://www.trismegistos.org/text/"/>
+              </altIdentifier>
+            </msIdentifier>
+            <physDesc>
+              <objectDesc>
+                <supportDesc>
+                  <condition> Condition du support: <rs ref="#id-state-in-ths">fragments</rs>
+                  </condition>
+                </supportDesc>
+              </objectDesc>
+            </physDesc>
+          </msPart>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>Édition électronique réalisée dans une phase préparatoire du projet GESHAEM (projet ERC ) de M.-P. Chaufray.</p>
+      </projectDesc>
+      <editorialDecl>
+        <p/>
+      </editorialDecl>
+      <classDecl>
+        <taxonomy>
+          <category xml:id="perfibral">
+            <catDesc>perfibral</catDesc>
+          </category>
+          <category xml:id="transfibral">
+            <catDesc>transfibral </catDesc> 
+          </category>
+        </taxonomy>
+      </classDecl>
+    </encodingDesc>
+    <profileDesc>
+      <langUsage>
+        <language ident="egy-x-demop">
+          <ref target="http://thot.philo.ulg.ac.be/concept/thot-15">Démotique</ref>
+        </language>
+        <language ident="grc">
+          <ref target="http://thot.philo.ulg.ac.be/concept/thot-29">Grec ancien</ref>
+        </language>
+        <language ident="fr">Français</language>
+      </langUsage>
+      <!--<handNotes>
+          <handNote xml:id="m1"/>
+          <handNote xml:id="m2"/>
+          </handNotes>-->
+	  <textClass>
+            <keywords>
+              <list>
+		<item>Histoire -- Antiquité</item>
+		<item>Histoire -- Antiquité -- Histoirne religieuse</item>
+		<item>Histoire -- Antiquité -- Histoire économique</item>
+		<item>Histoire -- Antiquité -- Egypte -- Langues égyptiennes -- Démotique</item>
+              </list>
+            </keywords>
+	  </textClass>
+	  <particDesc>
+            <listPerson type="editorial">
+              <person xml:id="JDoe">
+		<persName>John Doe</persName>
+              </person>
+              <person xml:id="JDoe">
+		<persName>John Doe</persName>
+              </person>
+              <person xml:id="JDoe">
+		<persName>John Doe</persName>
+              </person>
+
+            </listPerson>
+	  </particDesc>
+	  <settingDesc>
+            <listPlace type="placesInDocument">
+              <place xml:id="Dimeh" type="settlement" n="2157">
+		<placeName xml:lang="egy-x-demop" ref="http://www.trismegistos.org/place/2157">Tȝ-mȝy</placeName>
+		<placeName xml:lang="fr">Dimeh</placeName>
+              </place>
+            </listPlace>
+	  </settingDesc>
+    </profileDesc>
+  </teiHeader>
+  <facsimile>
+    <graphic url="https://sharedocs.huma-num.fr/wl/?id=wQT0udaa8BOpKPckZhDcXQ66qZOTSIAC">
+      <desc type="vue">Image couleur du recto</desc>
+      <desc type="copyright">John Doe</desc>
+      <desc type="author">John Doe</desc>
+      <desc type="licence">
+        <ref target="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</ref>
+      </desc>
+    </graphic>
+    <graphic url="https://sharedocs.huma-num.fr/wl/?id=RmqeRJyzNslSb32fBv7oPKA3k0ad1KGa">
+      <desc type="vue">Image infra-rouge du recto</desc>
+      <desc type="copyright">John Doe</desc>
+      <desc type="author">John Doe</desc>
+      <desc type="licence">
+        <ref target="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</ref>
+      </desc>
+    </graphic>
+    <graphic url="https://sharedocs.huma-num.fr/wl/?id=MyJi1xmBZjSh9Xmqj9iUddPrPKI9oXG6">
+      <desc type="vue">Image couleur du verso</desc>
+      <desc type="copyright">John Doe</desc>
+      <desc type="author">John Doe</desc>
+      <desc type="licence">
+        <ref target="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</ref>
+      </desc>
+    </graphic>
+    <graphic url="https://sharedocs.huma-num.fr/wl/?id=6OVLPGQBHeADluhGUPPo5RWEh3R3vHbo">
+      <desc type="vue">Image infra-rouge du verso</desc>
+      <desc type="copyright">John Doe</desc>
+      <desc type="author">John Doe</desc>
+      <desc type="licence">
+        <ref target="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</ref>
+      </desc>
+    </graphic>
+  </facsimile>
+  <text>
+    <body>
+      <div type="edition">
+        <div xml:id="transl1" n="1" subtype="column" type="textpart" corresp="Colonne_1" xml:lang="egy-x-demop">
+          <ab>
+            <lb rend="right-to-left" n="1"/>
+            <!--<handShift new="m1"/>pour le recto-->
+          </ab>
+        </div>
+        <cb/>
+      </div>
+      <div type="translation">
+      </div>
+      <div type="commentary">
+        <p/>
+      </div>
+      <div type="bibliography">
+        <p> </p>
+      </div>
+      
+    </body>
+  </text>
+</TEI>
