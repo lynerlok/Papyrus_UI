@@ -30,7 +30,7 @@
          <div ng-controller="RepeatPapyrus">
             <div ng-repeat="item in papyrus" >
                <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">
-				   Papyrus {{item.Ref}} <img id="thumb" src={{item.RCL}} alt="Thumb not found"></img>
+				   Papyrus {{item.Ref}} <img id="thumb" src={{item.RCL}} draggable="true" ondragstart="drag(event)" alt="Thumb not found"></img>
 				   <i class="fa fa-caret-down"></i>
                </div>
                
