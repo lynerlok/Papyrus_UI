@@ -8,7 +8,7 @@ function startCanvas() {
   var top = elem.getBoundingClientRect().top;
   
   Area.start();
-  addComponent(Area);
+  //addComponent(Area);
 }
 
 var Area = {
@@ -66,7 +66,7 @@ var Area = {
             Area.images[i].setOpp = true;
           }
         };
-      }
+      };
     });
 
     window.addEventListener('mouseup', function (e) {
@@ -83,7 +83,7 @@ var Area = {
           stop = true;
         }
         else {
-          Area.interval = setInterval(updateArea, 60);
+          Area.interval = setInterval(updateArea, 10);
           stop = false;
         }
       };
@@ -96,13 +96,16 @@ var Area = {
         
         Area.keys[e.keyCode] = (e.type == "keydown");
         
-        if (Area.keys && (Area.keys[37] || Area.keys[81])) {Area.selection.angle -= 10 * Math.PI / 180};
+        if (Area.keys && (Area.keys[37] || Area.keys[81])) {Area.selection.angle -= 5 * Math.PI / 180};
         
-        if (Area.keys && (Area.keys[39] || Area.keys[68])) {Area.selection.angle += 10 * Math.PI / 180};
+        if (Area.keys && (Area.keys[39] || Area.keys[68])) {Area.selection.angle += 5 * Math.PI / 180};
         
-        if (Area.keys && Area.keys[73] && Area.selection.scale < 1.5) {Area.selection.scale += 0.05};
+        if (Area.keys && Area.keys[73] && Area.selection.scale < 1.5) {Area.selection.scale += 0.02};
       
-        if (Area.keys && Area.keys[79] && Area.selection.scale > 0.2) {Area.selection.scale -= 0.05;};
+        if (Area.keys && Area.keys[79] && Area.selection.scale > 0.2) {Area.selection.scale -= 0.02};
+        
+        if (Area.keys && Area.keys[82]) {Area.selection.remove()};
+        
       }
       
     });
@@ -141,7 +144,7 @@ var Area = {
   }
 }
 
-function component(src,posOffset) {
+function component(src,ref) {
 
     this.image = new Image();
     this.image.onload = function() {
@@ -154,8 +157,9 @@ function component(src,posOffset) {
       }
     }
     this.image.src = src;
+    this.ref = ref;
     
-    this.x = Area.canvas.width/2 + posOffset;
+    this.x = Area.canvas.width/2;
     this.y = Area.canvas.height/2;
 
     this.angle = 0;
@@ -173,6 +177,7 @@ function component(src,posOffset) {
         ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height);
         ctx.restore();
     }
+    
 }
 
 component.prototype.contains = function(mx, my) {
@@ -185,6 +190,13 @@ component.prototype.contains = function(mx, my) {
 
   return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) &&
             (my-top) >= (this.y-offset) && (my-top) <= (this.y+offset);
+}
+
+component.prototype.remove = function() {
+	var index = Area.images.indexOf(this);
+	if (index > -1) {
+	  Area.images.splice(index, 1);
+	}
 }
 
 function updateArea() {

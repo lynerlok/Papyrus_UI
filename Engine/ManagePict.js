@@ -2,8 +2,17 @@ function displayMeta(){
 	console.log("Here metadatas");
 }
 
-function addComponent(Area){
-  Area.images.push(new component("fake_data/1319_r_CL.JPG",0));
-  Area.images.push(new component("fake_data/88_a_r_CL.JPG",200));
-  Area.images.push(new component("fake_data/1242_r_CL.JPG",400));
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function drag(event) {
+  event.dataTransfer.setData("text/html", event.target.id);
+}
+
+function drop(event) {
+  event.preventDefault();
+  var data=event.dataTransfer.getData("text/html");
+  var elem = document.getElementById(data);
+  Area.images.push(new component(elem.src,elem.id));
 }

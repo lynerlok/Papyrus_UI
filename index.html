@@ -22,23 +22,22 @@
    <body ng-app="PapyrusApp" class="w3-black" onload="startCanvas()">
       <div class="w3-bar w3-black w3-hide-small">
         <a class="w3-bar-item">Welcome on Papyrus Parser !</a>
-        <a href="#" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
       </div>
      
       <!-- ACCORDION -->
       <div class="w3-sidebar w3-card w3-bar-block w3-red" style="height:100vh;width:15%">
-         <div ng-controller="RepeatPapyrus">
+        <div ng-controller="RepeatPapyrus">
             <div ng-repeat="item in papyrus" >
                <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">
-				   Papyrus {{item.Ref}} <img id="thumb" src={{item.RCL}} alt="Thumb not found"></img>
+				   Papyrus {{item.Ref}} <img id={{item.THB}} src={{item.RCL}} draggable="true" ondragstart="drag(event)" alt="Thumb not found"></img>
 				   <i class="fa fa-caret-down"></i>
                </div>
                
                <div id={{item.Ref}} ng-controller="PictCrtl" class="w3-hide w3-animate-zoom w3-white w3-card-4">
-                  <a ng-click="showFunc(item.RCL)" class="w3-bar-item w3-button">Recto_CL</a>
-                  <a ng-click="showFunc(item.VCL)" class="w3-bar-item w3-button">Verso_CL</a>
-                  <a ng-click="showFunc(item.RIR)" class="w3-bar-item w3-button">Recto_IR</a>
-                  <a ng-click="showFunc(item.VIR)" class="w3-bar-item w3-button">Verso_IR</a>
+                  <a ng-click="changeAttr(item.RCL,item.Ref)" class="w3-bar-item w3-button">Recto_CL</a>
+                  <a ng-click="changeAttr(item.VCL,item.Ref)" class="w3-bar-item w3-button">Verso_CL</a>
+                  <a ng-click="changeAttr(item.RIR,item.Ref)" class="w3-bar-item w3-button">Recto_IR</a>
+                  <a ng-click="changeAttr(item.VIR,item.Ref)" class="w3-bar-item w3-button">Verso_IR</a>
                </div>
             </div>
          </div>
@@ -46,7 +45,7 @@
       <!-- END ACCORDION -->
       
       <!-- CANVAS -->
-      <div id="CanvasHolder" class="w3-center"></div>
+      <div id="CanvasHolder" class="w3-center" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
       <!-- ACCORDION -->
    </body>
 </html>

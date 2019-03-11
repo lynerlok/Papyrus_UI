@@ -1,10 +1,17 @@
-papyrus.controller('PictCrtl', ['$scope','$rootScope',
-  function($scope,$rootScope) {
-    $rootScope.showPict = false;
+papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScope) {
     
-    $rootScope.showFunc = function() {
-    $rootScope.showPict = !$rootScope.showPict;
-	}
+    $rootScope.changeAttr = function(src,ref){
+        var targetRef;
+		var l = Area.images.length;
+		for (var i = l-1; i >= 0; i--) {
+            targetRef = Area.images[i].ref;
+            targetRef = targetRef.substring(0,targetRef.length - 4);
+            if (targetRef === ref){
+                Area.images[i].image.src = src;
+            };
+        };
+    }
+
 }]);
 
 papyrus.controller('RepeatPapyrus', ['$scope','$rootScope', function($scope,$rootScope){
