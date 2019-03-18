@@ -1,0 +1,24 @@
+{
+  "name": "PapyrusUI",
+  "version": "1.0.0",
+  "description": "A papyrus web user interface",
+  "main": "ServerExpress.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axel-polin/Papyrus_UI.git"
+  },
+  "author": "Axel Polin, Quentin Piet, Elisabeth Gueux, Salomé Mialon",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/axel-polin/Papyrus_UI/issues"
+  },
+  "homepage": "https://github.com/axel-polin/Papyrus_UI#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "multer": "^1.4.1"
+  }
+}

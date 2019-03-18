@@ -1,11 +1,16 @@
-var http = require('http');
+var https = require('https');
 var fs = require('fs');
 var port = 8081;
 
-http.createServer(function (request, response) {
+var options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+https.createServer(options,function (request, response) {
   if (request.url == '/') {request.url = "index.html"};
   if (! request.url.includes(".ico") || ! request.url.includes("item.")) {
-    fs.readFile('../' + request.url, function(err, data) {
+    fs.readFile('../Public/' + request.url, function(err, data) {
       if (!err) {
         var dotoffset = request.url.lastIndexOf('.');
         var mimetype = dotoffset == -1
@@ -15,6 +20,7 @@ http.createServer(function (request, response) {
                             '.jpg' : 'image/jpeg',
                             '.JPG' : 'image/jpeg',
                             '.png' : 'image/png',
+                            '.PNG' : 'image/png',
                             '.css' : 'text/css',
                             '.js' : 'text/javascript'
                             }[ request.url.substr(dotoffset) ];
