@@ -17,8 +17,16 @@
   },
   "homepage": "https://github.com/axel-polin/Papyrus_UI#readme",
   "dependencies": {
+    "argon2": "^0.21.0",
+    "argon2-ffi": "^1.1.2",
+    "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
-    "multer": "^1.4.1"
+    "express-session": "^1.15.6",
+    "http-auth": "^3.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.1",
+    "python-shell": "^1.0.7"
   }
 }

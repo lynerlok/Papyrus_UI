@@ -20,32 +20,61 @@
    </head>
    
    <body ng-app="PapyrusApp" class="w3-black" onload="Area.start()">
-      <div class="w3-bar w3-black w3-hide-small">
-        <a class="w3-bar-item">Welcome on Papyrus Parser !</a>
+      <div ng-controller="ChangeTab" class="w3-bar w3-hide-small">
+	        <button class="w3-bar-item w3-button tablink w3-red" ng-click="tabSwitch($event,'canvas')">Canvas</button>
+		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'form')">Formulaire</button>
+		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'wd')">Créer un répertoire</button>
       </div>
-     
-      <!-- ACCORDION -->
-      <div class="w3-sidebar w3-card w3-bar-block w3-red" style="height:100vh;width:15%">
-        <div ng-controller="RepeatPapyrus">
-            <div ng-repeat="item in papyrus" >
-               <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">
-				   Papyrus {{item.Ref}} <img id={{item.THB}} src={{item.RCL}} draggable="true" ondragstart="drag(event)" alt="Thumb not found"></img>
-				   <i class="fa fa-caret-down"></i>
-               </div>
-               
-               <div id={{item.Ref}} ng-controller="PictCrtl" class="w3-hide w3-animate-zoom w3-white w3-card-4">
-                  <a ng-click="changeAttr(item.RCL,item.Ref)" class="w3-bar-item w3-button">Recto_CL</a>
-                  <a ng-click="changeAttr(item.VCL,item.Ref)" class="w3-bar-item w3-button">Verso_CL</a>
-                  <a ng-click="changeAttr(item.RIR,item.Ref)" class="w3-bar-item w3-button">Recto_IR</a>
-                  <a ng-click="changeAttr(item.VIR,item.Ref)" class="w3-bar-item w3-button">Verso_IR</a>
-               </div>
-            </div>
-         </div>
+     	
+      <!-- TAB 1 : Canvas -->
+      <div id="canvas" class="tab">
+		  <!-- ACCORDION -->
+	      <div class="w3-sidebar w3-card w3-bar-block w3-red" style="height:100vh;width:15%">
+	        <div ng-controller="RepeatPapyrus">
+	            <div ng-repeat="item in papyrus" >
+	               <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">
+					   Papyrus {{item.Ref}} <img id={{item.THB}} src={{item.RCL}} draggable="true" ondragstart="drag(event)" alt="Thumb not found"></img>
+					   <i class="fa fa-caret-down"></i>
+	               </div>
+	               
+	               <div id={{item.Ref}} ng-controller="PictCrtl" class="w3-hide w3-animate-zoom w3-white w3-card-4">
+	                  <a ng-click="changeAttr(item.RCL,item.Ref)" class="w3-bar-item w3-button">Recto_CL</a>
+	                  <a ng-click="changeAttr(item.VCL,item.Ref)" class="w3-bar-item w3-button">Verso_CL</a>
+	                  <a ng-click="changeAttr(item.RIR,item.Ref)" class="w3-bar-item w3-button">Recto_IR</a>
+	                  <a ng-click="changeAttr(item.VIR,item.Ref)" class="w3-bar-item w3-button">Verso_IR</a>
+	               </div>
+	            </div>
+	         </div>
+	      </div>
+	      <!-- END ACCORDION -->
+	      
+	      <!-- CANVAS -->
+       <!-- <div id="Trash" class="fas fa-trash" ondrop="dropTrash(event)"></div> !-->
+	      <div id="CanvasHolder" class="w3-center" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="metaDatas"></div>
       </div>
-      <!-- END ACCORDION -->
+      <!-- END TAB 1 : Canvas -->
       
-      <!-- CANVAS -->
-      <div id="CanvasHolder" class="w3-center" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      <!-- ACCORDION -->
+      <!-- TAB 2 : FORM -->
+      <div id="form" class="tab">
+        <form class="w3-container w3-card-4">
+          <p>
+          <input class="w3-input" type="text" style="width:90%" required>
+          <label>Name</label></p>
+          <p>
+          <input class="w3-input" type="password" style="width:90%" required>
+          <label>Password</label></p>
+          <p>
+          <button class="w3-button w3-section w3-teal w3-ripple"> Log in </button></p>
+        </form>
+      </div>
+      <!-- END TAB 2 : FORM -->
+      
+      <!-- TAB 3 : WORKING DIR -->
+      <div id="wd" class="tab">
+		  <p>CREATE WD SOON HERE !!!</p>
+      </div>
+      <!-- END TAB 3 : WORKING DIR -->
+      
    </body>
 </html>

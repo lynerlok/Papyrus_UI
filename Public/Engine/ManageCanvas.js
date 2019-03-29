@@ -137,7 +137,7 @@ var Area = {
     });
 
     window.addEventListener('keydown', function (e) {
-      e.preventDefault(); // JavaScript recommendation to avoid some problems when key is down;
+     // e.preventDefault(); // JavaScript recommendation to avoid some problems when key is down;
       Area.keys = (Area.keys || []); // If Area.keys not exists initialize with void table;
 
       if (e.keyCode == 27) { // ESC key if something go wrong;

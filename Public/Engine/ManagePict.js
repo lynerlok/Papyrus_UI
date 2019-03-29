@@ -45,3 +45,9 @@ function drop(event) {
   var elem = document.getElementById(data); // Here we get the element with the id element.
   Area.images.push(new component(elem.src,elem.id)); // Add the image in the canvas.
 }
+
+/*
+function dropTrash(event){
+	alert("Image dropped !!");
+}
+*/

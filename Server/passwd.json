@@ -1,0 +1,8 @@
+{
+	"users" : [
+		"main"
+	],
+	"passwords" : [
+		"$argon2i$v=19$m=4096,t=3,p=1$SzjmyhfvLczS9u7MTTobhD9KcyJRqIaqXopaQi7Eu9E$Vo+NvlAY8TA5HuX37qs3h9B7wAJn4kLu39dVHBD+GIE"
+	]
+}
