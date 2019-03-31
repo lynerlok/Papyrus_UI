@@ -49,7 +49,8 @@ app.use(express.static('../Public/',options));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: "Shh, its a secret!"}));
+app.use(router);
+//app.use(session({secret: "Shh, its a secret!"}));
 
 
 /*
@@ -81,6 +82,10 @@ app.post('/login',async function(req,res){
   }
   else {return res.sendStatus(400)}
   
+});
+
+router.all('/index.html', function (req, res, next) {
+  res.redirect("Auth.html");
 });
 
 https.createServer(serverCredentials, app).listen(portHTTPS);
