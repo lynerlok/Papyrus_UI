@@ -1,24 +1,27 @@
-
-
 var express = require("express");
 var fs = require("fs");
 var https = require('https');
 var http = require('http');
 var {PythonShell} = require('python-shell');
 var bodyParser = require('body-parser');
+var uuid = require('uuid/v4');
+var path = require('path');
 var argon2i = require('argon2-ffi').argon2i;
 var crypto = require('crypto');
+
+var jsonFile = fs.readFileSync('passwd.json', 'utf8');
+var creds = JSON.parse(jsonFile);
+
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var router = express.Router()
+var FileStore = require('session-file-store')(session);
+var router = express.Router();
 
 var app = express();
 
 var portHTTPS = 8443;
 var portHTTP = 8081;
-
-var jsonFile = fs.readFileSync('passwd.json', 'utf8');
-var creds = JSON.parse(jsonFile);
+var secret = crypto.randomBytes(32);
 
 var serverCredentials = {
   key: fs.readFileSync('key.pem'),
@@ -26,12 +29,12 @@ var serverCredentials = {
 };
 
 var options = {
-  dotfiles: 'ignore',
+  dotfiles: 'allow',
   etag: false,
-  extensions: ['htm', 'html'],
-  index: "Auth.html",
+  extensions: false,
+  index: "public/index.html",
   maxAge: '1d',
-  redirect: false,
+  redirect: true,
   setHeaders: function (res, path, stat) {
     res.set({'X-Content-Type-Options' : 'nosniff',
             'X-Frame-Options' : 'DENY',
@@ -45,13 +48,21 @@ var options = {
   }
 }
 
-app.use(express.static('../Public/',options));
+app.use(express.static('../Client/',options));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(session({
+  genid: (req) => {
+    return uuid()
+  },
+  store: new FileStore(),
+  secret: secret.toString('hex'),
+  resave: false,
+  secure: true,
+  saveUninitialized: true}
+  ));
 app.use(router);
-//app.use(session({secret: "Shh, its a secret!"}));
-
 
 /*
 crypto.randomBytes(32, function(err, salt) { 
@@ -62,16 +73,29 @@ crypto.randomBytes(32, function(err, salt) {
 }); 
 */
 
-app.post('/login',async function(req,res){
+router.get('/protected/*', function(req, res){
+  if(req.session.isAuthenticated === "Success"){
+    res.redirect('/protected/interface.html');
+    // res.json({"isAuthenticated": req.session.isAuthenticated, "redirect": "/protected/interface.html"});
+   } else {
+      console.log("Access Denied !");
+      res.redirect('/');
+   }
+});
+
+router.post('/login',async function(req,res){
 	if(!req.body) return res.sendStatus(400);
+  
 	var user=req.body.username;
 	var pwd=req.body.password;
-  
+
   if (creds.users.includes(user)) {
     var index = creds.users.indexOf(user);
     try {
       if (await argon2i.verify(creds.passwords[index],pwd)) {
-        res.redirect("index.html");
+        req.session.isAuthenticated = "Success";
+       // res.json({"isAuthenticated": req.session.isAuthenticated, "redirect": "/protected/interface.html"});
+       res.redirect('/protected/interface.html');
       } else {
         res.sendStatus(400);
       }
@@ -84,8 +108,15 @@ app.post('/login',async function(req,res){
   
 });
 
-router.all('/index.html', function (req, res, next) {
-  res.redirect("Auth.html");
+router.get('/logout', function(req, res){
+   req.session.destroy(function(){
+      console.log("user logged out.");
+   });
+   res.redirect('/');
+});
+
+router.use('/protected/*', function(err, req, res, next){
+  res.redirect('/');
 });
 
 https.createServer(serverCredentials, app).listen(portHTTPS);

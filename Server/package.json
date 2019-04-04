@@ -27,6 +27,9 @@
     "http-auth": "^3.2.3",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.1",
-    "python-shell": "^1.0.7"
+    "npm": "^6.9.0",
+    "python-shell": "^1.0.7",
+    "session-file-store": "^1.2.0",
+    "uuid": "^3.3.2"
   }
 }
