@@ -29,10 +29,10 @@ var serverCredentials = {
 };
 
 var options = {
-  dotfiles: 'allow',
+  dotfiles: 'ignore',
   etag: false,
   extensions: false,
-  index: "public/index.html",
+  index: "index.html",
   maxAge: '1d',
   redirect: true,
   setHeaders: function (res, path, stat) {
