@@ -153,7 +153,7 @@ var Area = {
 
       if (e.keyCode == 77) {displayMeta()}; // M key to run the function displayMeta() /!\ TEMPORARY KEY /!\
 
-      if (e.keyCode == 116) {location.reload(true)}; // F5 key to refresh the page (deeply with TRUE in argument);
+     // if (e.keyCode == 116) {location.reload(true)}; // F5 key to refresh the page (deeply with TRUE in argument);
 
       if(Area.selection != null) { // If an image is selected get which key is down;
 
@@ -167,7 +167,7 @@ var Area = {
 
         if (Area.keys && Area.keys[79] && Area.selection.scale > 0.2) {Area.selection.scale -= 0.02}; // If the key is O, zoom Out;
 
-        if (Area.keys && Area.keys[82]) {Area.selection.remove()}; // If the key is R, remove the image from canvas see : component.prototype.remove() in the code below;
+        if (Area.keys && (Area.keys[82] || Area.keys[46])) {Area.selection.remove()}; // If the key is R, remove the image from canvas see : component.prototype.remove() in the code below;
 
       }
 
