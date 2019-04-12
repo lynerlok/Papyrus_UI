@@ -12,6 +12,7 @@
       <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular.min.js"></script>
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular-animate.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="text/javascript" src="Engine/PapyrusTable.js"></script>
       <script type="text/javascript" src="Engine/App.js"></script>
       <script type="text/javascript" src="Engine/Crtl.js"></script>
@@ -72,9 +73,20 @@
       
       <!-- TAB 3 : WORKING DIR -->
       <div id="wd" class="tab">
-		  <p>CREATE WD SOON HERE !!!</p>
+		  <form action="login" class="w3-container w3-card-4" style="margin-top:25vh" ng-submit="login()" method="post">
+        <p>
+          <input name="username" id="username" class="w3-input" type="text" style="width:50%;margin-left:25%" placeholder="Identifiants ou nom de projet" ng-model="username" required />
+        </p>
+        <p>
+          <input name="password" id="password" class="w3-input" type="password" style="width:50%;margin-left:25%" placeholder="Entrez votre mot de passe" ng-model="password" required />
+        </p>
+        
+        <p>
+          <button type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">Créer répertoire</button>
+        </p>
+        
+      </form>
       </div>
       <!-- END TAB 3 : WORKING DIR -->
-      
    </body>
 </html>
