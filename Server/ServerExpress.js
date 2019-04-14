@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var uuid = require('uuid/v4');
 var crypto = require('crypto');
 
-var jsonFile = fs.readFileSync('passwd.json', 'utf8');
+var jsonFile = fs.readFileSync(__dirname + '/passwd.json', 'utf8');
 var creds = JSON.parse(jsonFile);
 
 var cookieParser = require('cookie-parser');

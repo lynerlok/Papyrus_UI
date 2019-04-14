@@ -52,11 +52,11 @@ module.exports = (function() {
 	   res.redirect('/');
 	});
 	
-  router.get('/secure/interface.html/rd', function(req, res){
+  router.get('/secure/rd', function(req, res){
 	      console.log("Remove dir called !");
 	});
 	
-  router.get('/secure/interface.html/score',function(req,res){
+  router.get('/secure/score',function(req,res){
     if(req.session.isAuthenticated === "Success"){
       var img1 = req.query.img1;
       var img2 = req.query.img2;
@@ -76,7 +76,7 @@ module.exports = (function() {
     }
 	});
   
-  router.get('/secure/interface.html/treshold',function(req,res){
+  router.get('/secure/treshold',function(req,res){
     if(req.session.isAuthenticated === "Success"){
       var img = req.query.img;
       var path = path.join(__dirname, 'secure/Projects/', req.session.user);
@@ -107,6 +107,7 @@ module.exports = (function() {
 	      if (await argon2i.verify(creds.passwords[index],pwd)) {
          req.session.isAuthenticated = "Success";
          req.session.user = user;
+         console.log("User log in :"+user);
 	       res.redirect('/secure/interface.html');
 	      } else {
 	        res.sendStatus(400);
@@ -114,28 +115,44 @@ module.exports = (function() {
 	    } catch (err) {
 	      console.log("ERROR while verifying hash password : "+err);
 	    }
-	    console.log("User name = "+user+", password is "+pwd);
 	  }
 	  else {return res.sendStatus(400)}
 	  
 	});
 
-	router.post('/secure/interface.html/metadatas',function(req,res){
+	router.post('/secure/metadatas',function(req,res){
     console.log("metadatas");
 	});
 	
-	router.post('/secure/interface.html/wd',function(req,res){
-    var user=req.body.username;
-		var pwd=req.body.password;
-    crypto.randomBytes(32, function(err, salt) { 
-      if(err) throw err; 
-      argon2i.hash("main", salt).then(hash => { 
-        console.log(hash); 
-      }); 
-    }); 
+	router.post('/secure/wd',async function(req,res){
+		if(req.session.isAuthenticated === "Success"){
+      var user=req.body.username;
+      var pwd=req.body.password;
+      var index = creds.users.indexOf(user);
+      if (index === -1){
+        var salt = crypto.randomBytes(32);
+        try {
+          var hashPass = await argon2i.hash(pwd, salt); 
+        } catch(err) {
+          console.log("Error while hashing password : "+err);
+        }
+        creds.users.push(user); 
+        creds.passwords.push(hashPass);
+        fs.writeFile('passwd.json',JSON.stringify(creds), (err) => {
+          if (err) throw err;
+          console.log('Passwords Files Updated !');
+        });
+        res.redirect('/logout');
+      }
+      else {
+        res.redirect('/secure/interface.html');
+        console.log("A user try to register some times : "+user);
+      }
+    }
+    else {return res.sendStatus(400)}
 	});
   
-  router.post('/secure/interface.html/compound',async function(req,res){
+  router.post('/secure/compound',async function(req,res){
     if(req.session.isAuthenticated === "Success"){
       if(!req.body) return res.sendStatus(400);
       
