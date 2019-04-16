@@ -55,7 +55,7 @@ module.exports = (function() {
   router.get('/secure/rd', function(req, res){
 	      console.log("Remove dir called !");
 	});
-	
+/*	
   router.get('/secure/score',function(req,res){
     if(req.session.isAuthenticated === "Success"){
       var img1 = req.query.img1;
@@ -75,7 +75,7 @@ module.exports = (function() {
         res.redirect('/');
     }
 	});
-  
+*/  
   router.get('/secure/treshold',function(req,res){
     if(req.session.isAuthenticated === "Success"){
       var img = req.query.img;
