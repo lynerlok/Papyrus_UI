@@ -46,8 +46,8 @@ function drop(event) {
   Area.images.push(new component(elem.src,elem.id)); // Add the image in the canvas.
 }
 
-/*
-function dropTrash(event){
-	alert("Image dropped !!");
+function exportCompound(){
+	$("#sendCP").click(function(){
+		$.post("secure/interface.html/compound",JSON.stringify(Area.images));
+	});
 }
-*/

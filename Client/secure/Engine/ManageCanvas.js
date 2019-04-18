@@ -62,7 +62,7 @@ var Area = {
 
     this.images = []; // Create the images table which contain all the future image display in canvas;
     this.selection = null; // The user select nothing...
-
+    this.scale = 1;
     elem.appendChild(this.canvas); // Add the canvas in the canvas holder in the web page;
 
     this.interval = setInterval(updateArea, 30); // Set the refresh interval of the canvas (every 30ms);
@@ -163,9 +163,9 @@ var Area = {
 
         if (Area.keys && (Area.keys[39] || Area.keys[68])) {Area.selection.angle += 5 * Math.PI / 180}; // If the key is right arrow or D, rotate the image to the right;
 
-        if (Area.keys && Area.keys[73] && Area.selection.scale < 1.5) {Area.selection.scale += 0.02}; // If the key is I, zoom In;
+        if (Area.keys && Area.keys[73] && Area.scale < 1.5) {Area.scale += 0.02}; // If the key is I, zoom In;
 
-        if (Area.keys && Area.keys[79] && Area.selection.scale > 0.2) {Area.selection.scale -= 0.02}; // If the key is O, zoom Out;
+        if (Area.keys && Area.keys[79] && Area.scale > 0.2) {Area.scale -= 0.02}; // If the key is O, zoom Out;
 
         if (Area.keys && (Area.keys[82] || Area.keys[46])) {Area.selection.remove()}; // If the key is R, remove the image from canvas see : component.prototype.remove() in the code below;
 
@@ -180,8 +180,8 @@ var Area = {
 
     window.addEventListener("wheel", function(e) {
       if(Area.selection != null && e.clientX >= left) { // If the mouse is out of the sidebar and there is an image selected;
-        if (e.deltaY > 0 && Area.selection.scale > 0.2) {Area.selection.scale -= 0.02}; // If scroll down, zoom Out;
-        if (e.deltaY < 0 && Area.selection.scale < 1.5) {Area.selection.scale += 0.02}; // If scroll up, zoom In;
+        if (e.deltaY > 0 && Area.scale > 0.2) {Area.scale -= 0.02}; // If scroll down, zoom Out;
+        if (e.deltaY < 0 && Area.scale < 1.5) {Area.scale += 0.02}; // If scroll up, zoom In;
       }
     });
 
@@ -265,10 +265,11 @@ function component(src,ref) {
 	 * Description : Update the image paramaters and draw image;
 	 */
         var ctx = Area.context;
+        
         ctx.save(); // Save context to apply modification only on the current image;
         ctx.translate(this.x, this.y); // Draw image at the new coordinates;
         ctx.rotate(this.angle); // Rotate image;
-        ctx.scale(this.scale,this.scale); // Resize image if scale != 1;
+        ctx.scale(Area.scale,Area.scale); // Resize all images if scale != 1;
         if (this.setOpp) {ctx.globalAlpha = 0.5}; // If setOpp is TRUE image has oppacity.
         ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height); // Draw image according to the previous modification;
         ctx.restore(); // Restore context to see modification only on the current image.
@@ -321,5 +322,5 @@ function updateArea() {
   Area.clear(); // Run function clear() see Area.
   for (var i = l-1; i >= 0; i--) {
     Area.images[i].update(); // Run function update() see Area.
-  };
+  };  
 }
