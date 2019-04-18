@@ -6,6 +6,7 @@ var path = require('path');
 var crypto = require('crypto');
 var argon2i = require('argon2-ffi').argon2i;
 var crypto = require('crypto');
+var del = require('del');
 
 var {PythonShell} = require('python-shell');
 
@@ -53,29 +54,23 @@ module.exports = (function() {
 	});
 	
   router.get('/secure/rd', function(req, res){
-	      console.log("Remove dir called !");
-	});
-/*	
-  router.get('/secure/score',function(req,res){
-    if(req.session.isAuthenticated === "Success"){
-      var img1 = req.query.img1;
-      var img2 = req.query.img2;
-      var options = {
-        mode: 'text',
-        args: [`-i1 ${img1}`, `-i2 ${img2}`]
-      };
-      pyPath = path.join(__dirname,'/../Client/secure/Scripts/score.py');
-      PythonShell.run(pyPath, options, function (err, results) {
+    if(req.session.isAuthenticated === "Success" && req.session.user !== "main"){
+      var index = creds.users.indexOf(req.session.user);
+      if (index !== -1) creds.users.splice(index, 1);
+      if (index !== -1) creds.passwords.splice(index, 1);
+      fs.writeFile('passwd.json',JSON.stringify(creds), (err) => {
         if (err) throw err;
-        console.log('results: %j', results);
+        console.log('INFO : Passwords Files Updated !');
       });
+      del.sync(["../Client/secure/Projects/"+req.session.user+"/**"],{force:true});
+      res.redirect('/logout');
     }
     else {
-        console.log("Access Denied !");
-        res.redirect('/');
+      res.redirect('/secure/interface.html');
+      console.log("WARNING : A user try to delete an other user with no permissions : "+req.session.user);
     }
 	});
-*/  
+
   router.get('/secure/treshold',function(req,res){
     if(req.session.isAuthenticated === "Success"){
       var img = req.query.img;
@@ -90,7 +85,7 @@ module.exports = (function() {
       });
     }
     else {
-        console.log("Access Denied !");
+        console.log("WARNING : Access Denied on treshold execution");
         res.redirect('/');
     }
 	});
@@ -107,7 +102,10 @@ module.exports = (function() {
 	      if (await argon2i.verify(creds.passwords[index],pwd)) {
          req.session.isAuthenticated = "Success";
          req.session.user = user;
-         console.log("User log in :"+user);
+         console.log("INFO : User log in :"+user);
+         var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+user+'/img.json', 'utf8');
+         var imgRefData = JSON.parse(imgJsonFile);
+         console.log(imgRefData);
 	       res.redirect('/secure/interface.html');
 	      } else {
 	        res.sendStatus(400);
@@ -119,9 +117,13 @@ module.exports = (function() {
 	  else {return res.sendStatus(400)}
 	  
 	});
+  
+  router.get('/login', function(req,res){
+    
+ 	});   
 
-	router.post('/metadatas',function(req,res){
-    console.log("metadatas");
+	router.post('secure/metadatas',function(req,res){
+
 	});
 	
 	router.post('/secure/wd',async function(req,res){
@@ -142,11 +144,14 @@ module.exports = (function() {
           if (err) throw err;
           console.log('Passwords Files Updated !');
         });
+        if (!fs.existsSync("../Client/secure/Projects/"+user)){
+		    fs.mkdirSync("../Client/secure/Projects/"+user);
+		}
         res.redirect('/logout');
       }
       else {
         res.redirect('/secure/interface.html');
-        console.log("A user try to register some times : "+user);
+        console.log("WARNING : A user try to register more than one time : "+user);
       }
     }
     else {return res.sendStatus(400)}
@@ -158,7 +163,7 @@ module.exports = (function() {
       
       var user=req.body.areaImages;
     } else {
-      console.log("Access Denied !");
+      console.log("WARNING : Access Denied on compound !");
       res.redirect('/');
     }
 	});

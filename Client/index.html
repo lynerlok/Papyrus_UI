@@ -23,10 +23,17 @@
         </p>
         
         <p>
-          <button type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">S'authentifier</button>
+          <button id="login" type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">S'authentifier</button>
         </p>
         
       </form>
     </div>
   </body>
+  <script>
+    $("#login").click(function(){
+      $.getJSON("/login", function(result){
+        console.log(result);
+      });
+    });
+  </script>
 </html>

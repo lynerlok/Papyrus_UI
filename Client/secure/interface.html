@@ -51,9 +51,7 @@
 	      <!-- END ACCORDION -->
 	      
 	      <!-- CANVAS -->
-       <!-- <div id="Trash" class="fas fa-trash" ondrop="dropTrash(event)"></div> !-->
 	      <div id="CanvasHolder" class="w3-center" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="metaDatas"></div>
       </div>
       <!-- END TAB 1 : Canvas -->
       
@@ -115,7 +113,7 @@
 		    </div>
 		
 		    <div class="w3-row w3-padding-16" style="margin-left:50vw">
-		      <input id="formSubmit" type="submit" value="Submit" class="w3-hover-opacity w3-col s12 m3 l3">
+		      <input id="formSubmit" type="submit" value="Submit" class="w3-hover-opacity w3-col s12 m3 l3" />
 		    </div>
 		    </form>
       </div>
@@ -135,8 +133,11 @@
           <p>
             <button type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">Créer répertoire</button>
           </p>
-          
         </form>
+        <form action="rd" method="get">
+          <input id="submitRD" type="submit" value="Supprimer répertoire" class="w3-red w3-button w3-padding-16 w3-ripple" />
+        </form>
+        <p class="w3-center w3-padding-16"><span class="fas fa-exclamation-triangle w3-red"></span> <i>Supprimer son repertoire est irréversible !</i> <span class="fas fa-exclamation-triangle w3-red"></span></p>
       </div>
       <!-- END TAB 3 : WORKING DIR -->
    </body>
