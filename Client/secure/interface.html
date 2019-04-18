@@ -9,6 +9,7 @@
       <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
       <link rel="stylesheet" type="text/css" href="Css/Canvas.css">
       <link rel="stylesheet" type="text/css" href="Css/Sidebar.css">
+      <link rel="stylesheet" type="text/css" href="Css/Form.css">
       <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular.min.js"></script>
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular-animate.min.js"></script>
@@ -57,35 +58,85 @@
       <!-- END TAB 1 : Canvas -->
       
       <!-- TAB 2 : FORM -->
-      <div id="form" class="tab">
-        <form class="w3-container w3-card-4">
-          <p>
-          <input class="w3-input" type="text" style="width:90%" required>
-          <label>Name</label></p>
-          <p>
-          <input class="w3-input" type="password" style="width:90%" required>
-          <label>Password</label></p>
-          <p>
-          <button class="w3-button w3-section w3-teal w3-ripple"> Log in </button></p>
-        </form>
+      <div id="form" class="tab w3-center" >
+        <h2>Modifiez des métadonnées</h2>
+        <form action="/metadatas" method="post">
+		
+		    <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+          <div></div>
+		      <div class="w3-col s12 m5 l5"> <label for="id">Papyrus Id</label> </div>
+		      <div class="w3-col s12 m5 l5"> <input type="text" id="idp" name="id"> </div>
+		    </div>
+		
+		    <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+		      <div class="w3-col s12 m5 l5"> <label for="ImageType">Image Type</label> </div>
+		      <div class="w3-col s12 m5 l5">
+            <select id="ImageType" name="ImageType">
+                <option value="RectoColor">RC (Recto Color)</option>
+                <option value="VersoColor">VC (Verso Color)</option>
+                <option value="RectoIR">RI (Recto IR)</option>
+                <option value="VersoIR">VI (Verso IR)</option>
+            </select>
+          </div>
+        </div>
+		
+        <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+          <div class="w3-col s12 m5 l5">
+            <label for="Origins">Origins</label>
+          </div>
+          <div class="w3-col s12 m5 l5">
+            <input type="text" id="lname" name="lastname">
+          </div>
+        </div>
+
+        <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+          <div class="w3-col s12 m5 l5">
+            <label for="HDimension">Height Dimension</label>
+          </div>
+          <div class="w3-col s12 m5 l5">
+            <input type="number" step="any" min="0" id="Height" name="Height">
+          </div>
+        </div>
+		
+        <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+          <div class="w3-col s12 m5 l5">
+            <label for="WDimension">Width Dimension</label>
+          </div>
+          <div class="w3-col s12 m5 l5">
+            <input type="number" step="any" min="0" id="Width" name="Width">
+          </div>
+        </div>
+		
+		    <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+		      <div class="w3-col s12 m5 l5"> <label for="Commentaires">Add Comments</label> </div>
+		      <div class="w3-col s12 m5 l5">
+		        <textarea id="Comments" name="Commentaires" style="height:200px"></textarea>
+		      </div>
+		    </div>
+		
+		    <div class="w3-row w3-padding-16" style="margin-left:50vw">
+		      <input id="formSubmit" type="submit" value="Submit" class="w3-hover-opacity w3-col s12 m3 l3">
+		    </div>
+		    </form>
       </div>
       <!-- END TAB 2 : FORM -->
       
       <!-- TAB 3 : WORKING DIR -->
-      <div id="wd" class="tab">
-		  <form action="wd" class="w3-container w3-card-4" style="margin-top:25vh" ng-submit="login()" method="post">
-        <p>
-          <input name="username" id="username" class="w3-input" type="text" style="width:50%;margin-left:25%" placeholder="Identifiants ou nom de projet" ng-model="username" required />
-        </p>
-        <p>
-          <input name="password" id="password" class="w3-input" type="password" style="width:50%;margin-left:25%" placeholder="Entrez votre mot de passe" ng-model="password" required />
-        </p>
-        
-        <p>
-          <button type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">Créer répertoire</button>
-        </p>
-        
-      </form>
+      <div id="wd" class="tab w3-center">
+        <h2>Créez votre repertoire de travail</h2>
+        <form action="wd" class="w3-container w3-card-4 w3-padding-16" ng-submit="login()" method="post">
+          <p>
+            <input name="username" id="username" class="w3-input" type="text" style="width:50%;margin-left:25vw" placeholder="Identifiants ou nom de projet" ng-model="username" required />
+          </p>
+          <p>
+            <input name="password" id="password" class="w3-input" type="password" style="width:50%;margin-left:25vw" placeholder="Entrez votre mot de passe" ng-model="password" required />
+          </p>
+          
+          <p>
+            <button type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">Créer répertoire</button>
+          </p>
+          
+        </form>
       </div>
       <!-- END TAB 3 : WORKING DIR -->
    </body>

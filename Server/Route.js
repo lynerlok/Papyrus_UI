@@ -120,7 +120,7 @@ module.exports = (function() {
 	  
 	});
 
-	router.post('/secure/metadatas',function(req,res){
+	router.post('/metadatas',function(req,res){
     console.log("metadatas");
 	});
 	
