@@ -37,7 +37,7 @@
  * 	MetaDatas : relative path to metadatas.
  */
  
-var PapyrusTable = [
+module.exports.PapyrusTable = [
   {"Ref" : "1242", "THB": "1242_thb", "RCL" : "Datas/1242_r_CL.JPG","VCL" : "Datas/1242_v_CL.JPG","RIR" : "Datas/1242_r_IR.JPG","VIR" : "Datas/1242_v_IR.JPG","MetaDatas" : "Datas/1242.xml" },
   {"Ref" : "0088a", "THB": "0088a_thb", "RCL" : "Datas/88_a_r_CL.JPG ","VCL" : "Datas/88_a_v_CL.JPG","RIR" : "Datas/88_a_r_IR.JPG","VIR" : "Datas/88_a_v_IR.JPG","MetaDatas" : "Datas/0088a.xml" },
   {"Ref" : "2733a", "THB": "2733a_thb", "RCL" : "Datas/2733_o_r_CL.JPG","VCL" : "Datas/2733_o_v_CL.JPG","RIR" : "Datas/2733_o_r_IR.JPG","VIR" : "Datas/2733_o_v_IR.JPG","MetaDatas" : "Datas/2733a.xml" },

@@ -56,15 +56,22 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
 
 }]);
 
-papyrus.controller('RepeatPapyrus', ['$scope','$rootScope', function($scope,$rootScope){
+papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 /*
  * name: RepeatPapyrus;
  * type: AngularJS controller;
  * @param : $scope, $rootScope; Visit : https://docs.angularjs.org/guide/scope;
  * @return : nothing;
- */
-
-	$scope.papyrus = PapyrusTable;
+ */  
+  $http({
+    method : "GET",
+    url : "/secure/ref"
+    }).then(function(response) {
+       $scope.papyrus = response.data;
+    }, function(response) {
+      alert(response.statusText);
+  });
+  
 	$rootScope.AccFunc = function(id) {
 	/*
 	 * name: AccFunc;

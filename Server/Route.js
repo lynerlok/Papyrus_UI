@@ -7,7 +7,7 @@ var crypto = require('crypto');
 var argon2i = require('argon2-ffi').argon2i;
 var crypto = require('crypto');
 var del = require('del');
-
+var PapyrusMainFile = require('./PapyrusTable.js');
 var {PythonShell} = require('python-shell');
 
 var jsonFile = fs.readFileSync('passwd.json', 'utf8');
@@ -33,12 +33,12 @@ module.exports = (function() {
     next();
   });
 
-  router.get('/secure/ingterface.html', function(req, res){
+  router.get('/secure/interface.html', function(req, res){
     if(req.session.isAuthenticated === "Success"){
       res.redirect('/secure/interface.html');
     } else {
-        console.log("Access Denied !");
-        res.redirect('/');
+      console.log("Access Denied !");
+      res.redirect('/');
     }
   });
 	
@@ -100,13 +100,10 @@ module.exports = (function() {
 	    var index = creds.users.indexOf(user);
 	    try {
 	      if (await argon2i.verify(creds.passwords[index],pwd)) {
-         req.session.isAuthenticated = "Success";
-         req.session.user = user;
-         console.log("INFO : User log in :"+user);
-         var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+user+'/img.json', 'utf8');
-         var imgRefData = JSON.parse(imgJsonFile);
-         console.log(imgRefData);
-	       res.redirect('/secure/interface.html');
+          req.session.isAuthenticated = "Success";
+          req.session.user = user;
+          console.log("INFO : User log in :"+user);
+          res.redirect('/secure/interface.html');
 	      } else {
 	        res.sendStatus(400);
 	      }
@@ -118,8 +115,30 @@ module.exports = (function() {
 	  
 	});
   
-  router.get('/login', function(req,res){
+  router.get('/secure/ref', function(req,res){
+    var i=0;
+    var j=0;
+    var JsonTableSend = [];
     
+    if (req.session.isAuthenticated === "Success"){
+
+      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'/img.json', 'utf8');
+      var imgRefData = JSON.parse(imgJsonFile);
+      if (imgRefData.imgRef[0] === "all"){
+        JsonTableSend = PapyrusMainFile.PapyrusTable;
+      }
+      else {
+        for (i=0;i<PapyrusMainFile.PapyrusTable.length;i++){
+          for(j=0;j<imgRefData.imgRef.length;j++){
+            if(PapyrusMainFile.PapyrusTable[i].Ref === imgRefData.imgRef[j]){
+              JsonTableSend.push(PapyrusMainFile.PapyrusTable[i]);
+            }
+          }
+        }
+      }
+      res.send(JSON.stringify(JsonTableSend));
+    }
+    else {res.redirect("/");}
  	});   
 
 	router.post('secure/metadatas',function(req,res){
