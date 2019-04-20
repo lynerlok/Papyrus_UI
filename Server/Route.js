@@ -9,6 +9,7 @@ var crypto = require('crypto');
 var del = require('del');
 var PapyrusMainFile = require('./PapyrusTable.js');
 var {PythonShell} = require('python-shell');
+var formidable = require('formidable'); 
 
 var jsonFile = fs.readFileSync('passwd.json', 'utf8');
 var creds = JSON.parse(jsonFile);
@@ -20,18 +21,6 @@ var router = express.Router();
 */
 
 module.exports = (function() {
-  router.use(function(req, res, next) {
-    res.set({'X-Content-Type-Options' : 'nosniff', // \/!\/ Penser à remettre après les tests !!! 
-            'X-Frame-Options' : 'DENY',
-            'X-XSS-Protection' : '1; mode=block',
-            'Strict-Transport-Security': 'max-age=36500; includeSubdomains; preload',
-            'Public-Key-Pins': 'pin-sha256="qvFAlNcPepF8XPAe+Hj/1sOMoIzPKqAlhl3hsFEH7tg="; \
-								pin-sha256="LM/+L4/KK/O1MlrufMk7UXkgrsF9U/4IBwHR7VIIfLc="; \
-								pin-sha256="QRG3nNFoIoIiF4677675m9NC8qBlirSJPYIxvG498ZY="; \
-								max-age=36500'
-    })
-    next();
-  });
 
   router.get('/secure/interface.html', function(req, res){
     if(req.session.isAuthenticated === "Success"){
@@ -53,7 +42,7 @@ module.exports = (function() {
 	   res.redirect('/');
 	});
 	
-  router.get('/secure/rd', function(req, res){
+  router.get('/secure/rd', function(req, res){ // Supprimer password + user + toutes les images qui appartiennent à user
     if(req.session.isAuthenticated === "Success" && req.session.user !== "main"){
       var index = creds.users.indexOf(req.session.user);
       if (index !== -1) creds.users.splice(index, 1);
@@ -62,7 +51,7 @@ module.exports = (function() {
         if (err) throw err;
         console.log('INFO : Passwords Files Updated !');
       });
-      del.sync(["../Client/secure/Projects/"+req.session.user+"/**"],{force:true});
+     // del.sync(["../Client/secure/Projects/"+req.session.user+".json"],{force:true});
       res.redirect('/logout');
     }
     else {
@@ -95,7 +84,7 @@ module.exports = (function() {
 	  
 		var user=req.body.username;
 		var pwd=req.body.password;
-	
+  
 	  if (creds.users.includes(user)) {
 	    var index = creds.users.indexOf(user);
 	    try {
@@ -122,7 +111,7 @@ module.exports = (function() {
     
     if (req.session.isAuthenticated === "Success"){
 
-      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'/img.json', 'utf8');
+      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json', 'utf8');
       var imgRefData = JSON.parse(imgJsonFile);
       if (imgRefData.imgRef[0] === "all"){
         JsonTableSend = PapyrusMainFile.PapyrusTable;
@@ -144,7 +133,6 @@ module.exports = (function() {
 	router.post('secure/metadatas',function(req,res){
 
 	});
-	
 	router.post('/secure/wd',async function(req,res){
 		if(req.session.isAuthenticated === "Success"){
       var user=req.body.username;
@@ -163,9 +151,6 @@ module.exports = (function() {
           if (err) throw err;
           console.log('Passwords Files Updated !');
         });
-        if (!fs.existsSync("../Client/secure/Projects/"+user)){
-		    fs.mkdirSync("../Client/secure/Projects/"+user);
-		}
         res.redirect('/logout');
       }
       else {
@@ -176,16 +161,96 @@ module.exports = (function() {
     else {return res.sendStatus(400)}
 	});
   
-  router.post('/secure/compound',async function(req,res){
+  router.post('/secure/compUpload',function(req,res){
+    
     if(req.session.isAuthenticated === "Success"){
-      if(!req.body) return res.sendStatus(400);
       
-      var user=req.body.areaImages;
-    } else {
-      console.log("WARNING : Access Denied on compound !");
-      res.redirect('/');
+      if(!req.body || req.session.user === "main") return res.sendStatus(400);
+      var img = new Buffer(req.body[0].imgCompound, 'base64');
+      var imgArray = req.body[1].areaImages;
+      var d = new Date();
+      var currentTime = d.getTime();
+      
+      fs.writeFile( __dirname + '/../Client/secure/Datas/Compound-'+currentTime+'.png',img, "binary", (err) => {
+        if (err) throw err;
+        console.log('INFO : Compound '+ currentTime + ' saved !');
+      });
+      fs.writeFile(__dirname + '/../Client/secure/Datas/Compound-'+currentTime+'.json',JSON.stringify(imgArray), (err) => {
+        if (err) throw err;
+        console.log('INFO : Image table '+ currentTime + ' saved !');
+      });
+      
+      res.sendStatus(200);
+
+      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json', 'utf8');
+      var imgRefData = JSON.parse(imgJsonFile);
+      imgRefData.imgRef.push('Compound-'+currentTime);
+    
+      fs.writeFile(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json',JSON.stringify(imgRefData), (err) => {
+        if (err) throw err;
+        console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
+      });
+      
+      
+      var newPapyrus = {};
+      newPapyrus['Ref']='Compound-'+currentTime;
+      newPapyrus['THB']='Compound-'+currentTime+'_thb';
+      newPapyrus['RCL']='Datas/Compound-'+currentTime+'.png';
+      newPapyrus['VCL']='null';
+      newPapyrus['RIR']='null';
+      newPapyrus['VIR']='null';
+      newPapyrus['MetaDatas']='null';
+      newPapyrus['Owner']=req.session.user;
+       
+      PapyrusMainFile.PapyrusTable.push(newPapyrus);
+      
+      fs.writeFile(__dirname + '/PapyrusTable.json',JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
+        if (err) throw err;
+        console.log('INFO : PapyrusTable updated !');
+      });
+      
     }
-	});
+    else {res.redirect('/');}
+
+  });
+  
+  router.post('/secure/DestroyCMP',function(req,res){
+    
+    if(req.session.isAuthenticated === "Success"){
+      
+      if(!req.body || req.session.user === "main") return res.sendStatus(400);
+      
+      del.sync([__dirname + '/../Client/secure/Datas/'+req.body.compound+'.*'],{force:true});
+      
+      var l = PapyrusMainFile.PapyrusTable.length;
+
+      for (var i=0;i<l;i++){
+        if (PapyrusMainFile.PapyrusTable[i].Ref === req.body.compound) {
+          PapyrusMainFile.PapyrusTable.splice(i,1);
+        }
+      }
+      
+      fs.writeFile(__dirname + '/PapyrusTable.json',JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
+        if (err) throw err;
+        console.log('INFO : PapyrusTable updated !');
+      });
+      
+      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json', 'utf8');
+      var imgRefData = JSON.parse(imgJsonFile);
+      var index = imgRefData.imgRef.indexOf(req.body.compound);
+      
+      imgRefData.imgRef.splice(index,1);
+      
+      fs.writeFile(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json',JSON.stringify(imgRefData), (err) => {
+        if (err) throw err;
+        console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
+      });
+  
+      res.sendStatus(200);  
+    }
+    else {res.redirect('/');}
+
+  });
   
 	return router;
 })();

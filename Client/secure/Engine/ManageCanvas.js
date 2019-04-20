@@ -55,6 +55,8 @@ var Area = {
 
     this.canvas.width = width; // Set the width of the canvas with the width of canvas container;
     this.canvas.height = height; // Set the height of the canvas with the height of canvas container;
+    this.canvas.top = top; // Set the top of the canvas with the top of canvas container;
+    this.canvas.left = left; // Set the left of the canvas with the left of canvas container;
     this.canvas.style.cursor = "crosshair"; // Set the cursos style when the mouse is in the canvas;
     this.context = this.canvas.getContext("2d"); // Set the canvas context, this is a 2D canvas;
     this.context.globalCompositeOperation='lighter'; // Set how the shapes in canvas interact with others. Lighter : Displays the source image + the destination image;
@@ -168,7 +170,8 @@ var Area = {
         if (Area.keys && Area.keys[79] && Area.scale > 0.2) {Area.scale -= 0.02}; // If the key is O, zoom Out;
 
         if (Area.keys && (Area.keys[82] || Area.keys[46])) {Area.selection.remove()}; // If the key is R, remove the image from canvas see : component.prototype.remove() in the code below;
-
+        
+        if (Area.keys && (Area.keys[80])) {Area.selection.disass()}; // If the key is D, disassemble compound if image is a compound;
       }
 
     });
@@ -306,6 +309,43 @@ component.prototype.remove = function() {
 	var index = Area.images.indexOf(this); // Search the object in Area.images;
 	if (index > -1) { // If the object is found...
 	  Area.images.splice(index, 1); // Remove the object from Area.images;
+	}
+}
+
+component.prototype.disass = function () {
+  console.log("we are in disass");
+  var index = Area.images.indexOf(this); // Search the object in Area.images;
+	if (index > -1) { // If the object is found...
+    var refImg = Area.images[index].ref;
+    if (refImg.substr(0,8) === "Compound") {
+      var tmpImg = Area.images[index];
+      $.get('Datas/'+refImg+'.json', function(data, status){
+        $.get('/secure/ref', function(tableJSON, status){
+          
+          var table = JSON.parse(tableJSON);
+          Area.images = [];
+          var l=data.length;
+          var l2 = table.length;
+          
+          for (var i=0;i<l;i++) {
+            for (var j=0;j<l2;j++){
+              if (table[j].Ref === data[i].ref){
+                Area.images.push(new component(table[j].RCL,table[j].Ref));
+                Area.images[i].x = data[i].x;
+                Area.images[i].y = data[i].y;
+                Area.images[i].angle = data[i].angle;
+                Area.images[i].scale = data[i].scale;
+              }
+            }
+          }
+          
+        });
+      });
+      $.post("/secure/DestroyCMP",{compound: refImg},
+          function(data, status){
+            console.log("Compound destroyed !");
+          });
+    }
 	}
 }
 

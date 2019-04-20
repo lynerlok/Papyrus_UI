@@ -1,5 +1,7 @@
 var express = require("express");
 var fs = require("fs");
+var del = require('del');
+
 var https = require('https');
 
 var bodyParser = require('body-parser');
@@ -13,12 +15,13 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var router = require(__dirname + '/Route.js');
-
 var app = express();
 
 var portHTTPS = 8443;
 
 var secret = crypto.randomBytes(32);
+
+del.sync([__dirname + '/sessions/**','!'+__dirname + '/sessions']);
 
 var serverCredentials = {
   key: fs.readFileSync('Certs/key.pem'),
@@ -45,7 +48,7 @@ var options = {
   }
 }
 
-app.use(express.static(__dirname + '/../Client'));;
+app.use(express.static(__dirname + '/../Client',options));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
