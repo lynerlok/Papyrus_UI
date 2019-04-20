@@ -1,28 +1,28 @@
 /*
  * ManageCanvas.js
- * 
+ *
  * Elisabeth Gueux, Salome Mialon, Quentin Piet, Axel Polin
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
- * 
+ *
  * Please visit : https://github.com/axel-polin/Papyrus_UI
- * 
+ *
  */
 
-/* This file contain all functions and Area variable to use Canvas. 
+/* This file contain all functions and Area variable to use Canvas.
  * It's the core file of the project client side.
 */
 
@@ -32,8 +32,9 @@ var Area = {
  * type : global variable;
  * Description : This is the variable that contain the canvas;
  */
- 
+
   canvas : document.createElement("canvas"), // Create the canvas element;
+
   start : function() {
   /*
    * name: start
@@ -44,7 +45,7 @@ var Area = {
     var elem =  document.getElementById("CanvasHolder"); // Get the canvas container element;
     var mouseIsDown = false; // Initialize this variable with false, mouse buttons are release;
     var stop = false; // Initialize the stop variable to FALSE, the user want to refresh canvas;
-    
+
     // Get the canvas holder dimensions.
     var width = elem.getBoundingClientRect().width;
     var height = elem.getBoundingClientRect().height;
@@ -52,7 +53,8 @@ var Area = {
     var left = elem.getBoundingClientRect().left;
   //  this.expLeft = left;
   //  this.expTop = top;
-
+    this.canvas.mode = 'light';
+    this.canvas.backgroundColor = "#f1f1f1";
     this.canvas.width = width; // Set the width of the canvas with the width of canvas container;
     this.canvas.height = height; // Set the height of the canvas with the height of canvas container;
     this.canvas.style.cursor = "crosshair"; // Set the cursos style when the mouse is in the canvas;
@@ -74,23 +76,23 @@ var Area = {
  * @return : nothing;
  * Description : The event listener section for the canvas
  */
- 
+
     window.addEventListener('mousemove', function (e) {
 
       if (!mouseIsDown) return ; // If the mouse buttons are up do nothing;
-      
-      // The coordinates of the mouse in the canvas are 
+
+      // The coordinates of the mouse in the canvas are
         //the actual mouse coordinates rectified by the canvas dimensions;
-      Area.x = e.clientX - left; 
+      Area.x = e.clientX - left;
       Area.y = e.clientY - top;
-      
+
       // The coordinates of a selection is the coordinates of the mouse in the canvas;
       Area.selection.x = Area.x;
       Area.selection.y = Area.y;
 
       // Movement constraint the image doesn't move out of the canvas;
       // If an image move out of the canvas the mouse is released (mouseIsDown = false);
-      
+
       if (Area.x < 0){
         mouseIsDown = false;
         Area.selection.x = 0;
@@ -112,13 +114,13 @@ var Area = {
 
     window.addEventListener('mousedown', function (e) {
       if (e.button == 0){ // Mousedown concern the left click only;
-        
+
         // Get mouse coordinates;
         var mx = e.clientX;
         var my = e.clientY;
-        
+
         var i = Area.images.length-1; // Get the number of images in Area.images;
-        
+
         for (i; i >= 0; i--) {
           if (Area.images[i].contains(mx,my)) { // See component.prototype.contains(mx,my) in the code below;
             mouseIsDown = true;
@@ -190,12 +192,89 @@ var Area = {
 
       var width = elem.getBoundingClientRect().width;
       var height = elem.getBoundingClientRect().height;
-      
+
       // Change the canvas dimensions according to new canvas holder dimensions;
       ctx.canvas.width = width;
       ctx.canvas.height = height;
 
     });
+
+    document.getElementById("zoom-in").addEventListener("click", function(){
+      if (Area.scale < 1.5) {
+            Area.scale += 0.02;
+          }
+  });
+
+    document.getElementById("zoom-out").addEventListener("click", function(){
+      if (Area.scale > 0.2) {
+            Area.scale -= 0.02;
+          }
+  });
+
+
+  document.getElementById("R_IR").addEventListener("click", function(){
+      var l = Area.images.length;
+    for (var i = 0; i < l; i++) {
+      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"r_IR.JPG");
+    }
+  });
+
+
+  document.getElementById("R_CL").addEventListener("click", function(){
+      var l = Area.images.length;
+    for (var i = 0; i < l; i++) {
+      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"r_CL.JPG");
+    }
+  });
+
+
+  document.getElementById("V_IR").addEventListener("click", function(){
+      var l = Area.images.length;
+    for (var i = 0; i < l; i++) {
+      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"v_IR.JPG");
+    }
+  });
+
+
+  document.getElementById("V_CL").addEventListener("click", function(){
+      var l = Area.images.length;
+    for (var i = 0; i < l; i++) {
+      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"v_CL.JPG");
+    }
+  });
+
+  document.getElementById("rotateL").addEventListener("click", function(){
+    if (Area.selection != null) {
+      Area.selection.angle -= 5 * Math.PI / 180;
+    }
+  });
+
+  document.getElementById("rotateR").addEventListener("click", function(){
+    if (Area.selection != null) {
+      Area.selection.angle += 5 * Math.PI / 180;
+    }
+  });
+
+    document.getElementById("trash").addEventListener("click", function(){
+      if (Area.selection != null) {
+        Area.selection.remove();
+      }
+    });
+
+    document.getElementById("light").addEventListener("click", function(){
+      var cnv = document.getElementById('canvas');
+      var white = '#f1f1f1';
+      var dark = '#142634'
+
+      if (Area.canvas.mode === 'light'){
+
+        canvas.style.backgroundColor = '#172631';
+        Area.canvas.mode = 'night';
+      }else{
+      canvas.style.backgroundColor = white;
+      Area.canvas.mode = 'light';
+    }
+      });
 
 // END EVENT LISTENER
   },
@@ -222,13 +301,13 @@ var Area = {
 function component(src,ref) {
 /*
  * name: component
- * @param : 
+ * @param :
  * 	src : the source of the image;
  * 	ref : the reference of the image;
  * @return : nothing;
  * Description : Create a new image for the Area.
  */
- 
+
     this.image = new Image(); // JS directive to create a new image object;
     this.image.onload = function() {
 	/*
@@ -237,7 +316,7 @@ function component(src,ref) {
 	 * @return : nothing;
 	 * Description : This routine is invoked when the image is loaded.
 	 */
-	 
+
 	// Resize image if the image is greater than the canvas.
       if (this.naturalWidth > this.naturalHeight) {
         while (this.width > (Area.canvas.width/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
@@ -265,7 +344,7 @@ function component(src,ref) {
 	 * Description : Update the image paramaters and draw image;
 	 */
         var ctx = Area.context;
-        
+
         ctx.save(); // Save context to apply modification only on the current image;
         ctx.translate(this.x, this.y); // Draw image at the new coordinates;
         ctx.rotate(this.angle); // Rotate image;
@@ -322,5 +401,5 @@ function updateArea() {
   Area.clear(); // Run function clear() see Area.
   for (var i = l-1; i >= 0; i--) {
     Area.images[i].update(); // Run function update() see Area.
-  };  
+  };
 }
