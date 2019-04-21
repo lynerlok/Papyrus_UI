@@ -1,0 +1,52 @@
+#canvas {
+   background-color: #f1f1f1;
+}
+
+body {
+ overflow: hidden;
+}
+
+body, html {height:100vh;}
+
+#CanvasHolder {
+ height:100vh;
+ margin-left:15%;
+}
+
+.accordion {
+ height:100vh;
+ width:15%;
+ background-color : #021f35;
+}
+
+.formMeta {
+ margin-left:25vw;
+ margin-right:25vw;
+}
+
+.formFieldMeta {
+ margin-left:25vw;
+ margin-right:25vw;
+}
+
+.formSubmitBtn {
+ margin-left:50vw;
+}
+
+.formFieldWD {
+ width:50%;
+ margin-left:25vw;
+}
+
+.viewImgStyle {
+ width:32vw;
+ height:18vh;
+}
+
+.changeTabStyle {
+ background: linear-gradient(#515151, black);
+}
+
+.commentFieldStyle {
+ height:200px;
+}

@@ -7,10 +7,10 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
-      <link rel="stylesheet" type="text/css" href="Css/Canvas.css">
+      <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="Css/Interface.css">
       <link rel="stylesheet" type="text/css" href="Css/Sidebar.css">
       <link rel="stylesheet" type="text/css" href="Css/Form.css">
-      <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular.min.js"></script>
       <script type="text/javascript" src="https://code.angularjs.org/1.7.7/angular-animate.min.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,40 +21,39 @@
    </head>
 
    <body ng-app="PapyrusApp" class="w3-black" onload="Area.start()">
-      <div ng-controller="ChangeTab" id= "barre" class="w3-bar w3-hide-small" style="background: linear-gradient(#515151, black);" >
+      <div ng-controller="ChangeTab" class="changeTabStyle w3-bar w3-hide-small">
 
-        <button class="w3-bar-item w3-button" id="trash" title="remove image selected" style="float: right;">
+        <button class="w3-bar-item w3-button w3-right" id="trash" title="Remove selection">
           <i class="fas fa-trash"></i>
         </button>
 
-        <button class="w3-bar-item w3-button" id="zoom-out" title="zoom-out" style="float: right;">
+        <button class="w3-bar-item w3-button w3-right" id="zoom-out" title="Zoom-out">
           <i class="fas fa-search-minus"></i>
         </button>
 
-        <button class="w3-bar-item w3-button" id="zoom-in" title="zoom-in" style="float: right;">
+        <button class="w3-bar-item w3-button w3-right" id="zoom-in" title="Zoom-in">
           <i class="fas fa-search-plus"></i>
         </button>
 
-        <button class="w3-bar-item w3-button" id="rotateL" title="rotate left" style="float: right;">
+        <button class="w3-bar-item w3-button w3-right" id="rotateL" title="Rotate left">
           <i class="fas fa-undo"></i>
         </button>
 
-
-        <button class="w3-bar-item w3-button" id="rotateR" title="rotate right" style="float: right;">
+        <button class="w3-bar-item w3-button w3-right" id="rotateR" title="Rotate right">
           <i class="fas fa-redo"></i>
         </button>
 
-        <button class="w3-bar-item w3-button" id="resize" title="real size" style="float: right;">
+        <button class="w3-bar-item w3-button w3-right" id="resize" title="Size 1:1">
           <i class="fas fa-eye"></i>
         </button>
 
-        <button class="w3-bar-item w3-button" id="light"  title="dark/light mode" style="float: right";>
+        <button class="w3-bar-item w3-button w3-right" id="light"  title="Dark/light mode">
           <i class="fas fa-moon"></i>
         </button>
 
 
 
-        <div class="w3-dropdown-click"  style="float: right;">
+        <div class="w3-dropdown-click w3-right">
           <button class="w3-bar-item w3-button" ng-click="AccFunc('visu')" title="visualization mode">
               <i class="fas fa-adjust"></i>
           </button>
@@ -77,7 +76,7 @@
       <!-- TAB 1 : Canvas -->
       <div id="canvas" class="tab">
 		  <!-- ACCORDION -->
-	      <div class="w3-sidebar w3-card w3-bar-block" style="height:100vh;width:15%;background-color : #021f35;">
+	      <div class="accordion w3-sidebar w3-card w3-bar-block">
 	        <div ng-controller="RepeatPapyrus">
 	            <div ng-repeat="item in papyrus" >
 	               <div class="w3-bar-item w3-button" ng-click="AccFunc(item.Ref)">
@@ -106,13 +105,13 @@
         <h2>Modifiez des métadonnées</h2>
         <form action="/metadatas" method="post">
 
-		    <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+		    <div class="formMeta w3-row w3-padding-16">
           <div></div>
 		      <div class="w3-col s12 m5 l5"> <label for="id">Papyrus Id</label> </div>
 		      <div class="w3-col s12 m5 l5"> <input type="text" id="idp" name="id"> </div>
 		    </div>
 
-		    <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+		    <div class="formFieldMeta w3-row w3-padding-16">
 		      <div class="w3-col s12 m5 l5"> <label for="ImageType">Image Type</label> </div>
 		      <div class="w3-col s12 m5 l5">
             <select id="ImageType" name="ImageType">
@@ -124,7 +123,7 @@
           </div>
         </div>
 
-        <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+        <div class="formFieldMeta w3-row w3-padding-16">
           <div class="w3-col s12 m5 l5">
             <label for="Origins">Origins</label>
           </div>
@@ -133,7 +132,7 @@
           </div>
         </div>
 
-        <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+        <div class="formFieldMeta w3-row w3-padding-16">
           <div class="w3-col s12 m5 l5">
             <label for="HDimension">Height Dimension</label>
           </div>
@@ -142,7 +141,7 @@
           </div>
         </div>
 
-        <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+        <div class="formFieldMeta w3-row w3-padding-16">
           <div class="w3-col s12 m5 l5">
             <label for="WDimension">Width Dimension</label>
           </div>
@@ -151,14 +150,14 @@
           </div>
         </div>
 
-		    <div class="w3-row w3-padding-16" style="margin-left:25vw;margin-right:25vw">
+		    <div class="formFieldMeta w3-row w3-padding-16">
 		      <div class="w3-col s12 m5 l5"> <label for="Commentaires">Add Comments</label> </div>
 		      <div class="w3-col s12 m5 l5">
-		        <textarea id="Comments" name="Commentaires" style="height:200px"></textarea>
+		        <textarea id="Comments" name="Commentaires" class="commentFieldStyle"></textarea>
 		      </div>
 		    </div>
 
-		    <div class="w3-row w3-padding-16" style="margin-left:50vw">
+		    <div class="formSubmitBtn w3-row w3-padding-16">
 		      <input id="formSubmit" type="submit" value="Submit" class="w3-hover-opacity w3-col s12 m3 l3" />
 		    </div>
 		    </form>
@@ -170,10 +169,10 @@
         <h2>Créez votre repertoire de travail</h2>
         <form action="wd" class="w3-container w3-card-4 w3-padding-16" ng-submit="login()" method="post">
           <p>
-            <input name="username" id="username" class="w3-input" type="text" style="width:50%;margin-left:25vw" placeholder="Identifiants ou nom de projet" ng-model="username" required />
+            <input name="username" id="username" class="formFieldWD w3-input" type="text" placeholder="Identifiants ou nom de projet" ng-model="username" required />
           </p>
           <p>
-            <input name="password" id="password" class="w3-input" type="password" style="width:50%;margin-left:25vw" placeholder="Entrez votre mot de passe" ng-model="password" required />
+            <input name="password" id="password" class="formFieldWD w3-input" type="password" placeholder="Entrez votre mot de passe" ng-model="password" required />
           </p>
 
           <p>
@@ -191,8 +190,11 @@
       <!-- TAB 4 : COMPOUND -->
       <div ng-controller="UploadImage" id="comp" class="tab w3-center">
         <h2>Exporter ou détruire un assemblage</h2>
+        
         <button ng-click="genThbCanvas()" class="btn w3-center"><i class="far fa-image"></i>Aperçu (générer image)</button>
-        <img ng-show="viewImg" src="" id="thumbnailCanvas" class="w3-center" style="width:32vw;height:18vh" /> <!-- Adapter CSS !! -->
+        
+        <img ng-show="viewImg" src="" id="thumbnailCanvas" class="viewImgStyle w3-center"/> <!-- Adapter CSS !! -->
+        
         <button ng-click="Upload()" class="btn w3-center"><i class="fas fa-upload"></i>Upload canvas image</button>
       </div>
       <!-- END TAB 4 : COMPOUND -->
