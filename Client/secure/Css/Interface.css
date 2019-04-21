@@ -50,3 +50,30 @@ body, html {height:100vh;}
 .commentFieldStyle {
  height:200px;
 }
+
+.toolsStyle {
+position:absolute;
+left:45.4vw; /* ICI PENSER AU RESPONSIVE !! */
+top: 90vh;
+z-index:10;
+}
+
+/* Dropup content (Hidden by Default) */
+.dropup-content {
+  display: none;
+  position: absolute;
+  bottom: 38px;
+  left: -2px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+/* Links inside the dropup */
+.dropup-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}

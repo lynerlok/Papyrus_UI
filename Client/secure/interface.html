@@ -21,57 +21,65 @@
    </head>
 
    <body ng-app="PapyrusApp" class="w3-black" onload="Area.start()">
+     
       <div ng-controller="ChangeTab" class="changeTabStyle w3-bar w3-hide-small">
-
-        <button class="w3-bar-item w3-button w3-right" id="trash" title="Remove selection">
-          <i class="fas fa-trash"></i>
-        </button>
-
-        <button class="w3-bar-item w3-button w3-right" id="zoom-out" title="Zoom-out">
-          <i class="fas fa-search-minus"></i>
-        </button>
-
-        <button class="w3-bar-item w3-button w3-right" id="zoom-in" title="Zoom-in">
-          <i class="fas fa-search-plus"></i>
-        </button>
-
-        <button class="w3-bar-item w3-button w3-right" id="rotateL" title="Rotate left">
-          <i class="fas fa-undo"></i>
-        </button>
-
-        <button class="w3-bar-item w3-button w3-right" id="rotateR" title="Rotate right">
-          <i class="fas fa-redo"></i>
-        </button>
-
-        <button class="w3-bar-item w3-button w3-right" id="resize" title="Size 1:1">
-          <i class="fas fa-eye"></i>
-        </button>
-
-        <button class="w3-bar-item w3-button w3-right" id="light"  title="Dark/light mode">
-          <i class="fas fa-moon"></i>
-        </button>
-
-
-
-        <div class="w3-dropdown-click w3-right">
-          <button class="w3-bar-item w3-button" ng-click="AccFunc('visu')" title="visualization mode">
-              <i class="fas fa-adjust"></i>
-          </button>
-          <p></p><p></p>
-          <div id="visu" class="w3-dropdown-content w3-bar-block w3-border">
-            <a id="R_CL" class="w3-bar-item w3-button">Recto_CL</a>
-            <a id="V_CL" class="w3-bar-item w3-button">Verso_CL</a>
-            <a id="R_IR" class="w3-bar-item w3-button">Recto_IR</a>
-            <a id="V_IR" class="w3-bar-item w3-button">Verso_IR</a>
-
-        </div>
-        </div>
-
-	        <button class="w3-bar-item w3-button tablink w3-black" ng-click="tabSwitch($event,'canvas')">Canvas</button>
+        <button class="w3-bar-item w3-button tablink w3-black" ng-click="tabSwitch($event,'canvas')">Canvas</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'form')">Formulaire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'wd')">Créer un répertoire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'comp')">Sauvegarder/Détruire Compound</button>
       </div>
+      
+      <!-- ToolBox -->
+      <div ng-controller="ToolsCommand" class="toolsStyle changeTabStyle">
+        <button ng-click="RemoveImage()" class="w3-button w3-right" title="Remove selection">
+          <i class="fas fa-trash"></i>
+        </button>
+
+        <button ng-click="ZoomOut()" class="w3-button w3-right" title="Zoom-out">
+          <i class="fas fa-search-minus"></i>
+        </button>
+
+        <button ng-click="ZoomIn()" class="w3-button w3-right" title="Zoom-in">
+          <i class="fas fa-search-plus"></i>
+        </button>
+
+        <button ng-click="RotateLeft()" class="w3-button w3-right" title="Rotate left">
+          <i class="fas fa-undo"></i>
+        </button>
+
+        <button ng-click="RotateRight()" class="w3-button w3-right" title="Rotate right">
+          <i class="fas fa-redo"></i>
+        </button>
+
+        <button ng-click="RealSize()" class="w3-button w3-right" title="Size 1:1">
+          <i class="fas fa-bullseye"></i>
+        </button>
+        
+        <button ng-click="MetaData()" class="w3-button w3-right" title="Display metadatas">
+          <i class="fas fa-eye"></i>
+        </button>
+
+        <button class="w3-button w3-right" title="Disassemble compound">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </button>
+
+        <button ng-click="ChangeLight()" class="w3-button w3-right" title="Dark/light mode">
+          <i class="fas fa-moon"></i>
+        </button>
+
+        <div class="w3-right">
+          <button class="w3-button" ng-click="AccFunc('visual')" title="visualization mode">
+              <i class="fas fa-adjust"></i>
+          </button>
+          <div id="visual" class="dropup-content w3-bar-block w3-border">
+            <a ng-click='ChangeVisual("RCL")' class="w3-bar-item w3-button">Recto_CL</a>
+            <a ng-click='ChangeVisual("VCL")' class="w3-bar-item w3-button">Verso_CL</a>
+            <a ng-click='ChangeVisual("RIR")' class="w3-bar-item w3-button">Recto_IR</a>
+            <a ng-click='ChangeVisual("VIR")' class="w3-bar-item w3-button">Verso_IR</a>
+          </div>
+        </div>
+      </div>
+      <!-- END ToolBox -->
 
       <!-- TAB 1 : Canvas -->
       <div id="canvas" class="tab">
@@ -195,7 +203,7 @@
         
         <img ng-show="viewImg" src="" id="thumbnailCanvas" class="viewImgStyle w3-center"/> <!-- Adapter CSS !! -->
         
-        <button ng-click="Upload()" class="btn w3-center"><i class="fas fa-upload"></i>Upload canvas image</button>
+        <button ng-click="UploadCanvas()" class="btn w3-center"><i class="fas fa-upload"></i>Upload canvas image</button>
       </div>
       <!-- END TAB 4 : COMPOUND -->
    </body>

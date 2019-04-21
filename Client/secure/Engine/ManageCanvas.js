@@ -141,7 +141,6 @@ var Area = {
     });
 
     window.addEventListener('keydown', function (e) {
-     // e.preventDefault(); // JavaScript recommendation to avoid some problems when key is down;
       Area.keys = (Area.keys || []); // If Area.keys not exists initialize with void table;
 
       if (e.keyCode == 27) { // ESC key if something go wrong;
@@ -156,24 +155,22 @@ var Area = {
       };
 
       if (e.keyCode == 77) {displayMeta()}; // M key to run the function displayMeta() /!\ TEMPORARY KEY /!\
-
-     // if (e.keyCode == 116) {location.reload(true)}; // F5 key to refresh the page (deeply with TRUE in argument);
-
+      
       if(Area.selection != null) { // If an image is selected get which key is down;
 
         Area.keys[e.keyCode] = (e.type == "keydown"); // Tag the key that is down with "keydown";
 
-        if (Area.keys && (Area.keys[37] || Area.keys[81])) {Area.selection.angle -= 5 * Math.PI / 180}; // If the key is left arrow or Q, rotate the image to the left;
+        if (Area.keys && Area.keys[37]) {Area.selection.angle -= 5 * Math.PI / 180}; // If the key is left arrow, rotate the image to the left;
 
-        if (Area.keys && (Area.keys[39] || Area.keys[68])) {Area.selection.angle += 5 * Math.PI / 180}; // If the key is right arrow or D, rotate the image to the right;
-
-        if (Area.keys && Area.keys[73] && Area.scale < 1.5) {Area.scale += 0.02}; // If the key is I, zoom In;
-
-        if (Area.keys && Area.keys[79] && Area.scale > 0.2) {Area.scale -= 0.02}; // If the key is O, zoom Out;
-
-        if (Area.keys && (Area.keys[82] || Area.keys[46])) {Area.selection.remove()}; // If the key is R, remove the image from canvas see : component.prototype.remove() in the code below;
+        if (Area.keys && Area.keys[39]) {Area.selection.angle += 5 * Math.PI / 180}; // If the key is right arrow, rotate the image to the right;
         
-        if (Area.keys && (Area.keys[80])) {Area.selection.disass()}; // If the key is D, disassemble compound if image is a compound;
+        if (Area.keys && Area.keys[46]) {Area.selection.remove()}; // If the key is Suppr, remove the image from canvas see : component.prototype.remove() in the code below;
+        
+        if (Area.keys && Area.keys[80]) {Area.selection.disass()}; // If the key is D, disassemble compound if image is a compound;
+        
+        if (Area.keys && Area.keys[40]) {Area.scale -= 0.02}; // If the key is arrow down, zoom Out;
+        
+        if (Area.keys && Area.keys[38]) {Area.scale += 0.02}; // If the key is arrow up, zoom In;
       }
 
     });
@@ -189,7 +186,7 @@ var Area = {
         if (e.deltaY < 0 && Area.scale < 1.5) {Area.scale += 0.02}; // If scroll up, zoom In;
       }
     });
-
+    
     window.addEventListener("resize", function() {
       var ctx = Area.context;
 
@@ -201,83 +198,6 @@ var Area = {
       ctx.canvas.height = height;
 
     });
-
-    document.getElementById("zoom-in").addEventListener("click", function(){
-      if (Area.scale < 1.5) {
-            Area.scale += 0.02;
-          }
-  });
-
-    document.getElementById("zoom-out").addEventListener("click", function(){
-      if (Area.scale > 0.2) {
-            Area.scale -= 0.02;
-          }
-  });
-
-
-  document.getElementById("R_IR").addEventListener("click", function(){
-      var l = Area.images.length;
-    for (var i = 0; i < l; i++) {
-      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"r_IR.JPG");
-    }
-  });
-
-
-  document.getElementById("R_CL").addEventListener("click", function(){
-      var l = Area.images.length;
-    for (var i = 0; i < l; i++) {
-      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"r_CL.JPG");
-    }
-  });
-
-
-  document.getElementById("V_IR").addEventListener("click", function(){
-      var l = Area.images.length;
-    for (var i = 0; i < l; i++) {
-      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"v_IR.JPG");
-    }
-  });
-
-
-  document.getElementById("V_CL").addEventListener("click", function(){
-      var l = Area.images.length;
-    for (var i = 0; i < l; i++) {
-      Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,"v_CL.JPG");
-    }
-  });
-
-  document.getElementById("rotateL").addEventListener("click", function(){
-    if (Area.selection != null) {
-      Area.selection.angle -= 5 * Math.PI / 180;
-    }
-  });
-
-  document.getElementById("rotateR").addEventListener("click", function(){
-    if (Area.selection != null) {
-      Area.selection.angle += 5 * Math.PI / 180;
-    }
-  });
-
-    document.getElementById("trash").addEventListener("click", function(){
-      if (Area.selection != null) {
-        Area.selection.remove();
-      }
-    });
-
-    document.getElementById("light").addEventListener("click", function(){
-      var cnv = document.getElementById('canvas');
-      var white = '#f1f1f1';
-      var dark = '#142634'
-
-      if (Area.canvas.mode === 'light'){
-
-        canvas.style.backgroundColor = '#172631';
-        Area.canvas.mode = 'night';
-      }else{
-      canvas.style.backgroundColor = white;
-      Area.canvas.mode = 'light';
-    }
-      });
 
 // END EVENT LISTENER
   },
@@ -372,7 +292,7 @@ component.prototype.contains = function(mx, my) {
 
   var top = elem.getBoundingClientRect().top;
   var left = elem.getBoundingClientRect().left;
-  var offset = 100 ;
+  var offset = 200 ; // Offset around center to consider mouse in image.
 
   return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) &&
             (my-top) >= (this.y-offset) && (my-top) <= (this.y+offset);
@@ -427,6 +347,8 @@ component.prototype.disass = function () {
     }
 	}
 }
+
+component.prototype.metadatas = function () {console.log("Display metadata soon")}
 
 function updateArea() {
 /*
