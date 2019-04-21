@@ -42,29 +42,33 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
 	 * ref, the reference of the image see PapyrusTable.js
 	 * @return : nothing;
 	 */
-
-        var targetRef; // Temporary variable to search if the reference of the target image exists in Area.images (see ManageCanvas.js);
+      
 		var l = Area.images.length;
 		for (var i = l-1; i >= 0; i--) {
-            targetRef = Area.images[i].ref;
-            targetRef = targetRef.substring(0,targetRef.length - 4); // Remove _thb in reference of the image (normalize);
-            if (targetRef === ref){
+            if (Area.images[i].ref === ref){
                 Area.images[i].image.src = src; // Change the source of the image if the image exist in Area.images.
             };
         };
     }
-
+    
 }]);
 
-papyrus.controller('RepeatPapyrus', ['$scope','$rootScope', function($scope,$rootScope){
+papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 /*
  * name: RepeatPapyrus;
  * type: AngularJS controller;
  * @param : $scope, $rootScope; Visit : https://docs.angularjs.org/guide/scope;
  * @return : nothing;
- */
-
-	$scope.papyrus = PapyrusTable;
+ */  
+  $http({
+    method : "GET",
+    url : "/secure/ref"
+    }).then(function(response) {
+       $scope.papyrus = response.data;
+    }, function(response) {
+      alert(response.statusText);
+  });
+  
 	$rootScope.AccFunc = function(id) {
 	/*
 	 * name: AccFunc;
@@ -100,4 +104,42 @@ papyrus.controller('ChangeTab',['$scope','$rootScope', function($scope,$rootScop
 	  document.getElementById(tabName).style.display = "block";
 	  $event.currentTarget.className += " w3-black";
 	}
+}]);
+
+papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
+	
+  $scope.viewImg=false;
+  
+  $scope.genThbCanvas = function(){
+	if ($scope.viewImg==false){
+    var l = Area.images.length;
+    Area.clear(); // Run function clear() see Area.
+    for (var i = l-1; i >= 0; i--) {
+      Area.images[i].setOpp = false;
+      Area.images[i].update(); // Run function update() see Area.
+    };  
+    var thumbnailCanvas = document.getElementById('thumbnailCanvas');
+    $scope.dataURL = Area.canvas.toDataURL('image/png');
+    thumbnailCanvas.src = $scope.dataURL;
+    $scope.viewImg = true;
+	}
+	else {$scope.viewImg = false;}
+  };
+  
+	$scope.Upload = function() {
+    var img = $scope.dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    var dataToSend = JSON.stringify([{ "imgCompound" : img}].concat([{ "areaImages" : Area.images}]));
+
+    $http({
+      method : "POST",
+      url : "/secure/compUpload",
+      data : dataToSend,
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+    }).then(function(response) {
+      console.log("Image uploaded");
+    }, function(response) {
+      console.log("Error while uploading file !!");
+    });
+	};
 }]);

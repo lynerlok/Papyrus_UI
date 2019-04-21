@@ -22,25 +22,34 @@
  * 
  */
 
-/* This file contain the table of all papyrus in the server.
+/* This file contain the table of all papyrus in the server. 
+ * It's the initialization file for PapyruTable. 
+ * The modifications of this file from server side are in Route.js not here !
 */
 
 /* Table syntax : one element per line;
  * 
  * Element syntax : 
  * 	Ref : the reference of the file (or id);
- * 	THB : the id of the thumbnail of the papyrus;
+ * 	THB : the id of the thumbnail of the papyrus it's a system variable so syntax is always "Ref_thb" please respect this syntax;
  * 	RCL : relative path to recto color papyrus image;
  * 	VCL : relative path to verso color papyrus image;
  * 	RIR : relative path to recto infrared papyrus image;
  * 	VIR : relative path to verso infrared papyrus image;
  * 	MetaDatas : relative path to metadatas.
+ *  Compound : if the image is a compound this variable contains the path to json description file.
  */
  
-var PapyrusTable = [
+ // Save of json file in case of crash during development !
+/*
+module.exports.PapyrusTable = [
   {"Ref" : "1242", "THB": "1242_thb", "RCL" : "Datas/1242_r_CL.JPG","VCL" : "Datas/1242_v_CL.JPG","RIR" : "Datas/1242_r_IR.JPG","VIR" : "Datas/1242_v_IR.JPG","MetaDatas" : "Datas/1242.xml" },
   {"Ref" : "0088a", "THB": "0088a_thb", "RCL" : "Datas/88_a_r_CL.JPG ","VCL" : "Datas/88_a_v_CL.JPG","RIR" : "Datas/88_a_r_IR.JPG","VIR" : "Datas/88_a_v_IR.JPG","MetaDatas" : "Datas/0088a.xml" },
   {"Ref" : "2733a", "THB": "2733a_thb", "RCL" : "Datas/2733_o_r_CL.JPG","VCL" : "Datas/2733_o_v_CL.JPG","RIR" : "Datas/2733_o_r_IR.JPG","VIR" : "Datas/2733_o_v_IR.JPG","MetaDatas" : "Datas/2733a.xml" },
   {"Ref" : "1319", "THB": "1319_thb", "RCL" : "Datas/1319_r_CL.JPG","VCL" : "Datas/1319_v_CL.JPG","RIR" : "Datas/1319_r_IR.JPG","VIR" : "Datas/1319_v_IR.JPG","MetaDatas" : "Datas/1319.xml" },
   {"Ref" : "0563k", "THB": "0563k_thb", "RCL" : "Datas/563_567_k_r_CL.JPG","VCL" : "Datas/563_567_k_v_CL.JPG","RIR" : "Datas/563_567_k_r_IR.JPG","VIR" : "Datas/563_567_k_v_IR.JPG","MetaDatas" : "Datas/0563k.xml" },
 ];
+*/
+
+var papTableFile = require("fs").readFileSync(__dirname + '/PapyrusTable.json', 'utf8');
+module.exports.PapyrusTable = JSON.parse(papTableFile);

@@ -43,11 +43,6 @@ function drop(event) {
   event.preventDefault();
   var data=event.dataTransfer.getData("text/html"); // This method will return any data that was set to the same type in the setData() method.
   var elem = document.getElementById(data); // Here we get the element with the id element.
-  Area.images.push(new component(elem.src,elem.id)); // Add the image in the canvas.
-}
-
-function exportCompound(){
-	$("#sendCP").click(function(){
-		$.post("secure/interface.html/compound",JSON.stringify(Area.images));
-	});
+  var newId = elem.id.replace("_thb","");
+  Area.images.push(new component(elem.src,newId)); // Add the image in the canvas.
 }
