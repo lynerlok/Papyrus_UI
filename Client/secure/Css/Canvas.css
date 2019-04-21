@@ -1,14 +1,14 @@
-canvas {
-    background-color: #f1f1f1;
+#canvas {
+   background-color: #f1f1f1;
 }
 
 body {
-	overflow: hidden;
+ overflow: hidden;
 }
 
 body, html {height:100vh;}
 
 #CanvasHolder {
-	height:100vh;
-	margin-left:15%;
+ height:100vh;
+ margin-left:15%;
 }
