@@ -44,6 +44,7 @@ var Area = {
    */
     var elem =  document.getElementById("CanvasHolder"); // Get the canvas container element;
     var mouseIsDown = false; // Initialize this variable with false, mouse buttons are release;
+    var touched = false; // user doesn't touch the screen
     var stop = false; // Initialize the stop variable to FALSE, the user want to refresh canvas;
 
     // Get the canvas holder dimensions.
@@ -78,6 +79,61 @@ var Area = {
  * @return : nothing;
  * Description : The event listener section for the canvas
  */
+    window.addEventListener('touchmove', function(e){
+      if (!touched) return;
+
+      // The coordinates of the mouse in the canvas are
+        //the actual first touch coordinates rectified by the canvas dimensions;
+      Area.x = e.touches[0].clientX - left;
+      Area.y = e.touches[0].clientY - top;
+
+      // The coordinates of a selection is the coordinates of the touch in the canvas;
+      Area.selection.x = Area.x;
+      Area.selection.y = Area.y;
+
+      // Movement constraint the image doesn't move out of the canvas;
+      // stop image at the limits of the canvas
+      if (Area.x < 0){
+        Area.selection.x = 0;
+      }
+      if (Area.x > Area.canvas.width){
+
+        Area.selection.x = Area.canvas.width;
+      }
+      if (Area.y < 0) {
+
+        Area.selection.y = 0;
+      }
+      if (Area.y > Area.canvas.height) {
+        Area.selection.y = Area.canvas.height;
+      }
+
+
+    });
+
+    window.addEventListener('touchstart', function (e) {
+        // Get mouse coordinates;
+        var mx = e.touches[0].clientX;
+        var my = e.touches[0].clientY;
+
+        var i = Area.images.length-1; // Get the number of images in Area.images;
+
+        for (i; i >= 0; i--) {
+          if (Area.images[i].contains(mx,my)) { // See component.prototype.contains(mx,my) in the code below;
+
+            touched = true;
+            Area.selection = Area.images[i]; // Select the good image;
+            Area.selection.setOpp = false;
+          }
+          else {
+            Area.images[i].setOpp = true;
+          }
+        }
+    });
+    window.addEventListener('touchend', function (e) {
+      touched = false; // If a mouse button is released the variable mouseIsDown is set to FALSE;
+    });
+
 
     window.addEventListener('mousemove', function (e) {
 
@@ -85,7 +141,7 @@ var Area = {
 
       // The coordinates of the mouse in the canvas are
         //the actual mouse coordinates rectified by the canvas dimensions;
-      Area.x = e.clientX - left;
+      Area.x = e.clientX -left;
       Area.y = e.clientY - top;
 
       // The coordinates of a selection is the coordinates of the mouse in the canvas;
@@ -155,7 +211,7 @@ var Area = {
       };
 
       if (e.keyCode == 77) {displayMeta()}; // M key to run the function displayMeta() /!\ TEMPORARY KEY /!\
-      
+
       if(Area.selection != null) { // If an image is selected get which key is down;
 
         Area.keys[e.keyCode] = (e.type == "keydown"); // Tag the key that is down with "keydown";
@@ -163,13 +219,13 @@ var Area = {
         if (Area.keys && Area.keys[37]) {Area.selection.angle -= 5 * Math.PI / 180}; // If the key is left arrow, rotate the image to the left;
 
         if (Area.keys && Area.keys[39]) {Area.selection.angle += 5 * Math.PI / 180}; // If the key is right arrow, rotate the image to the right;
-        
+
         if (Area.keys && Area.keys[46]) {Area.selection.remove()}; // If the key is Suppr, remove the image from canvas see : component.prototype.remove() in the code below;
-        
+
         if (Area.keys && Area.keys[80]) {Area.selection.disass()}; // If the key is D, disassemble compound if image is a compound;
-        
+
         if (Area.keys && Area.keys[40]) {Area.scale -= 0.02}; // If the key is arrow down, zoom Out;
-        
+
         if (Area.keys && Area.keys[38]) {Area.scale += 0.02}; // If the key is arrow up, zoom In;
       }
 
@@ -186,7 +242,7 @@ var Area = {
         if (e.deltaY < 0 && Area.scale < 1.5) {Area.scale += 0.02}; // If scroll up, zoom In;
       }
     });
-    
+
     window.addEventListener("resize", function() {
       var ctx = Area.context;
 
@@ -292,7 +348,7 @@ component.prototype.contains = function(mx, my) {
 
   var top = elem.getBoundingClientRect().top;
   var left = elem.getBoundingClientRect().left;
-  var offset = 200 ; // Offset around center to consider mouse in image.
+  var offset = 100 ; // Offset around center to consider mouse in image.
 
   return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) &&
             (my-top) >= (this.y-offset) && (my-top) <= (this.y+offset);
@@ -320,12 +376,12 @@ component.prototype.disass = function () {
       var tmpImg = Area.images[index];
       $.get('Datas/'+refImg+'.json', function(data, status){
         $.get('/secure/ref', function(tableJSON, status){
-          
+
           var table = JSON.parse(tableJSON);
           Area.images = [];
           var l=data.length;
           var l2 = table.length;
-          
+
           for (var i=0;i<l;i++) {
             for (var j=0;j<l2;j++){
               if (table[j].Ref === data[i].ref){
@@ -337,7 +393,7 @@ component.prototype.disass = function () {
               }
             }
           }
-          
+
         });
       });
       $.post("/secure/DestroyCMP",{compound: refImg},

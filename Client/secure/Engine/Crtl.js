@@ -34,23 +34,25 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
  * @return : nothing;
  */
 
-    $rootScope.changeAttr = function(src,ref){
 
-	/*
-	 * name: changeAttr;
-	 * @param : src, the target source to change the image recto<->verso Color<->Infrared ;
-	 * ref, the reference of the image see PapyrusTable.js
-	 * @return : nothing;
-	 */
-      
-		var l = Area.images.length;
-		for (var i = l-1; i >= 0; i--) {
-            if (Area.images[i].ref === ref){
-                Area.images[i].image.src = src; // Change the source of the image if the image exist in Area.images.
-            };
-        };
+    $rootScope.changeAttr = function(src,ref){
+      var exists = false;
+
+      var newref = ref.replace("_thb","");
+      var l = Area.images.length;
+      for(var i = l-1; i >= 0; i--){
+          if(Area.images[i].ref === ref){
+            exists = true;
+            Area.images[i].image.src = src; // Change the source of the image if the image exist in Area.images.
+          }
+
+      }
+
+      if (exists == false) {
+        console.log("false");
+        Area.images.push(new component(src,newref)); // add the image in the canvas if doesn't exist in Area.images.
+      }
     }
-    
 }]);
 
 papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
@@ -59,7 +61,7 @@ papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($sc
  * type: AngularJS controller;
  * @param : $scope, $rootScope; Visit : https://docs.angularjs.org/guide/scope;
  * @return : nothing;
- */  
+ */
   $http({
     method : "GET",
     url : "/secure/ref"
@@ -68,7 +70,7 @@ papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($sc
     }, function(response) {
       alert(response.statusText);
   });
-  
+
 	$rootScope.AccFunc = function(id) {
 	/*
 	 * name: AccFunc;
@@ -91,7 +93,7 @@ papyrus.controller('ChangeTab',['$scope','$rootScope', function($scope,$rootScop
  * type: AngularJS controller to switch tab in interface;
  * @param : $scope, $rootScope; Visit : https://docs.angularjs.org/guide/scope;
  * @return : nothing;
- */ 
+ */
 
 	$rootScope.tabSwitch = function($event,tabName){
   /*
@@ -113,7 +115,7 @@ papyrus.controller('ChangeTab',['$scope','$rootScope', function($scope,$rootScop
 	  }
 
 	  document.getElementById(tabName).style.display = "block"; // Display only the good tab;
-	  $event.currentTarget.className += " w3-black"; // On click change color. 
+	  $event.currentTarget.className += " w3-black"; // On click change color.
 	}
 }]);
 
@@ -121,13 +123,13 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 /*
  * name: UploadImage;
  * type: AngularJS controller to switch tab in interface;
- * @param : $scope, $rootScope, $http; Visit : https://docs.angularjs.org/guide/scope 
+ * @param : $scope, $rootScope, $http; Visit : https://docs.angularjs.org/guide/scope
  *                                         and https://docs.angularjs.org/api/ng/service/$http;
  * @return : nothing;
- */ 
+ */
 
   $scope.viewImg=false; // Switch to view or actualize view.
-  
+
   $scope.genThbCanvas = function(){
  /*
   * name: genThbCanvas;
@@ -142,16 +144,16 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
       for (var i = l-1; i >= 0; i--) {
         Area.images[i].setOpp = false; // Remove oppacity on all images in canvas in the view only;
         Area.images[i].update(); // Run function update() see Area.
-      };  
+      };
       var thumbnailCanvas = document.getElementById('thumbnailCanvas'); // PlaceHolder of the image;
       $scope.dataURL = Area.canvas.toDataURL('image/png'); // Store images in url in Base64 encoding;
       thumbnailCanvas.src = $scope.dataURL; // Put the URL in the src placeholder;
       $scope.viewImg = true; // Indicates that the view is active;
     }
     else {$scope.viewImg = false;} // If the view is showed switch to hide;
-    
+
   };
-  
+
 	$scope.UploadCanvas = function() {
   /*
   * name: UploadCanvas;
@@ -159,7 +161,7 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
   * @return : nothing:
   * This function send the canvas image to the server.
   */
-  
+
     var img = $scope.dataURL.replace(/^data:image\/(png|jpg);base64,/, ""); // Extract only Base64 text of the url image without metadatas;
     var dataToSend = JSON.stringify([{ "imgCompound" : img}].concat([{ "areaImages" : Area.images}]));
     // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
@@ -179,7 +181,7 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 }]);
 
 papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$rootScope){
-  
+
   $scope.RemoveImage = function(){
  /*
   * name: genThbCanvas;
@@ -189,7 +191,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
     if (Area.selection != null) {Area.selection.remove()}
   };
-  
+
   $scope.ZoomOut = function(){
  /*
   * name: genThbCanvas;
@@ -199,7 +201,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
     if (Area.scale > 0.2) {Area.scale -= 0.02};
   };
-  
+
   $scope.ZoomIn = function(){
  /*
   * name: genThbCanvas;
@@ -209,7 +211,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
     if (Area.scale < 1.5) {Area.scale += 0.02};
   };
-  
+
   $scope.RotateLeft = function(){
  /*
   * name: genThbCanvas;
@@ -221,7 +223,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
       Area.selection.angle -= 5 * Math.PI / 180;
     }
   };
-  
+
   $scope.RotateRight = function(){
  /*
   * name: genThbCanvas;
@@ -233,7 +235,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
       Area.selection.angle += 5 * Math.PI / 180;
     }
   };
-  
+
   $scope.RealSize = function(){
  /*
   * name: genThbCanvas;
@@ -243,16 +245,16 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
   var ctx = Area.context;
   var cnv = document.getElementById('canvas');
-  
+
   var width = cnv.getBoundingClientRect().width;
   var height = cnv.getBoundingClientRect().height;
 
   // Change the canvas dimensions according to new canvas holder dimensions;
   ctx.canvas.width = width;
   ctx.canvas.height = height;
-  
+
   };
-  
+
   $scope.MetaData = function(){
  /*
   * name: genThbCanvas;
@@ -262,7 +264,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
     if (Area.selection != null) {Area.selection.metadatas()}
   };
-  
+
   $scope.ChangeVisual = function(visual){
  /*
   * name: genThbCanvas;
@@ -275,7 +277,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
     var RIRsuffix = "r_IR.JPG";
     var VCLsuffix = "v_CL.JPG";
     var VIRsuffix = "v_IR.JPG";
-    
+
     for (var i = 0; i < l; i++) {
       if (visual === "RCL") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,RCLsuffix);}
       if (visual === "RIR") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,RIRsuffix);}
@@ -283,7 +285,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
       if (visual === "VIR") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,VIRsuffix );}
     }
   };
-  
+
   $scope.DisassCompound = function(){
  /*
   * name: genThbCanvas;
@@ -293,7 +295,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
     if (Area.selection != null) {Area.selection.disass()}
   };
-  
+
   $scope.ChangeLight = function(){
  /*
   * name: genThbCanvas;
@@ -303,17 +305,17 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   */
     var cnv = document.getElementById('canvas');
     var white = '#f1f1f1';
-    var dark = '#142634'
+    var dark = '#172631'
 
     if (Area.canvas.mode === 'light'){
-      canvas.style.backgroundColor = '#172631';
+      canvas.style.backgroundColor = dark;
       Area.canvas.mode = 'night';
     }
     else{
       canvas.style.backgroundColor = white;
       Area.canvas.mode = 'light';
     }
-    
+
   };
-  
+
 }]);
