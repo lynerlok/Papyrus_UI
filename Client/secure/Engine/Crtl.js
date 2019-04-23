@@ -319,3 +319,22 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
   };
 
 }]);
+
+
+papyrus.controller('WorkingDir', ['$scope','$rootScope','$http', function($scope,$rootScope,$http) {
+
+
+ $scope.RemoveDir = function () {
+   
+    $http({
+      method : "GET",
+      url : "/secure/rd",
+    }).then(function(response) {
+      alert("Repertoire Supprimé");
+    }, function(response) {
+      alert("Error while deleting personal directory !!");
+    });
+   
+  }
+  
+}]);
