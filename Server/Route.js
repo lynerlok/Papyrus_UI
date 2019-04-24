@@ -109,8 +109,8 @@ module.exports = (function() {
       
       var newPapyrus = {};
       newPapyrus['Ref']='Treshold_on_' + img + '_' + currentTime;
-      newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime+'_thb';
-      newPapyrus['RCL']='Datas/Treshold_on_' + img + '_' + currentTime'.png';
+      newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime + '_thb';
+      newPapyrus['RCL']='Datas/Treshold_on_' + img + '_' + currentTime + '.png';
       newPapyrus['VCL']='null';
       newPapyrus['RIR']='null';
       newPapyrus['VIR']='null';
