@@ -14,6 +14,9 @@ var formidable = require('formidable');
 var jsonFile = fs.readFileSync('passwd.json', 'utf8');
 var creds = JSON.parse(jsonFile);
 
+var jsonFile = fs.readFileSync('projects.json', 'utf8');
+var projects = JSON.parse(jsonFile);
+
 var router = express.Router();
 
 /*
@@ -35,23 +38,33 @@ module.exports = (function() {
     res.redirect('/index.html');
   });
   
-  router.get('/logout', function(req, res){
+  router.get('/secure/logout', function(req, res){
 	   req.session.destroy(function(){
 	      console.log("user logged out.");
 	   });
 	   res.redirect('/');
 	});
 	
-  router.get('/secure/rd', function(req, res){ // Supprimer password + user + toutes les images qui appartiennent à user
+  router.get('/secure/rd', function(req, res){ // Supprimer aussi toutes les images qui appartiennent à user ??
     if(req.session.isAuthenticated === "Success" && req.session.user !== "main"){
       var index = creds.users.indexOf(req.session.user);
       if (index !== -1) creds.users.splice(index, 1);
       if (index !== -1) creds.passwords.splice(index, 1);
+      
+      var index = projects.names.indexOf(req.session.user);
+      if (index !== -1) projects.names.splice(index, 1);
+      if (index !== -1) projects.refs.splice(index, 1);
+      
       fs.writeFile('passwd.json',JSON.stringify(creds), (err) => {
         if (err) throw err;
-        console.log('INFO : Passwords Files Updated !');
+        console.log('INFO [USER REMOVED]: Passwords Files Updated !');
       });
-     // del.sync(["../Client/secure/Projects/"+req.session.user+".json"],{force:true});
+      
+      fs.writeFile(__dirname + '/projects.json',JSON.stringify(projects), (err) => {
+          if (err) throw err;
+          console.log('INFO [USER REMOVED] : ImageRef updated !');
+        });
+      
       res.redirect('/logout');
     }
     else {
@@ -63,7 +76,10 @@ module.exports = (function() {
   router.get('/secure/treshold',function(req,res){
     if(req.session.isAuthenticated === "Success"){
       var img = req.query.img;
-      var path = path.join(__dirname, 'secure/Projects/', req.session.user);
+      var d = new Date();
+      var currentTime = d.getTime();
+      
+      var path = path.join(__dirname, '/../Client/secure/Datas/',currentTime );
       var options = {
         mode: 'text',
         args: [`-i ${img}`, `-o ${path}`]
@@ -111,15 +127,15 @@ module.exports = (function() {
     
     if (req.session.isAuthenticated === "Success"){
 
-      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json', 'utf8');
-      var imgRefData = JSON.parse(imgJsonFile);
-      if (imgRefData.imgRef[0] === "all"){
+      var index = projects.names.indexOf(req.session.user);
+      
+      if (projects.refs[index][0] === "all"){
         JsonTableSend = PapyrusMainFile.PapyrusTable;
       }
       else {
         for (i=0;i<PapyrusMainFile.PapyrusTable.length;i++){
-          for(j=0;j<imgRefData.imgRef.length;j++){
-            if(PapyrusMainFile.PapyrusTable[i].Ref === imgRefData.imgRef[j]){
+          for(j=0;j<projects.refs[index].length;j++){
+            if(PapyrusMainFile.PapyrusTable[i].Ref === projects.refs[index][j]){
               JsonTableSend.push(PapyrusMainFile.PapyrusTable[i]);
             }
           }
@@ -130,9 +146,6 @@ module.exports = (function() {
     else {res.redirect("/");}
  	});   
 
-	router.post('secure/metadatas',function(req,res){
-
-	});
 	router.post('/secure/wd',async function(req,res){
 		if(req.session.isAuthenticated === "Success"){
       var user=req.body.username;
@@ -147,10 +160,20 @@ module.exports = (function() {
         }
         creds.users.push(user); 
         creds.passwords.push(hashPass);
+        
+        projects.names.push(user);
+        projects.refs.push(["all"]);
+        
         fs.writeFile('passwd.json',JSON.stringify(creds), (err) => {
           if (err) throw err;
-          console.log('Passwords Files Updated !');
+          console.log('INFO [USER CREATED] : Passwords Files Updated !');
         });
+        
+        fs.writeFile(__dirname + '/projects.json',JSON.stringify(projects), (err) => {
+          if (err) throw err;
+          console.log('INFO [USER CREATED] : ImageRef updated !');
+        });
+      
         res.redirect('/logout');
       }
       else {
@@ -166,7 +189,7 @@ module.exports = (function() {
     if(req.session.isAuthenticated === "Success"){
       
       if(!req.body || req.session.user === "main") return res.sendStatus(400);
-      var img = new Buffer(req.body[0].imgCompound, 'base64');
+      var img = new Buffer.from(req.body[0].imgCompound, 'base64');
       var imgArray = req.body[1].areaImages;
       var d = new Date();
       var currentTime = d.getTime();
@@ -181,12 +204,12 @@ module.exports = (function() {
       });
       
       res.sendStatus(200);
+      
+      var index = projects.names.indexOf(req.session.user);
 
-      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json', 'utf8');
-      var imgRefData = JSON.parse(imgJsonFile);
-      imgRefData.imgRef.push('Compound-'+currentTime);
+      projects.refs[index].push('Compound-'+currentTime);
     
-      fs.writeFile(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json',JSON.stringify(imgRefData), (err) => {
+      fs.writeFile(__dirname + '/projects.json',JSON.stringify(projects), (err) => {
         if (err) throw err;
         console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
       });
@@ -235,13 +258,12 @@ module.exports = (function() {
         console.log('INFO : PapyrusTable updated !');
       });
       
-      var imgJsonFile = fs.readFileSync(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json', 'utf8');
-      var imgRefData = JSON.parse(imgJsonFile);
-      var index = imgRefData.imgRef.indexOf(req.body.compound);
+      var nameIndex = projects.names.indexOf(req.session.user);
+      var index = projects.refs[nameIndex].indexOf(req.body.compound);
       
-      imgRefData.imgRef.splice(index,1);
+      projects.refs[nameIndex].splice(index,1);
       
-      fs.writeFile(__dirname + '/../Client/secure/Projects/'+req.session.user+'.json',JSON.stringify(imgRefData), (err) => {
+      fs.writeFile(__dirname + '/projects.json',JSON.stringify(projects), (err) => {
         if (err) throw err;
         console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
       });

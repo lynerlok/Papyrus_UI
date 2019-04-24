@@ -180,7 +180,7 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 	};
 }]);
 
-papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$rootScope){
+papyrus.controller('ToolsCommand', ['$scope','$http', function($scope,$http){
 
   $scope.RemoveImage = function(){
  /*
@@ -318,23 +318,4 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope', function($scope,$root
 
   };
 
-}]);
-
-
-papyrus.controller('WorkingDir', ['$scope','$rootScope','$http', function($scope,$rootScope,$http) {
-
-
- $scope.RemoveDir = function () {
-   
-    $http({
-      method : "GET",
-      url : "/secure/rd",
-    }).then(function(response) {
-      alert("Repertoire Supprimé");
-    }, function(response) {
-      alert("Error while deleting personal directory !!");
-    });
-   
-  }
-  
 }]);
