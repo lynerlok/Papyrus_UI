@@ -182,6 +182,31 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 
 papyrus.controller('ToolsCommand', ['$scope','$http', function($scope,$http){
 
+  $scope.Treshold = function(){
+ /*
+  * name: genThbCanvas;
+  * @param : nothing;
+  * @return : nothing:
+  * This function generate the canvas image in a local URL.
+  */
+    var dataToSend = JSON.stringify({ "img" : Area.selection.ref});
+    console.log(Area.selection.ref);
+    // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+
+    $http({ // Post all datas to server;
+      method : "POST", // Method accepted by the server is POST;
+      url : "/secure/treshold", // The URL where the server accept this type of POST;
+      data : dataToSend, // Put the data to send here;
+      dataType: 'json', // The type of data is JSON;
+      contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+    }).then(function(response) {
+      alert("Image sucessfuly tresholded ! (refresh to view modification)"); // If the image sucessfuly uploaded alert user;
+    }, function(response) {
+      alert("Error while uploading file !!"); // If the upload fail alert user;
+    });
+    
+  };
+  
   $scope.RemoveImage = function(){
  /*
   * name: genThbCanvas;

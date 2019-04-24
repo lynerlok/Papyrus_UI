@@ -55,7 +55,12 @@ var portHTTPS = 8443;
 
 var secret = crypto.randomBytes(32);
 
+console.log("Running Server...");
+console.log("Removing old sessions if exist...");
+
 del.sync([__dirname + '/sessions/**','!'+__dirname + '/sessions']);
+
+console.log("Setting options...");
 
 var serverCredentials = {
   key: fs.readFileSync('Certs/key.pem'),
@@ -82,6 +87,8 @@ var options = {
   }
 }
 
+console.log("Associate options to the Node app...");
+
 app.use(express.static(__dirname + '/../Client',options));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -98,4 +105,8 @@ app.use(session({
   ));
 app.use(router);
 
+console.log("Create HTTP server...");
+
 https.createServer(serverCredentials, app).listen(portHTTPS);
+
+console.log("Done !");

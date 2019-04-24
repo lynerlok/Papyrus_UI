@@ -19,6 +19,8 @@ var projects = JSON.parse(jsonFile);
 
 var router = express.Router();
 
+var pythonPathNode = "/usr/bin/python";
+
 /*
 
 */
@@ -73,24 +75,59 @@ module.exports = (function() {
     }
 	});
 
-  router.get('/secure/treshold',function(req,res){
+  router.post('/secure/treshold',function(req,res){
     if(req.session.isAuthenticated === "Success"){
-      var img = req.query.img;
+      var img = req.body.img;
       var d = new Date();
       var currentTime = d.getTime();
       
-      var path = path.join(__dirname, '/../Client/secure/Datas/',currentTime );
+      var path = __dirname + '/../Client/secure/Datas/';
       var options = {
         mode: 'text',
+        pythonPath: pythonPathNode,
         args: [`-i ${img}`, `-o ${path}`]
       };
-      pyPath = path.join(__dirname,'/../Client/secure/Scripts/treshold.py');
+      pyPath = __dirname + '/../Client/secure/Scripts/treshold.py';
       PythonShell.run(pyPath, options, function (err, results) {
         if (err) throw err;
       });
+      
+      fs.rename(__dirname + '/../Client/secure/Datas/out.png',path + 'Treshold_on_' + img + '_' + currentTime, function (err) {
+        if (err) throw err;
+        console.log("INFO [TRESHOLD] : Image "+ img +"tresholded and renamed");
+      });
+      
+      var index = projects.names.indexOf(req.session.user);
+
+      projects.refs[index].push('Treshold_on_' + img + '_' + currentTime);
+    
+      fs.writeFile(__dirname + '/projects.json',JSON.stringify(projects), (err) => {
+        if (err) throw err;
+        console.log('INFO [TRESHOLD] : ImageRef JSON of user '+req.session.user+' updated !');
+      });
+      
+      
+      var newPapyrus = {};
+      newPapyrus['Ref']='Treshold_on_' + img + '_' + currentTime;
+      newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime+'_thb';
+      newPapyrus['RCL']='Datas/Treshold_on_' + img + '_' + currentTime'.png';
+      newPapyrus['VCL']='null';
+      newPapyrus['RIR']='null';
+      newPapyrus['VIR']='null';
+      newPapyrus['MetaDatas']='null';
+      newPapyrus['Owner']=req.session.user;
+       
+      PapyrusMainFile.PapyrusTable.push(newPapyrus);
+      
+      fs.writeFile(__dirname + '/PapyrusTable.json',JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
+        if (err) throw err;
+        console.log('INFO [TRESHOLD] : PapyrusTable updated !');
+      });
+      
+      res.sendStatus(200);
     }
     else {
-        console.log("WARNING : Access Denied on treshold execution");
+        console.log('WARNING [TRESHOLD] : Access Denied ('+req.session.user+')');
         res.redirect('/');
     }
 	});
