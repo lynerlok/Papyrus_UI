@@ -368,7 +368,7 @@ component.prototype.remove = function() {
 }
 
 component.prototype.disass = function () {
-  console.log("we are in disass");
+  
   var index = Area.images.indexOf(this); // Search the object in Area.images;
 	if (index > -1) { // If the object is found...
     var refImg = Area.images[index].ref;
@@ -376,7 +376,7 @@ component.prototype.disass = function () {
       var tmpImg = Area.images[index];
       $.get('Datas/'+refImg+'.json', function(data, status){
         $.get('/secure/ref', function(tableJSON, status){
-
+          
           var table = JSON.parse(tableJSON);
           Area.images = [];
           var l=data.length;

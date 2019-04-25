@@ -65,11 +65,11 @@ papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($sc
     method : "GET",
     url : "/secure/ref"
     }).then(function(response) {
-       $scope.papyrus = response.data;
+       $rootScope.papyrus = response.data;
     }, function(response) {
       alert(response.statusText);
   });
-
+  
 	$rootScope.AccFunc = function(id) {
 	/*
 	 * name: AccFunc;
@@ -189,7 +189,6 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * This function generate the canvas image in a local URL.
   */
     var dataToSend = JSON.stringify({ "img" : Area.selection.ref});
-    console.log(Area.selection.ref);
     // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
 
     $http({ // Post all datas to server;
@@ -341,6 +340,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     }
 
   };
+  
   $scope.BestMatches = function(){
     /*
      * name: genThbCanvas;
@@ -348,139 +348,128 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
      * @return : nothing:
      * This function generate the canvas image in a local URL.
      */
+     
     if (Area.selection == null) {
-
       alert('please, select an image');
       return;
     }
+    
+    var div;
+    var img;
+    var matchSrc;
+    
+    var PapTable = $rootScope.papyrus;
+    var Treshold = 0.60;
+  
+    var index = 0;
+
     document.getElementById('matches').style.display='block';
-    console.log("coucou");
-    // get data from csv file content
-    var url = "https://127.0.0.1:8443/secure/Datas/scoreMatrix.csv";
-
-    var request = new XMLHttpRequest();
-    request.open("GET", url, false);
-    request.send(null);
-
-    var csvData = new Array();
-    var jsonObject = request.responseText.split(/\r?\n|\r/);
-    for (var i = 0; i < jsonObject.length; i++) {
-      csvData.push(jsonObject[i].split(','));
-    }
-    //search correspoonding match scores
-
-    var l = csvData.length;
-    var ref = Area.selection.ref;
-    var index;
-
-    for (var i = 0; i < l; i++) {
-      //console.log(csvData[0][i]);
-      if(csvData[0][i] == `\"${ref}\"`){
-
-        index = i;
-        var matchRef;
-        var matchScore;
-	var obj = {};
-
-        for (var j = 1; j < csvData.length-1; j++) {
-          if(j!== index){
-            matchScore = csvData[index][j];
-            matchRef = csvData[0][j];
-            matchRef = matchRef.substr(1,matchRef.length-2);
-
-	    obj[matchRef] = Number(matchScore);
+    
+    $http({
+    method : "GET",
+    url : "/secure/Datas/scoreMatrix.json"
+    }).then(function(response) {
+      
+      var matrixData = response.data;
+      //search correspoonding match scores
+  
+      var l = matrixData.length;
+      var ref = Area.selection.ref;
+      
+      for (var i = 0; i < l; i++) {
+        if(matrixData[0][i] === ref){
+    
+          index = i;
+          var matchRef;
+          var matchScore;
+          var obj = {};
+  
+          for (var j = 1; j < l-1; j++) {
+            if(j !== index){
+              matchScore = matrixData[index][j];
+              matchRef = matrixData[0][j];
+              
+              obj[matchRef] = Number(matchScore);
+            }
+          }
         }
       }
-    }
-  }
-  var sortable = [];
-  for (var ref in obj) {
-     sortable.push([ref, obj[ref]]);
-  }
-
-  sortable.sort(function(a, b) {
-    return b[1] - a[1];
-  });
-console.log(sortable);
-
-  var div;
-  var img;
-  var matchSrc;
-  var url = "https://127.0.0.1:8443/secure/ref";
-
-  var request = new XMLHttpRequest();
-  request.open("GET", url, false);
-  request.send(null);
-
-  var csvData = new Array();
-  var jsonObject = request.responseText;
-  var PapTable= JSON.parse(jsonObject);
-  var index = 0;
-  for (var i = 0; i < sortable.length; i++) {
-    for(var j = 0; j < PapTable.length; j++) {
-      if (PapTable[j]['Ref'] == sortable[i][0] && sortable[i][1]  >= 0.60) {
-          index+=1;
-          matchSrc = PapTable[j]['RCL'];
-
-          div = document.createElement('div');
-          document.getElementById("scores").appendChild(div);
-          div.id = `${index}`;
-          div.className = "match"
-          div.style
-
-          p = document.createElement('p');
-          document.getElementById(`${index}`).appendChild(p);
-          p.id = `refscore${index}`;
-          document.getElementById(`refscore${index}`).innerHTML = `${sortable[i][0]} score: ${sortable[i][1]}`;
-
-          img = document.createElement('img');
-          document.getElementById(`${index}`).appendChild(img);
-
-          img.className = 'PapyMatch';
-          img.src = matchSrc;
-          img.id = sortable[i][0];
-
-          img.addEventListener('click',function(e){
-            $scope.modalAdd(this.src,this.id);
-          });
-
-
+      
+      var sortable = [];
+      for (var ref in obj) {
+         sortable.push([ref, obj[ref]]);
       }
-
-    }
-//     var test = document.getElementsByClassName('PapyMatch');
-//     var l = test.length;
-//     console.log(test.length);
-}
-
-
+    
+      sortable.sort(function(a, b) {
+        return b[1] - a[1];
+      });
+      
+      index = 0;
+      
+      for (var i = 0; i < sortable.length; i++) {
+        for(var j = 0; j < PapTable.length; j++) {
+          
+          if (PapTable[j].Ref == sortable[i][0] && sortable[i][1] >= Treshold) {
+              index+=1;
+              
+              matchSrc = PapTable[j].RCL;
+    
+              div = document.createElement('div');
+              document.getElementById("scores").appendChild(div);
+              div.id = `${index}`;
+              div.className = "match";
+    
+              p = document.createElement('p');
+              document.getElementById(`${index}`).appendChild(p);
+              p.id = `refscore${index}`;
+              document.getElementById(`refscore${index}`).innerHTML = `${sortable[i][0]} score: ${sortable[i][1]}`;
+    
+              img = document.createElement('img');
+              document.getElementById(`${index}`).appendChild(img);
+    
+              img.className = 'PapyMatch';
+              img.src = matchSrc;
+              img.id = sortable[i][0];
+              
+              img.addEventListener('click',function(e){
+                $scope.modalAdd(this.src,this.id);
+              });
+    
+    
+          }
+    
+        }
+      }
+    }, function(response) {
+      alert(response.statusText);
+    });
 };
 
-$scope.modalAdd = function(src,ref){
-
-  var exists = false;
-
-  var l = Area.images.length;
-  for(var i = l-1; i >= 0; i--){
-      if(Area.images[i].ref === ref){
-        exists = true;
-        alert("image already in use !"); // Change the source of the image if the image exist in Area.images.
-      }
-      if (exists == false){
-        $rootScope.changeAttr(src,ref);
-      }
-  }
-};
-
+  $scope.modalAdd = function(src,ref){
+  
+    var exists = false;
+  
+    var l = Area.images.length;
+    for(var i = l-1; i >= 0; i--){
+        if(Area.images[i].ref === ref){
+          exists = true;
+          alert("image already in use !"); // Change the source of the image if the image exist in Area.images.
+        }
+        if (exists == false){
+          $rootScope.changeAttr(src,ref);
+        }
+    }
+  };
 
   $scope.quitModal = function(){
     var modal = document.getElementById('matches');
-     var c = document.getElementById("scores").childElementCount;
-     //console.log(c);
-    for (var i = 1; i <= c ; i++) {
+    var c = document.getElementById("scores").childElementCount;
+    
+    for (var i=1; i<=c ; i++) {
       document.getElementById(i).remove();
     }
     modal.style.display='none';
 
   }
+  
 }]);

@@ -53,7 +53,7 @@ body, html {height:100vh;}
 
 .toolsStyle {
 position:absolute;
-left:45.4vw; /* ICI PENSER AU RESPONSIVE !! */
+left:40.6vw; /* ICI PENSER AU RESPONSIVE !! */
 top: 90vh;
 z-index:10;
 }
