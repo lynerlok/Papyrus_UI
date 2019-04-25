@@ -69,7 +69,7 @@ papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($sc
     }, function(response) {
       alert(response.statusText);
   });
-  
+
 	$rootScope.AccFunc = function(id) {
 	/*
 	 * name: AccFunc;
@@ -340,7 +340,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     }
 
   };
-  
+
   $scope.BestMatches = function(){
     /*
      * name: genThbCanvas;
@@ -348,96 +348,95 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
      * @return : nothing:
      * This function generate the canvas image in a local URL.
      */
-     
+
     if (Area.selection == null) {
       alert('please, select an image');
       return;
     }
-    
+
     var div;
     var img;
     var matchSrc;
-    
+
     var PapTable = $rootScope.papyrus;
     var Treshold = 0.60;
-  
+
     var index = 0;
 
     document.getElementById('matches').style.display='block';
-    
+
     $http({
     method : "GET",
     url : "/secure/Datas/scoreMatrix.json"
     }).then(function(response) {
-      
+
       var matrixData = response.data;
       //search correspoonding match scores
-  
-      var l = matrixData.length;
+      var l = matrixData["header"].length;
       var ref = Area.selection.ref;
-      
       for (var i = 0; i < l; i++) {
-        if(matrixData[0][i] === ref){
-    
+        if(matrixData["header"][i] == ref){
+
           index = i;
           var matchRef;
           var matchScore;
           var obj = {};
-  
-          for (var j = 1; j < l-1; j++) {
-            if(j !== index){
-              matchScore = matrixData[index][j];
-              matchRef = matrixData[0][j];
-              
+
+          for (var j = 0; j < l-1; j++) {
+
+              matchScore = matrixData[ref][j];
+              matchRef = matrixData["header"][j+1];
+
               obj[matchRef] = Number(matchScore);
-            }
           }
         }
       }
-      
+
       var sortable = [];
       for (var ref in obj) {
+        if(Area.selection.ref !== ref){
          sortable.push([ref, obj[ref]]);
       }
-    
+    }
+
       sortable.sort(function(a, b) {
         return b[1] - a[1];
       });
-      
+
       index = 0;
-      
+
       for (var i = 0; i < sortable.length; i++) {
         for(var j = 0; j < PapTable.length; j++) {
-          
+
           if (PapTable[j].Ref == sortable[i][0] && sortable[i][1] >= Treshold) {
               index+=1;
-              
+
               matchSrc = PapTable[j].RCL;
-    
+
               div = document.createElement('div');
               document.getElementById("scores").appendChild(div);
               div.id = `${index}`;
               div.className = "match";
-    
+
               p = document.createElement('p');
               document.getElementById(`${index}`).appendChild(p);
               p.id = `refscore${index}`;
               document.getElementById(`refscore${index}`).innerHTML = `${sortable[i][0]} score: ${sortable[i][1]}`;
-    
+
               img = document.createElement('img');
               document.getElementById(`${index}`).appendChild(img);
-    
+
               img.className = 'PapyMatch';
               img.src = matchSrc;
               img.id = sortable[i][0];
-              
+
               img.addEventListener('click',function(e){
                 $scope.modalAdd(this.src,this.id);
               });
-    
-    
+
+
           }
-    
+
         }
       }
     }, function(response) {
@@ -446,9 +445,9 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 };
 
   $scope.modalAdd = function(src,ref){
-  
+
     var exists = false;
-  
+
     var l = Area.images.length;
     for(var i = l-1; i >= 0; i--){
         if(Area.images[i].ref === ref){
@@ -464,12 +463,12 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   $scope.quitModal = function(){
     var modal = document.getElementById('matches');
     var c = document.getElementById("scores").childElementCount;
-    
+
     for (var i=1; i<=c ; i++) {
       document.getElementById(i).remove();
     }
     modal.style.display='none';
 
   }
-  
+
 }]);
