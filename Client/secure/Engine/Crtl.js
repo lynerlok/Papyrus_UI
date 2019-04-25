@@ -49,7 +49,6 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
       }
 
       if (exists == false) {
-        console.log("false");
         Area.images.push(new component(src,newref)); // add the image in the canvas if doesn't exist in Area.images.
       }
     }
@@ -180,7 +179,7 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 	};
 }]);
 
-papyrus.controller('ToolsCommand', ['$scope','$http', function($scope,$http){
+papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 
   $scope.Treshold = function(){
  /*
@@ -204,9 +203,9 @@ papyrus.controller('ToolsCommand', ['$scope','$http', function($scope,$http){
     }, function(response) {
       alert("Error while uploading file !!"); // If the upload fail alert user;
     });
-    
+
   };
-  
+
   $scope.RemoveImage = function(){
  /*
   * name: genThbCanvas;
@@ -342,5 +341,136 @@ papyrus.controller('ToolsCommand', ['$scope','$http', function($scope,$http){
     }
 
   };
+  $scope.BestMatches = function(){
+    /*
+     * name: genThbCanvas;
+     * @param : nothing;
+     * @return : nothing:
+     * This function generate the canvas image in a local URL.
+     */
+    if (Area.selection == null) {
 
+      alert('please, select an image');
+      return;
+    }
+    document.getElementById('matches').style.display='block';
+    console.log("coucou");
+    // get data from csv file content
+    var url = "https://127.0.0.1:8443/secure/Datas/scoreMatrix.csv";
+
+    var request = new XMLHttpRequest();
+    request.open("GET", url, false);
+    request.send(null);
+
+    var csvData = new Array();
+    var jsonObject = request.responseText.split(/\r?\n|\r/);
+    for (var i = 0; i < jsonObject.length; i++) {
+      csvData.push(jsonObject[i].split(','));
+    }
+    //search correspoonding match scores
+
+    var l = csvData.length;
+    var ref = Area.selection.ref;
+    var index;
+
+    for (var i = 0; i < l; i++) {
+      //console.log(csvData[0][i]);
+      if(csvData[0][i] == `\"${ref}\"`){
+        index = i;
+        var Ref = new Array();
+        var scores = new Array();
+        var matchRef;
+        var matchScore;
+        for (var j = 1; j < csvData.length-1; j++) {
+          if(j!== index){
+            matchScore = csvData[index][j];
+            matchRef = csvData[0][j];
+            //console.log(matchRef);
+            matchRef = matchRef.substr(1,matchRef.length-2);
+            scores.push(matchScore);
+            Ref.push(matchRef);
+        }
+      }
+    }
+  }
+  var div;
+  var img;
+  var matchSrc;
+  var url = "https://127.0.0.1:8443/secure/ref";
+
+  var request = new XMLHttpRequest();
+  request.open("GET", url, false);
+  request.send(null);
+
+  var csvData = new Array();
+  var jsonObject = request.responseText;
+  var PapTable= JSON.parse(jsonObject);
+  var index = 0;
+  for (var i = 0; i < PapTable.length; i++) {
+    for(var j = 0; j < Ref.length; j++) {
+      if (PapTable[i]['Ref'] == Ref[j] && Number(scores[j]) >= 0.60) {
+          index+=1;
+          matchSrc = PapTable[i]['RCL'];
+
+          div = document.createElement('div');
+          document.getElementById("scores").appendChild(div);
+          div.id = `${index}`;
+          div.className = "match"
+          div.style
+
+          p = document.createElement('p');
+          document.getElementById(`${index}`).appendChild(p);
+          p.id = `refscore${index}`;
+          document.getElementById(`refscore${index}`).innerHTML = `${Ref[j]} score: ${scores[`${j}`]}`;
+
+          img = document.createElement('img');
+          document.getElementById(`${index}`).appendChild(img);
+
+          img.className = 'PapyMatch';
+          img.src = matchSrc;
+          img.id = Ref[j];
+
+          img.addEventListener('click',function(e){
+            $scope.modalAdd(this.src,this.id);
+          });
+
+
+      }
+
+    }
+//     var test = document.getElementsByClassName('PapyMatch');
+//     var l = test.length;
+//     console.log(test.length);
+}
+
+
+};
+
+$scope.modalAdd = function(src,ref){
+
+  var exists = false;
+
+  var l = Area.images.length;
+  for(var i = l-1; i >= 0; i--){
+      if(Area.images[i].ref === ref){
+        exists = true;
+        alert("image already in use !"); // Change the source of the image if the image exist in Area.images.
+      }
+      if (exists == false){
+        $rootScope.changeAttr(src,ref);
+      }
+  }
+};
+
+
+  $scope.quitModal = function(){
+    var modal = document.getElementById('matches');
+     var c = document.getElementById("scores").childElementCount;
+     //console.log(c);
+    for (var i = 1; i <= c ; i++) {
+      document.getElementById(i).remove();
+    }
+    modal.style.display='none';
+
+  }
 }]);
