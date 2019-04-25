@@ -376,23 +376,33 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     for (var i = 0; i < l; i++) {
       //console.log(csvData[0][i]);
       if(csvData[0][i] == `\"${ref}\"`){
+
         index = i;
-        var Ref = new Array();
-        var scores = new Array();
         var matchRef;
         var matchScore;
+	var obj = {};
+
         for (var j = 1; j < csvData.length-1; j++) {
           if(j!== index){
             matchScore = csvData[index][j];
             matchRef = csvData[0][j];
-            //console.log(matchRef);
             matchRef = matchRef.substr(1,matchRef.length-2);
-            scores.push(matchScore);
-            Ref.push(matchRef);
+
+	    obj[matchRef] = Number(matchScore);
         }
       }
     }
   }
+  var sortable = [];
+  for (var ref in obj) {
+     sortable.push([ref, obj[ref]]);
+  }
+
+  sortable.sort(function(a, b) {
+    return b[1] - a[1];
+  });
+console.log(sortable);
+
   var div;
   var img;
   var matchSrc;
@@ -406,11 +416,11 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   var jsonObject = request.responseText;
   var PapTable= JSON.parse(jsonObject);
   var index = 0;
-  for (var i = 0; i < PapTable.length; i++) {
-    for(var j = 0; j < Ref.length; j++) {
-      if (PapTable[i]['Ref'] == Ref[j] && Number(scores[j]) >= 0.60) {
+  for (var i = 0; i < sortable.length; i++) {
+    for(var j = 0; j < PapTable.length; j++) {
+      if (PapTable[j]['Ref'] == sortable[i][0] && sortable[i][1]  >= 0.60) {
           index+=1;
-          matchSrc = PapTable[i]['RCL'];
+          matchSrc = PapTable[j]['RCL'];
 
           div = document.createElement('div');
           document.getElementById("scores").appendChild(div);
@@ -421,14 +431,14 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
           p = document.createElement('p');
           document.getElementById(`${index}`).appendChild(p);
           p.id = `refscore${index}`;
-          document.getElementById(`refscore${index}`).innerHTML = `${Ref[j]} score: ${scores[`${j}`]}`;
+          document.getElementById(`refscore${index}`).innerHTML = `${sortable[i][0]} score: ${sortable[i][1]}`;
 
           img = document.createElement('img');
           document.getElementById(`${index}`).appendChild(img);
 
           img.className = 'PapyMatch';
           img.src = matchSrc;
-          img.id = Ref[j];
+          img.id = sortable[i][0];
 
           img.addEventListener('click',function(e){
             $scope.modalAdd(this.src,this.id);
