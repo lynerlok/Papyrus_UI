@@ -187,6 +187,8 @@ module.exports = (function() {
 		if(req.session.isAuthenticated === "Success"){
       var user=req.body.username;
       var pwd=req.body.password;
+      var imgRefs=req.body.imgRefs;
+      
       var index = creds.users.indexOf(user);
       if (index === -1){
         var salt = crypto.randomBytes(32);
@@ -199,7 +201,7 @@ module.exports = (function() {
         creds.passwords.push(hashPass);
         
         projects.names.push(user);
-        projects.refs.push(["all"]);
+        projects.refs.push(imgRefs);
         
         fs.writeFile('passwd.json',JSON.stringify(creds), (err) => {
           if (err) throw err;
