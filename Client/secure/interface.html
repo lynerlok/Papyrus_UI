@@ -25,7 +25,7 @@
 
       <div ng-controller="ChangeTab" class="changeTabStyle w3-bar w3-hide-small">
         <button class="w3-bar-item w3-button tablink w3-black" ng-click="tabSwitch($event,'canvas')">Canvas</button>
-		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'form')">Formulaire</button>
+		    <button class="w3-bar-item w3-button tablink w3-opacity" ng-click="tabSwitch($event,'form')">Formulaire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'wd')">Créer un répertoire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'comp')">Sauvegarder/Détruire Compound</button>
         <form action="logout" method="get" class="w3-right">
@@ -133,9 +133,9 @@
       <!-- END TAB 1 : Canvas -->
 
       <!-- TAB 2 : FORM -->
-      <div id="form" class="tab w3-center" >
+      <div id="form" class="tab w3-center w3-opacity" >
         <h2>Modifiez des métadonnées</h2>
-        <form action="/metadatas" method="post">
+        <form action="/secure/metadatas" method="post">
 
 		    <div class="formMeta w3-row w3-padding-16">
           <div></div>

@@ -188,7 +188,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * @return : nothing:
   * This function generate the canvas image in a local URL.
   */
-    var dataToSend = JSON.stringify({ "img" : Area.selection.ref});
+    var dataToSend = JSON.stringify({ "img" : Area.selection.image.src});
     // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
 
     $http({ // Post all datas to server;
