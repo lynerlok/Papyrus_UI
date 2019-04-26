@@ -52,8 +52,7 @@ var Area = {
     var height = elem.getBoundingClientRect().height;
     var top = elem.getBoundingClientRect().top;
     var left = elem.getBoundingClientRect().left;
-  //  this.expLeft = left;
-  //  this.expTop = top;
+    
     this.canvas.mode = 'light';
     this.canvas.backgroundColor = "#f1f1f1";
     this.canvas.width = width; // Set the width of the canvas with the width of canvas container;
@@ -130,10 +129,10 @@ var Area = {
           }
         }
     });
+    
     window.addEventListener('touchend', function (e) {
       touched = false; // If a mouse button is released the variable mouseIsDown is set to FALSE;
     });
-
 
     window.addEventListener('mousemove', function (e) {
 
@@ -238,8 +237,8 @@ var Area = {
 
     window.addEventListener("wheel", function(e) {
       if(Area.selection != null && e.clientX >= left) { // If the mouse is out of the sidebar and there is an image selected;
-        if (e.deltaY > 0 && Area.scale > 0.2) {Area.scale -= 0.02}; // If scroll down, zoom Out;
-        if (e.deltaY < 0 && Area.scale < 1.5) {Area.scale += 0.02}; // If scroll up, zoom In;
+        if (e.deltaY > 0) {Area.scale -= 0.02}; // If scroll down, zoom Out;
+        if (e.deltaY < 0) {Area.scale += 0.02}; // If scroll up, zoom In;
       }
     });
 
@@ -286,17 +285,17 @@ function component(src,ref) {
  * @return : nothing;
  * Description : Create a new image for the Area.
  */
-
+    
     this.image = new Image(); // JS directive to create a new image object;
     this.image.onload = function() {
-	/*
-	 * name: onload
-	 * @param : nothing;
-	 * @return : nothing;
-	 * Description : This routine is invoked when the image is loaded.
-	 */
+    /*
+     * name: onload
+     * @param : nothing;
+     * @return : nothing;
+     * Description : This routine is invoked when the image is loaded.
+     */
 
-	// Resize image if the image is greater than the canvas.
+    // Resize image if the image is greater than the canvas.
       if (this.naturalWidth > this.naturalHeight) {
         while (this.width > (Area.canvas.width/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
       }
@@ -309,30 +308,38 @@ function component(src,ref) {
 
     this.x = Area.canvas.width/2; // Put the image at the center of the canvas;
     this.y = Area.canvas.height/2; //
-
+    this.scaleFactorW = null;
+    this.scaleFactorH = null;
+    
     this.angle = 0; // Initialize the angle rotation to 0 degree;
-    this.scale = 1; // Initialize the resize factor to 1 (no resize);
-
+    this.realSize = false;
+    
     this.setOpp = true; // Initialize the oppacity parameter with TRUE (oppacity 0.5);
 
-    this.update = function() {
+}
+
+component.prototype.update = function() {
 	/*
 	 * name: update
 	 * @param : nothing;
 	 * @return : nothing;
 	 * Description : Update the image paramaters and draw image;
 	 */
-        var ctx = Area.context;
-
-        ctx.save(); // Save context to apply modification only on the current image;
-        ctx.translate(this.x, this.y); // Draw image at the new coordinates;
-        ctx.rotate(this.angle); // Rotate image;
+      var ctx = Area.context;
+  
+      ctx.save(); // Save context to apply modification only on the current image;
+      ctx.translate(this.x, this.y); // Draw image at the new coordinates;
+      ctx.rotate(this.angle); // Rotate image;
+      if (!this.realSize) {
         ctx.scale(Area.scale,Area.scale); // Resize all images if scale != 1;
-        if (this.setOpp) {ctx.globalAlpha = 0.5}; // If setOpp is TRUE image has oppacity.
-        ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height); // Draw image according to the previous modification;
-        ctx.restore(); // Restore context to see modification only on the current image.
-    }
-
+      }
+      else {
+        ctx.scale(this.scaleFactorW,this.scaleFactorH);
+        this.realSize = false;
+      }
+      if (this.setOpp) {ctx.globalAlpha = 0.5}; // If setOpp is TRUE image has oppacity.
+      ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height); // Draw image according to the previous modification;
+      ctx.restore(); // Restore context to see modification only on the current image.
 }
 
 component.prototype.contains = function(mx, my) {
@@ -403,8 +410,6 @@ component.prototype.disass = function () {
     }
 	}
 }
-
-component.prototype.metadatas = function () {console.log("Display metadata soon")}
 
 function updateArea() {
 /*

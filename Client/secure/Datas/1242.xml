@@ -64,8 +64,8 @@
                   <objectType ref="http://thot.philo.ulg.ac.be/concept/thot-2048">[...]</objectType>
                   <material ref="http://thot.philo.ulg.ac.be/concept/thot-6351">Papyrus</material>
 		  <dimensions unit="cm">
-		    <height>13.5</height>
-		    <width>4.8</width>
+		    <height>22</height>
+		    <width>18.5</width>
 		  </dimensions>
 		</support>
                 <condition> Condition du support: <rs ref="#id-state-in-thesaurus">fragments</rs>

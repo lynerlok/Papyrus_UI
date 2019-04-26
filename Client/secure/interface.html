@@ -25,7 +25,7 @@
 
       <div ng-controller="ChangeTab" class="changeTabStyle w3-bar w3-hide-small">
         <button class="w3-bar-item w3-button tablink w3-black" ng-click="tabSwitch($event,'canvas')">Canvas</button>
-		    <button class="w3-bar-item w3-button tablink w3-opacity" ng-click="tabSwitch($event,'form')">Formulaire</button>
+		    <button class="w3-bar-item w3-button tablink w3-opacity" ng-click="tabSwitch($event,'form')" disabled>Formulaire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'wd')">Créer un répertoire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'comp')">Sauvegarder/Détruire Compound</button>
         <form action="logout" method="get" class="w3-right">
@@ -59,6 +59,10 @@
         <!-- ToolBox -->
         <div ng-controller="ToolsCommand" class="toolsStyle changeTabStyle">
 
+          <button ng-click="MetaDatas()" class="w3-button w3-right" title="Display Metadatas">
+            <i class="fas fa-file-code"></i>
+          </button>
+          
           <button ng-click="Treshold()" class="w3-button w3-right" title="Use treshold on selection">
             <i class="fab fa-creative-commons-zero"></i>
           </button>
@@ -126,7 +130,24 @@
           </div>
         </div>
         <!-- END ToolBox -->
-
+        
+        <!-- METADATAS -->
+        <div id="metaHolder" class="w3-modal w3-animate-opacity metaHolder">
+          <div class="w3-modal-content w3-black">
+            <header class="w3-container"> 
+              <span onclick="document.getElementById('metaHolder').style.display='none'" 
+              class="w3-button w3-large w3-display-topright">&times;</span>
+              <h2 id="metaTittle"></h2>
+            </header>
+            <div id="metaHolderContent" class="w3-container">
+              <p id="langue"></p>
+              <p id="width"></p>
+              <p id="height"></p>
+            </div>
+          </div>
+        </div>
+        <!-- END METADATAS -->
+        
 	      <!-- CANVAS -->
 	      <div id="CanvasHolder" class="w3-center" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
       </div>

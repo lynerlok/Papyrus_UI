@@ -158,7 +158,7 @@ module.exports = (function() { // Module creation for the main file of the serve
       var options = {
         mode: 'text',
         pythonPath: pythonPathNode,
-        args: [`-i ${imgToScript}`, '-o .']
+        args: [`-i ${imgToScript}`, `-o ${datasPath}`]
       };
       
       PythonShell.run(tresholdScriptPath, options, function (err, results) {
@@ -303,6 +303,8 @@ module.exports = (function() { // Module creation for the main file of the serve
       if(!req.body || req.session.user === "main") return res.sendStatus(400);
       var img = new Buffer.from(req.body[0].imgCompound, 'base64');
       var imgArray = req.body[1].areaImages;
+      var src = req.body[1].src;
+      
       var d = new Date();
       var currentTime = d.getTime();
       
@@ -330,13 +332,18 @@ module.exports = (function() { // Module creation for the main file of the serve
       var newPapyrus = {};
       newPapyrus['Ref']='Compound-'+currentTime;
       newPapyrus['THB']='Compound-'+currentTime+'_thb';
-      newPapyrus['RCL']= datasPath + '/Compound-'+currentTime+'.png';
+      newPapyrus['RCL']= 'null';
       newPapyrus['VCL']='null';
       newPapyrus['RIR']='null';
       newPapyrus['VIR']='null';
       newPapyrus['MetaDatas']='null';
       newPapyrus['Owner']=req.session.user;
-       
+      
+      if (src.search("r_CL") != -1) {newPapyrus['RCL']= 'Datas' + '/Compound-'+currentTime+'.png'};
+      if (src.search("r_IR") != -1) {newPapyrus['RIR']= 'Datas' + '/Compound-'+currentTime+'.png'};
+      if (src.search("v_CL") != -1) {newPapyrus['VCL']= 'Datas' + '/Compound-'+currentTime+'.png'};
+      if (src.search("v_IR") != -1) {newPapyrus['VIR']= 'Datas' + '/Compound-'+currentTime+'.png'};
+      
       PapyrusMainFile.PapyrusTable.push(newPapyrus);
       
       fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
