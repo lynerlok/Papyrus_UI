@@ -261,6 +261,7 @@ module.exports = (function() { // Module creation for the main file of the serve
       var user=req.body.username;
       var pwd=req.body.password;
       var imgRefs=req.body.imgRefs;
+      imgRefs = ["all"]
       
       var index = creds.users.indexOf(user);
       if (index === -1){
