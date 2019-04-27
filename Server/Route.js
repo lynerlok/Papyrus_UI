@@ -42,6 +42,9 @@ var helmet = require('helmet');
 
 var router = express.Router(); // Use Router to set route for the server;
 
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { console.log("[INFO] Execute convert on image : Out: " + stdout + '\n' + "Error: " + stderr) }
+
 // End dependancies;
 
 // Utility path for the server (part 2 see part 1 in ServerExpress.js). Edit at your own risk !
@@ -53,6 +56,7 @@ var passwordPath = __dirname + '/passwd.json';
 var projectsPath = __dirname + '/projects.json';
 var PapyrusTablePath = __dirname + '/PapyrusTable.json';
 var datasPath = __dirname + '/../Client/secure/Datas';
+var convertPath = '/usr/bin/convert';
 
 //    Scripts path;
 
@@ -335,6 +339,11 @@ module.exports = (function() { // Module creation for the main file of the serve
         if (err) throw err;
         console.log('INFO : Compound '+ currentTime + ' saved !');
       });
+      
+      if (fs.existsSync(convertPath)) {
+        exec('convert '+ datasPath + '/Compound-'+currentTime+'.png' + ' -trim ' + datasPath + '/Compound-'+currentTime+'.png' , puts);
+      }
+      
       fs.writeFile(datasPath + '/Compound-'+currentTime+'.json',JSON.stringify(imgArray), (err) => {
         if (err) throw err;
         console.log('INFO : Image table '+ currentTime + ' saved !');

@@ -164,6 +164,13 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
   */
 
     var img = $scope.dataURL.replace(/^data:image\/(png|jpg);base64,/, ""); // Extract only Base64 text of the url image without metadatas;
+    var AreaImagesLen = Area.images.length;
+    
+    for (var i=0;i<AreaImagesLen;i++){
+      Area.images[0].image.width = Area.images[0].image.width*Area.scale;
+      Area.images[0].image.height = Area.images[0].image.height*Area.scale;
+    }
+    
     var dataToSend = JSON.stringify([{ "imgCompound" : img}].concat([{ "areaImages" : Area.images, "src" : Area.images[0].image.src}]));
     // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
 
