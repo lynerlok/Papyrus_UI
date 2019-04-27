@@ -67,6 +67,10 @@ var Area = {
     this.images = []; // Create the images table which contain all the future image display in canvas;
     this.selection = null; // The user select nothing...
     this.scale = 1;
+    this.x = 0;
+    this.y = 0;
+    this.oldX = 0;
+    this.oldY = 0;
     elem.appendChild(this.canvas); // Add the canvas in the canvas holder in the web page;
 
     this.interval = setInterval(updateArea, 30); // Set the refresh interval of the canvas (every 30ms);
@@ -135,18 +139,33 @@ var Area = {
     });
 
     window.addEventListener('mousemove', function (e) {
-
+      
       if (!mouseIsDown) return ; // If the mouse buttons are up do nothing;
-
+      
       // The coordinates of the mouse in the canvas are
         //the actual mouse coordinates rectified by the canvas dimensions;
-      Area.x = e.clientX -left;
+      Area.x = e.clientX - left;
       Area.y = e.clientY - top;
 
-      // The coordinates of a selection is the coordinates of the mouse in the canvas;
-      Area.selection.x = Area.x;
-      Area.selection.y = Area.y;
-
+      var diffX = Math.abs(Area.x-Area.oldX); //  diffX and Y are the difference between
+      var diffY = Math.abs(Area.y-Area.oldY); //     last position and the new position;
+      
+      // Add or substract the difference to image position;
+      
+      if (Area.x < Area.oldX) {
+        Area.selection.x -= diffX;
+      }
+      else {
+        Area.selection.x += diffX;
+      }
+      
+      if (Area.y < Area.oldY) {
+        Area.selection.y -= diffY;
+      }
+      else {
+        Area.selection.y += diffY;
+      }
+      
       // Movement constraint the image doesn't move out of the canvas;
       // If an image move out of the canvas the mouse is released (mouseIsDown = false);
 
@@ -166,6 +185,10 @@ var Area = {
         mouseIsDown = false;
         Area.selection.y = Area.canvas.height;
       }
+      
+      Area.oldX = Area.x;
+      Area.oldY = Area.y;
+      
       mouseIsDown = true;
     });
 
@@ -183,6 +206,8 @@ var Area = {
             mouseIsDown = true;
             Area.selection = Area.images[i]; // Select the good image;
             Area.selection.setOpp = false;
+            Area.oldX = mx - left; // Initialize the first position to move the image in X and Y;
+            Area.oldY = my - top;
           }
           else {
             Area.images[i].setOpp = true;
@@ -346,19 +371,27 @@ component.prototype.contains = function(mx, my) {
 /*
  * name: component.contains
  * @param : mouse coordinates X (mx) and Y (my);
- * @return : TRUE if the coordinates are in a circle around the center, FALSE otherwise;
- * Description : Check if the mouse pointer is near the center of an image (circle with radius "offset");
+ * @return : TRUE if the mouse coordinates are in the image area, FALSE otherwise;
+ * Description : Check if the mouse pointer is in the image or not;
  */
 
 // Get the length of the canvas to compute comparison.
   var elem =  document.getElementById("CanvasHolder");
 
-  var top = elem.getBoundingClientRect().top;
+  var top = elem.getBoundingClientRect().top; // top and left of the canvas for the mouse coordinate correction;
   var left = elem.getBoundingClientRect().left;
-  var offset = 100 ; // Offset around center to consider mouse in image.
-
-  return  (mx-left) >= (this.x-offset) && (mx-left) <= (this.x+offset) &&
-            (my-top) >= (this.y-offset) && (my-top) <= (this.y+offset);
+  
+  var Yoffset = (this.image.height * Area.scale)/2; // Change this scale if use image scale.
+  var Xoffset = (this.image.width * Area.scale)/2;
+  
+  var minY = this.y + Yoffset;
+  var maxY = this.y - Yoffset;
+  
+  var minX = this.x - Xoffset;
+  var maxX = this.x + Xoffset;
+  
+  return (mx-left) >= minX && (mx-left) <= maxX &&
+          (my-top) >= maxY && (my-top) <= minY;
 }
 
 component.prototype.remove = function() {

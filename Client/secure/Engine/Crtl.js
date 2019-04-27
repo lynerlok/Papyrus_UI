@@ -145,6 +145,8 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
         Area.images[i].update(); // Run function update() see Area.
       };
       var thumbnailCanvas = document.getElementById('thumbnailCanvas'); // PlaceHolder of the image;
+      thumbnailCanvas.style.width = Area.canvas.width;
+      thumbnailCanvas.style.height = Area.canvas.height;
       $scope.dataURL = Area.canvas.toDataURL('image/png'); // Store images in url in Base64 encoding;
       thumbnailCanvas.src = $scope.dataURL; // Put the URL in the src placeholder;
       $scope.viewImg = true; // Indicates that the view is active;

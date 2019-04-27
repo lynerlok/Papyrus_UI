@@ -38,11 +38,6 @@ body, html {height:100vh;}
  margin-left:25vw;
 }
 
-.viewImgStyle {
- width:32vw;
- height:18vh;
-}
-
 .changeTabStyle {
  background: linear-gradient(#515151, black);
 }
