@@ -89,7 +89,8 @@ var options = {
 
 console.log("Associate options to the Node app...");
 
-app.use(express.static(__dirname + '/../Client',options));
+var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -100,9 +101,13 @@ app.use(session({
   store: new FileStore(),
   secret: secret.toString('hex'),
   resave: false,
-  secure: true,
-  saveUninitialized: true}
-  ));
+  saveUninitialized: true,
+  cookie: { secure: true,
+            httpOnly: true,
+            domain: '127.0.0.1',
+            expires: expiryDate
+          }
+}));
 app.use(router);
 
 console.log("Create HTTP server...");

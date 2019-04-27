@@ -27,7 +27,7 @@
         <button class="w3-bar-item w3-button tablink w3-black" ng-click="tabSwitch($event,'canvas')">Canvas</button>
 		    <button class="w3-bar-item w3-button tablink w3-opacity" ng-click="tabSwitch($event,'form')" disabled>Formulaire</button>
 		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'wd')">Créer un répertoire</button>
-		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'comp')">Sauvegarder/Détruire Compound</button>
+		    <button class="w3-bar-item w3-button tablink" ng-click="tabSwitch($event,'comp')">Sauvegarder l'assemblage</button>
         <form action="logout" method="get" class="w3-right">
           <input id="submitLogOut" type="submit" value="Log out" class="w3-bar-item w3-button">
           </input>
@@ -64,7 +64,7 @@
           </button>
           
           <button ng-click="Treshold()" class="w3-button w3-right" title="Use treshold on selection">
-            <i class="fab fa-creative-commons-zero"></i>
+            <i class="fas fa-chess-board"></i>
           </button>
 
           <button ng-click="RemoveImage()" class="w3-button w3-right" title="Remove selection">
@@ -89,10 +89,6 @@
 
           <button ng-click="RealSize()" class="w3-button w3-right" title="Size 1:1">
             <i class="fas fa-bullseye"></i>
-          </button>
-
-          <button ng-click="MetaData()" class="w3-button w3-right" title="Display metadatas">
-            <i class="fas fa-eye"></i>
           </button>
 
           <button ng-click="DisassCompound()" class="w3-button w3-right" title="Disassemble compound">
@@ -242,7 +238,7 @@
 
       <!-- TAB 4 : COMPOUND -->
       <div ng-controller="UploadImage" id="comp" class="tab w3-center">
-        <h2>Exporter ou détruire un assemblage</h2>
+        <h2>Exporter un assemblage</h2>
 
         <button ng-click="genThbCanvas()" class="btn w3-center"><i class="far fa-image"></i>Aperçu (générer image)</button>
 

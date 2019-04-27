@@ -38,7 +38,7 @@ var crypto = require('crypto');
 var del = require('del');
 var PapyrusMainFile = require('./PapyrusTable.js');
 var {PythonShell} = require('python-shell');
-var formidable = require('formidable'); 
+var helmet = require('helmet');
 
 var router = express.Router(); // Use Router to set route for the server;
 
@@ -57,7 +57,7 @@ var datasPath = __dirname + '/../Client/secure/Datas';
 //    Scripts path;
 
 var pythonPathNode = '/usr/bin/python';
-var tresholdScriptPath = __dirname + '/../Client/secure/Scripts/treshold.py';
+var tresholdScriptPath = __dirname + '/Scripts/treshold.py';
 
 // Server path;
 //    Main path;
@@ -93,6 +93,28 @@ var jsonFile = fs.readFileSync(projectsPath, 'utf8');
 var projects = JSON.parse(jsonFile);
 
 module.exports = (function() { // Module creation for the main file of the server;
+  
+  router.use(function(req, res, next) {
+		res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+		res.setHeader('Pragma', 'no-cache');
+		res.setHeader('Expires', 0);
+		res.setHeader('Surrogate-Control', 'no-store');
+  
+    return next();
+  });
+  
+  router.use(helmet());
+  
+  router.use('/secure', function (req, res, next) {
+    if (req.session.isAuthenticated === "Success"){
+        return next();
+    } else {
+      res.status(403).send('Hmm sorry access denied !');
+    };
+    
+  });
+  
+  router.use(express.static(__dirname + '/../Client/'));
 
   router.get(interfacePath, function(req, res){ // Route : when GET interface.html redirect to the page if user is login or '/' otherwise;
     if(req.session.isAuthenticated === "Success"){
