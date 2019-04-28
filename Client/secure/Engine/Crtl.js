@@ -167,8 +167,8 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
     var AreaImagesLen = Area.images.length;
 
     for (var i=0;i<AreaImagesLen;i++){
-      Area.images[0].image.width = Area.images[0].image.width*Area.scale;
-      Area.images[0].image.height = Area.images[0].image.height*Area.scale;
+      Area.images[i].scaleFactorW = Area.scale;
+      Area.images[i].scaleFactorH = Area.scale;
     }
 
     var dataToSend = JSON.stringify([{ "imgCompound" : img}].concat([{ "areaImages" : Area.images, "src" : Area.images[0].image.src}]));

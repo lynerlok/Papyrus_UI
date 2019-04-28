@@ -429,7 +429,11 @@ component.prototype.disass = function () {
                 Area.images[i].x = data[i].x;
                 Area.images[i].y = data[i].y;
                 Area.images[i].angle = data[i].angle;
-                Area.images[i].scale = data[i].scale;
+                Area.scale = data[i].scaleFactorW;
+                //Area.images[i].scaleFactorW = data[i].scaleFactorW;
+                //Area.images[i].scaleFactorH = data[i].scaleFactorH;
+                Area.images[i].image.width = Area.images[i].image.width*Area.scale;
+                Area.images[i].image.height = Area.images[i].image.height*Area.scale;
               }
             }
           }
