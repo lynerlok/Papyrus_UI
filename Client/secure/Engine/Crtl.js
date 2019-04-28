@@ -165,12 +165,12 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 
     var img = $scope.dataURL.replace(/^data:image\/(png|jpg);base64,/, ""); // Extract only Base64 text of the url image without metadatas;
     var AreaImagesLen = Area.images.length;
-    
+
     for (var i=0;i<AreaImagesLen;i++){
       Area.images[0].image.width = Area.images[0].image.width*Area.scale;
       Area.images[0].image.height = Area.images[0].image.height*Area.scale;
     }
-    
+
     var dataToSend = JSON.stringify([{ "imgCompound" : img}].concat([{ "areaImages" : Area.images, "src" : Area.images[0].image.src}]));
     // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
 
@@ -189,7 +189,7 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 }]);
 
 papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
-  
+
   $scope.MetaDatas = function(){
  /*
   * name: genThbCanvas;
@@ -197,13 +197,13 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * @return : nothing:
   * This function generate the canvas image in a local URL.
   */
-  
+
     if (Area.selection != null) {
-  
+
       function getInnerTag(x,attr,inHTML) {
         var txt;
         var res;
-        
+
         if (! inHTML) {
           txt = x.item(0).getAttribute(attr);
         }
@@ -212,16 +212,16 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
         }
         return txt;
       }
-      
+
       var papyrusLen = $rootScope.papyrus.length;
       var XMLRef;
-      
+
       for (var i=0; i<papyrusLen; i++){
         if ($rootScope.papyrus[i].Ref === Area.selection.ref){
           XMLRef = $rootScope.papyrus[i].MetaDatas;
         }
       }
-      
+
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -230,37 +230,37 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       };
       xmlhttp.open("GET", '/secure/' + XMLRef, true);
       xmlhttp.send();
-      
+
       function parseXML(xml){
        var languageXML, widthXML, heightXML, xmlDoc;
-          
+
         xmlDoc = xml.responseXML;
-        
+
         var languageXML = xmlDoc.getElementsByTagName("textLang");
         var dimXML = xmlDoc.getElementsByTagName("dimensions");
         var widthXML = xmlDoc.getElementsByTagName("width");
         var heightXML = xmlDoc.getElementsByTagName("height");
-        
+
         var lang = getInnerTag(languageXML,"mainLang",false);
         var unit = getInnerTag(dimXML,"unit",false);
         var w = getInnerTag(widthXML,"",true);
         var h = getInnerTag(heightXML,"",true);
-        
+
         if (lang === "egy-x-demop") {
           lang = "Egyptien Démotique";
         }
         document.getElementById("metaTittle").innerHTML = "Metadonnées de " + Area.selection.ref;
         document.getElementById("langue").innerHTML = "Langue : " + lang;
-        document.getElementById("width").innerHTML = "Hauteur " + w + ' ' + unit;
-        document.getElementById("height").innerHTML = "Largeur " + h + ' ' + unit;
-        
+        document.getElementById("width").innerHTML = "Hauteur " + h + ' ' + unit;
+        document.getElementById("height").innerHTML = "Largeur " + w + ' ' + unit;
+
         document.getElementById('metaHolder').style.display='block';
-        
+
       }
     }
-  
+
   };
-  
+
   $scope.Treshold = function(){
  /*
   * name: genThbCanvas;
@@ -351,55 +351,55 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     if (Area.selection.scaleFactorW == null && Area.selection.scaleFactorW == null){
       var papyrusLen = $rootScope.papyrus.length;
       var XMLRef;
-      
+
       for (var i=0; i<papyrusLen; i++){
         if ($rootScope.papyrus[i].Ref === Area.selection.ref){
           XMLRef = $rootScope.papyrus[i].MetaDatas;
         }
       }
-      
+
       var xmlhttp = new XMLHttpRequest();
-      
+
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           turnRealSize(this);
         }
       };
-      
+
       xmlhttp.open("GET", '/secure/' + XMLRef, true);
       xmlhttp.send();
-      
+
       function turnRealSize(xml){
-        
+
         var widthXML, heightXML, xmlDoc;
-          
+
         xmlDoc = xml.responseXML;
-        
+
         var dimXML = xmlDoc.getElementsByTagName("dimensions");
         var widthXML = xmlDoc.getElementsByTagName("width");
         var heightXML = xmlDoc.getElementsByTagName("height");
-      
+
         var unit = dimXML.item(0).getAttribute("unit");
         var w = widthXML[0].childNodes[0].nodeValue;
         var h = heightXML[0].childNodes[0].nodeValue;
-        
+
         var wPX = w * 37.79527559055;
         var hPX = h * 37.79527559055;
-        
+
         var scaleFactorW =  wPX / (Area.selection.image.width*Area.scale);
         var scaleFactorH = hPX / (Area.selection.image.height*Area.scale);
-        
+
         Area.selection.scaleFactorW = scaleFactorW;
         Area.selection.scaleFactorH = scaleFactorH;
         Area.selection.realSize = true;
-            
+
       }
     }
     else {
       Area.selection.realSize = true;
     }
   }
-  
+
   };
 
   $scope.ChangeVisual = function(visual){
@@ -584,5 +584,5 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     modal.style.display='none';
 
   }
-  
+
 }]);
