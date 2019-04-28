@@ -52,7 +52,7 @@ var Area = {
     var height = elem.getBoundingClientRect().height;
     var top = elem.getBoundingClientRect().top;
     var left = elem.getBoundingClientRect().left;
-    
+
     this.canvas.mode = 'light';
     this.canvas.backgroundColor = "#f1f1f1";
     this.canvas.width = width; // Set the width of the canvas with the width of canvas container;
@@ -133,15 +133,15 @@ var Area = {
           }
         }
     });
-    
+
     window.addEventListener('touchend', function (e) {
       touched = false; // If a mouse button is released the variable mouseIsDown is set to FALSE;
     });
 
     window.addEventListener('mousemove', function (e) {
-      
+
       if (!mouseIsDown) return ; // If the mouse buttons are up do nothing;
-      
+
       // The coordinates of the mouse in the canvas are
         //the actual mouse coordinates rectified by the canvas dimensions;
       Area.x = e.clientX - left;
@@ -149,23 +149,23 @@ var Area = {
 
       var diffX = Math.abs(Area.x-Area.oldX); //  diffX and Y are the difference between
       var diffY = Math.abs(Area.y-Area.oldY); //     last position and the new position;
-      
+
       // Add or substract the difference to image position;
-      
+
       if (Area.x < Area.oldX) {
         Area.selection.x -= diffX;
       }
       else {
         Area.selection.x += diffX;
       }
-      
+
       if (Area.y < Area.oldY) {
         Area.selection.y -= diffY;
       }
       else {
         Area.selection.y += diffY;
       }
-      
+
       // Movement constraint the image doesn't move out of the canvas;
       // If an image move out of the canvas the mouse is released (mouseIsDown = false);
 
@@ -185,10 +185,10 @@ var Area = {
         mouseIsDown = false;
         Area.selection.y = Area.canvas.height;
       }
-      
+
       Area.oldX = Area.x;
       Area.oldY = Area.y;
-      
+
       mouseIsDown = true;
     });
 
@@ -310,7 +310,7 @@ function component(src,ref) {
  * @return : nothing;
  * Description : Create a new image for the Area.
  */
-    
+
     this.image = new Image(); // JS directive to create a new image object;
     this.image.onload = function() {
     /*
@@ -335,10 +335,10 @@ function component(src,ref) {
     this.y = Area.canvas.height/2; //
     this.scaleFactorW = null;
     this.scaleFactorH = null;
-    
+
     this.angle = 0; // Initialize the angle rotation to 0 degree;
     this.realSize = false;
-    
+
     this.setOpp = true; // Initialize the oppacity parameter with TRUE (oppacity 0.5);
 
 }
@@ -351,7 +351,7 @@ component.prototype.update = function() {
 	 * Description : Update the image paramaters and draw image;
 	 */
       var ctx = Area.context;
-  
+
       ctx.save(); // Save context to apply modification only on the current image;
       ctx.translate(this.x, this.y); // Draw image at the new coordinates;
       ctx.rotate(this.angle); // Rotate image;
@@ -380,16 +380,16 @@ component.prototype.contains = function(mx, my) {
 
   var top = elem.getBoundingClientRect().top; // top and left of the canvas for the mouse coordinate correction;
   var left = elem.getBoundingClientRect().left;
-  
+
   var Yoffset = (this.image.height * Area.scale)/2; // Change this scale if use image scale.
   var Xoffset = (this.image.width * Area.scale)/2;
-  
+
   var minY = this.y + Yoffset;
   var maxY = this.y - Yoffset;
-  
+
   var minX = this.x - Xoffset;
   var maxX = this.x + Xoffset;
-  
+
   return (mx-left) >= minX && (mx-left) <= maxX &&
           (my-top) >= maxY && (my-top) <= minY;
 }
@@ -408,7 +408,7 @@ component.prototype.remove = function() {
 }
 
 component.prototype.disass = function () {
-  
+
   var index = Area.images.indexOf(this); // Search the object in Area.images;
 	if (index > -1) { // If the object is found...
     var refImg = Area.images[index].ref;
@@ -416,7 +416,7 @@ component.prototype.disass = function () {
       var tmpImg = Area.images[index];
       $.get('Datas/'+refImg+'.json', function(data, status){
         $.get('/secure/ref', function(tableJSON, status){
-          
+
           var table = JSON.parse(tableJSON);
           Area.images = [];
           var l=data.length;

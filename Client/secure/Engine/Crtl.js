@@ -355,6 +355,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       for (var i=0; i<papyrusLen; i++){
         if ($rootScope.papyrus[i].Ref === Area.selection.ref){
           XMLRef = $rootScope.papyrus[i].MetaDatas;
+          console.log(XMLRef);
         }
       }
 

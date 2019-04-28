@@ -26,6 +26,11 @@
 */
 
 
+
+var realsizes;
+var wPX;
+var hPX;
+
 function displayMeta(){
 	console.log("Here metadatas");
 }
@@ -44,5 +49,68 @@ function drop(event) {
   var data=event.dataTransfer.getData("text/html"); // This method will return any data that was set to the same type in the setData() method.
   var elem = document.getElementById(data); // Here we get the element with the id element.
   var newId = elem.id.replace("_thb","");
-  Area.images.push(new component(elem.src,newId)); // Add the image in the canvas.
+	Area.images.push(new component(elem.src,newId,realsizes)); // Add the image in the canvas.
+	getRealSize(newId);
+
 }
+
+function getTable(){
+	var url = "https://127.0.0.1:8443/secure/ref";
+
+  var request = new XMLHttpRequest();
+  request.open("GET", url, false);
+  request.send(null);
+
+  var jsonObject = request.responseText;
+  var PapTable= JSON.parse(jsonObject);
+	return PapTable;
+};
+
+function getRealSize(ref){
+	var PapTable = getTable();
+	l=PapTable.length;
+	var XMLRef;
+	for (var i = 0; i < l; i++) {
+		if (PapTable[i].Ref === ref) {
+			XMLRef = PapTable[i].MetaDatas;
+		}
+	}
+	var xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			realsizes = turnRealSize(this)
+		}
+
+	};
+
+	xmlhttp.open("GET", '/secure/' + XMLRef, true);
+	xmlhttp.send();
+
+
+
+	//console.log(realsizes);
+};
+
+function turnRealSize(xml){
+
+	var widthXML, heightXML, xmlDoc;
+
+	xmlDoc = xml.responseXML;
+
+	var dimXML = xmlDoc.getElementsByTagName("dimensions");
+	var widthXML = xmlDoc.getElementsByTagName("width");
+	var heightXML = xmlDoc.getElementsByTagName("height");
+
+	var unit = dimXML.item(0).getAttribute("unit");
+	var w = widthXML[0].childNodes[0].nodeValue;
+	var h = heightXML[0].childNodes[0].nodeValue;
+
+	wPX = w * 37.79527559055;
+	hPX = h * 37.79527559055;
+	Area.images[Area.images.length-1].image.width = wPX;
+	Area.images[Area.images.length-1].image.height = hPX;
+	console.log("OK");
+
+
+};
