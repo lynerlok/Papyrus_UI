@@ -88,8 +88,6 @@ function getRealSize(ref){
 	xmlhttp.send();
 
 
-
-	//console.log(realsizes);
 };
 
 function turnRealSize(xml){

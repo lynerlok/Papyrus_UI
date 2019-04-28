@@ -62,7 +62,7 @@
           <button ng-click="MetaDatas()" class="w3-button w3-right" title="Display Metadatas">
             <i class="fas fa-file-code"></i>
           </button>
-          
+
           <button ng-click="Treshold()" class="w3-button w3-right" title="Use treshold on selection">
             <i class="fas fa-chess-board"></i>
           </button>
@@ -85,10 +85,6 @@
 
           <button ng-click="RotateRight()" class="w3-button w3-right" title="Rotate right">
             <i class="fas fa-redo"></i>
-          </button>
-
-          <button ng-click="RealSize()" class="w3-button w3-right" title="Size 1:1">
-            <i class="fas fa-bullseye"></i>
           </button>
 
           <button ng-click="DisassCompound()" class="w3-button w3-right" title="Disassemble compound">
@@ -115,7 +111,7 @@
           <button ng-click="BestMatches()" id="btn" type="button" class="w3-button w3-right">
             Best matches
           </button>
-          
+
           <div id="matches" class="w3-modal">
             <div id="modalwrapper" class="w3-modal-content">
               <div class="w3-container w3-white">
@@ -126,12 +122,12 @@
           </div>
         </div>
         <!-- END ToolBox -->
-        
+
         <!-- METADATAS -->
         <div id="metaHolder" class="w3-modal w3-animate-opacity metaHolder">
           <div class="w3-modal-content w3-black">
-            <header class="w3-container"> 
-              <span onclick="document.getElementById('metaHolder').style.display='none'" 
+            <header class="w3-container">
+              <span onclick="document.getElementById('metaHolder').style.display='none'"
               class="w3-button w3-large w3-display-topright">&times;</span>
               <h2 id="metaTittle"></h2>
             </header>
@@ -143,7 +139,7 @@
           </div>
         </div>
         <!-- END METADATAS -->
-        
+
 	      <!-- CANVAS -->
 	      <div id="CanvasHolder" class="w3-center" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
       </div>

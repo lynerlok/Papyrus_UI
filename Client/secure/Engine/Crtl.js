@@ -339,69 +339,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     }
   };
 
-  $scope.RealSize = function(){
- /*
-  * name: genThbCanvas;
-  * @param : nothing;
-  * @return : nothing:
-  * This function generate the canvas image in a local URL.
-  * /!\ Aspect conversion between cm and px is : 1 cm = 37.79527559055 pixel it is an approximation !!
-  */
-  if (Area.selection != null){
-    if (Area.selection.scaleFactorW == null && Area.selection.scaleFactorW == null){
-      var papyrusLen = $rootScope.papyrus.length;
-      var XMLRef;
 
-      for (var i=0; i<papyrusLen; i++){
-        if ($rootScope.papyrus[i].Ref === Area.selection.ref){
-          XMLRef = $rootScope.papyrus[i].MetaDatas;
-          console.log(XMLRef);
-        }
-      }
-
-      var xmlhttp = new XMLHttpRequest();
-
-      xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          turnRealSize(this);
-        }
-      };
-
-      xmlhttp.open("GET", '/secure/' + XMLRef, true);
-      xmlhttp.send();
-
-      function turnRealSize(xml){
-
-        var widthXML, heightXML, xmlDoc;
-
-        xmlDoc = xml.responseXML;
-
-        var dimXML = xmlDoc.getElementsByTagName("dimensions");
-        var widthXML = xmlDoc.getElementsByTagName("width");
-        var heightXML = xmlDoc.getElementsByTagName("height");
-
-        var unit = dimXML.item(0).getAttribute("unit");
-        var w = widthXML[0].childNodes[0].nodeValue;
-        var h = heightXML[0].childNodes[0].nodeValue;
-
-        var wPX = w * 37.79527559055;
-        var hPX = h * 37.79527559055;
-
-        var scaleFactorW =  wPX / (Area.selection.image.width*Area.scale);
-        var scaleFactorH = hPX / (Area.selection.image.height*Area.scale);
-
-        Area.selection.scaleFactorW = scaleFactorW;
-        Area.selection.scaleFactorH = scaleFactorH;
-        Area.selection.realSize = true;
-
-      }
-    }
-    else {
-      Area.selection.realSize = true;
-    }
-  }
-
-  };
 
   $scope.ChangeVisual = function(visual){
  /*

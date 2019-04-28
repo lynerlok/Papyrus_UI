@@ -248,9 +248,9 @@ var Area = {
 
         if (Area.keys && Area.keys[80]) {Area.selection.disass()}; // If the key is D, disassemble compound if image is a compound;
 
-        if (Area.keys && Area.keys[40]) {Area.scale -= 0.02}; // If the key is arrow down, zoom Out;
+        if (Area.keys && Area.keys[40] && Area.scale > 0.2) {Area.scale -= 0.02}; // If the key is arrow down, zoom Out;
 
-        if (Area.keys && Area.keys[38]) {Area.scale += 0.02}; // If the key is arrow up, zoom In;
+        if (Area.keys && Area.keys[38] && Area.scale < 1.5) {Area.scale += 0.02}; // If the key is arrow up, zoom In;
       }
 
     });
@@ -262,8 +262,8 @@ var Area = {
 
     window.addEventListener("wheel", function(e) {
       if(Area.selection != null && e.clientX >= left) { // If the mouse is out of the sidebar and there is an image selected;
-        if (e.deltaY > 0) {Area.scale -= 0.02}; // If scroll down, zoom Out;
-        if (e.deltaY < 0) {Area.scale += 0.02}; // If scroll up, zoom In;
+        if (e.deltaY > 0 && Area.scale > 0.2) {Area.scale -= 0.02}; // If scroll down, zoom Out;
+        if (e.deltaY < 0 && Area.scale < 1.5) {Area.scale += 0.02}; // If scroll up, zoom In;
       }
     });
 
@@ -321,23 +321,20 @@ function component(src,ref) {
      */
 
     // Resize image if the image is greater than the canvas.
-      if (this.naturalWidth > this.naturalHeight) {
-        while (this.width > (Area.canvas.width/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
-      }
-      if (this.naturalWidth < this.naturalHeight) {
-        while (this.height > (Area.canvas.height/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
-      }
+      // if (this.naturalWidth > this.naturalHeight) {
+      //   while (this.width > (Area.canvas.width/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
+      // }
+      // if (this.naturalWidth < this.naturalHeight) {
+      //   while (this.height > (Area.canvas.height/1.5)) {this.width = this.width*0.9;this.height = this.height*0.9};
+      // }
     }
     this.image.src = src; // Initialize the source with src parameter;
     this.ref = ref; // Initialize the reference with ref parameter;
 
     this.x = Area.canvas.width/2; // Put the image at the center of the canvas;
     this.y = Area.canvas.height/2; //
-    this.scaleFactorW = null;
-    this.scaleFactorH = null;
-
     this.angle = 0; // Initialize the angle rotation to 0 degree;
-    this.realSize = false;
+
 
     this.setOpp = true; // Initialize the oppacity parameter with TRUE (oppacity 0.5);
 
@@ -355,13 +352,9 @@ component.prototype.update = function() {
       ctx.save(); // Save context to apply modification only on the current image;
       ctx.translate(this.x, this.y); // Draw image at the new coordinates;
       ctx.rotate(this.angle); // Rotate image;
-      if (!this.realSize) {
-        ctx.scale(Area.scale,Area.scale); // Resize all images if scale != 1;
-      }
-      else {
-        ctx.scale(this.scaleFactorW,this.scaleFactorH);
-        this.realSize = false;
-      }
+
+      ctx.scale(Area.scale,Area.scale); // Resize all images if scale != 1;
+
       if (this.setOpp) {ctx.globalAlpha = 0.5}; // If setOpp is TRUE image has oppacity.
       ctx.drawImage(this.image,this.image.width / -2, this.image.height / -2, this.image.width, this.image.height); // Draw image according to the previous modification;
       ctx.restore(); // Restore context to see modification only on the current image.
