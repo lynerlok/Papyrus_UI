@@ -55,6 +55,9 @@ function drop(event) {
 }
 
 function getTable(){
+ /* Retrieve the table containing the references of all the fragments images.
+  *
+	*/
 	var url = "https://127.0.0.1:8443/secure/ref";
 
   var request = new XMLHttpRequest();
@@ -79,10 +82,10 @@ function getRealSize(ref){
 
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			realsizes = turnRealSize(this)
+			realsizes = turnRealSize(this); //see below.
 		}
 
-	};
+	}
 
 	xmlhttp.open("GET", '/secure/' + XMLRef, true);
 	xmlhttp.send();
@@ -91,7 +94,9 @@ function getRealSize(ref){
 };
 
 function turnRealSize(xml){
-
+ /* Retrieve the real dimensions of a fragment from its attached MetaDatas file.
+  * these dimensions will be used to keep the real ratio btween the different images pushed in the canvas.
+	*/
 	var widthXML, heightXML, xmlDoc;
 
 	xmlDoc = xml.responseXML;
@@ -108,7 +113,6 @@ function turnRealSize(xml){
 	hPX = h * 37.79527559055;
 	Area.images[Area.images.length-1].image.width = wPX;
 	Area.images[Area.images.length-1].image.height = hPX;
-	console.log("OK");
 
 
 };

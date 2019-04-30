@@ -295,12 +295,24 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     if (Area.selection != null) {Area.selection.remove()}
   };
 
+  $scope.Rescale = function(){
+    /*
+     * name: genThbCanvas;
+     * @param : nothing;
+     * @return : nothing:
+     * This function set the Area.scale property to 1.
+     */
+     if (Area.scale!=1) {
+       Area.scale = 1;
+     };
+  };
+
   $scope.ZoomOut = function(){
  /*
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function reduces the Area.scale property value (used to rescale the Area).
   */
     if (Area.scale > 0.2) {Area.scale -= 0.02};
   };
@@ -310,7 +322,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function increases the Area.scale property value (used to rescale the Area).
   */
     if (Area.scale < 1.5) {Area.scale += 0.02};
   };
@@ -320,7 +332,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function reduce the Area.selection.angle property used to rotate the selected image (counter clock-wise rotation).
   */
     if (Area.selection != null) {
       Area.selection.angle -= 5 * Math.PI / 180;
@@ -332,7 +344,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function increases the Area.selection.angle property used to rotate the selected image (clock-wise rotation).
   */
     if (Area.selection != null) {
       Area.selection.angle += 5 * Math.PI / 180;
@@ -346,7 +358,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function modify the src suffix of the images in the canvas to the suffix correponding at the desired version of the fragments.
   */
     var l = Area.images.length;
     var RCLsuffix = "r_CL.JPG";
@@ -377,7 +389,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function change the backgroud color of the canvas (light/dark modes)
   */
     var cnv = document.getElementById('canvas');
     var white = '#f1f1f1';
@@ -399,7 +411,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
      * name: genThbCanvas;
      * @param : nothing;
      * @return : nothing:
-     * This function generate the canvas image in a local URL.
+     * This function returns the best matches of the selected fragment. 
      */
 
     if (Area.selection == null) {
