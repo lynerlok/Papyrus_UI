@@ -50,6 +50,7 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
 
       if (exists == false) {
         Area.images.push(new component(src,newref)); // add the image in the canvas if doesn't exist in Area.images.
+        getRealSize(newref); //display the image based the dimension of the real papyrus fragment.
       }
     }
 }]);
@@ -195,7 +196,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function allow to display the slected fragment metadatas.
   */
 
     if (Area.selection != null) {
@@ -358,7 +359,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function modify the src suffix of the images in the canvas to the suffix correponding at the desired version of the fragments.
+  * This function modify the source's suffix of the images in the canvas to the suffix correponding at the desired version of the fragments.
   */
     var l = Area.images.length;
     var RCLsuffix = "r_CL.JPG";
@@ -379,7 +380,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function allows to disassemble a previously generated compound .
   */
     if (Area.selection != null) {Area.selection.disass()}
   };
@@ -411,7 +412,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
      * name: genThbCanvas;
      * @param : nothing;
      * @return : nothing:
-     * This function returns the best matches of the selected fragment. 
+     * This function returns the best matches of the selected fragment.
      */
 
     if (Area.selection == null) {
