@@ -86,7 +86,7 @@ var Area = {
       if (!touched) return;
 
       // The coordinates of the mouse in the canvas are
-        //the actual first touch coordinates rectified by the canvas dimensions;
+      //the actual first touch coordinates rectified by the canvas dimensions;
       Area.x = e.touches[0].clientX - left;
       Area.y = e.touches[0].clientY - top;
 
@@ -94,7 +94,7 @@ var Area = {
       Area.selection.x = Area.x;
       Area.selection.y = Area.y;
 
-      // Movement constraint the image doesn't move out of the canvas;
+      // Movement constraint, the image doesn't move out of the canvas;
       // stop image at the limits of the canvas
       if (Area.x < 0){
         Area.selection.x = 0;

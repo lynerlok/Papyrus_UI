@@ -27,13 +27,10 @@
 
 
 
-var realsizes;
+
 var wPX;
 var hPX;
 
-function displayMeta(){
-	console.log("Here metadatas");
-}
 
 function allowDrop(event) {
   event.preventDefault(); // The preventDefault() method cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
@@ -49,20 +46,18 @@ function drop(event) {
   var data=event.dataTransfer.getData("text/html"); // This method will return any data that was set to the same type in the setData() method.
   var elem = document.getElementById(data); // Here we get the element with the id element.
   var newId = elem.id.replace("_thb","");
-	Area.images.push(new component(elem.src,newId,realsizes)); // Add the image in the canvas.
-	getRealSize(newId);
+	Area.images.push(new component(elem.src,newId)); // Add the image in the canvas.
+	getRealSize(newId); //change dimension with values extracted from the XML files.
 
 }
 
 function getTable(){
- /* Retrieve the table containing the references of all the fragments images.
-  *
-	*/
-	var url = "https://127.0.0.1:8443/secure/ref";
+ // Retrieve the table containing the references of all the fragments images.
 
-  var request = new XMLHttpRequest();
-  request.open("GET", url, false);
-  request.send(null);
+	var url = "https://127.0.0.1:8443/secure/ref";
+  var request = new XMLHttpRequest(); // create XHR object
+  request.open("GET", url, false); // request preparation
+  request.send(null); // send request to server
 
   var jsonObject = request.responseText;
   var PapTable= JSON.parse(jsonObject);
@@ -70,19 +65,23 @@ function getTable(){
 };
 
 function getRealSize(ref){
+
+
 	var PapTable = getTable();
-	l=PapTable.length;
+	l = PapTable.length;
 	var XMLRef;
+
 	for (var i = 0; i < l; i++) {
 		if (PapTable[i].Ref === ref) {
 			XMLRef = PapTable[i].MetaDatas;
 		}
 	}
-	var xmlhttp = new XMLHttpRequest();
 
+//http request used to retrieve the Metadatas XML file and pass it in turnRealSize() function.
+	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			realsizes = turnRealSize(this); //see below.
+			turnRealSize(this); //see below.
 		}
 
 	}
@@ -94,8 +93,9 @@ function getRealSize(ref){
 };
 
 function turnRealSize(xml){
- /* Retrieve the real dimensions of a fragment from its attached MetaDatas file.
-  * these dimensions will be used to keep the real ratio btween the different images pushed in the canvas.
+ /* Called in getRealSize() function.
+  * Retrieve the real dimensions of a fragment from its attached MetaDatas file.
+  * these dimensions will be used to keep the real ratio between the different images pushed in the canvas.
 	*/
 	var widthXML, heightXML, xmlDoc;
 
@@ -111,6 +111,8 @@ function turnRealSize(xml){
 
 	wPX = w * 37.79527559055;
 	hPX = h * 37.79527559055;
+
+	//assign retrieved dimensions to the last image imported into the canvas
 	Area.images[Area.images.length-1].image.width = wPX;
 	Area.images[Area.images.length-1].image.height = hPX;
 

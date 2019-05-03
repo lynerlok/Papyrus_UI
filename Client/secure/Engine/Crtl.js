@@ -196,7 +196,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * name: genThbCanvas;
   * @param : nothing;
   * @return : nothing:
-  * This function allow to display the slected fragment metadatas.
+  * This function allow to display the  metadatas of the selected fragment.
   */
 
     if (Area.selection != null) {
