@@ -67,29 +67,9 @@ var serverCredentials = {
   cert: fs.readFileSync('Certs/cert.pem')
 };
 
-var options = {
-  dotfiles: 'ignore',
-  etag: false,
-  extensions: false,
-  index: "index.html",
-  maxAge: '1d',
-  redirect: true,
-  setHeaders: function (res, path, stat) {
-    res.set({'X-Content-Type-Options' : 'nosniff',
-            'X-Frame-Options' : 'DENY',
-            'X-XSS-Protection' : '1; mode=block',
-            'Strict-Transport-Security': 'max-age=36500; includeSubdomains; preload',
-            'Public-Key-Pins': 'pin-sha256="qvFAlNcPepF8XPAe+Hj/1sOMoIzPKqAlhl3hsFEH7tg="; \
-								pin-sha256="LM/+L4/KK/O1MlrufMk7UXkgrsF9U/4IBwHR7VIIfLc="; \
-								pin-sha256="QRG3nNFoIoIiF4677675m9NC8qBlirSJPYIxvG498ZY="; \
-								max-age=36500'
-            })
-  }
-}
-
 console.log("Associate options to the Node app...");
 
-var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
+var expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 12); // 12 hour
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
