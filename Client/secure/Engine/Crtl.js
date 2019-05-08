@@ -368,10 +368,10 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     var VIRsuffix = "v_IR.JPG";
 
     for (var i = 0; i < l; i++) {
-      if (visual === "RCL") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,RCLsuffix);}
-      if (visual === "RIR") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,RIRsuffix);}
-      if (visual === "VCL") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,VCLsuffix);}
-      if (visual === "VIR") {Area.images[i].image.src = Area.images[0].image.src.replace(/.{8}$/,VIRsuffix );}
+      if (visual === "RCL") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,RCLsuffix);}
+      if (visual === "RIR") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,RIRsuffix);}
+      if (visual === "VCL") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,VCLsuffix);}
+      if (visual === "VIR") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,VIRsuffix );}
     }
   };
 
