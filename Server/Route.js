@@ -177,6 +177,9 @@ module.exports = (function() { // Module creation for the main file of the serve
       
       var imgSplit = img.split('/',10);
       var imgToScript = datasPath + '/' + imgSplit[imgSplit.length-1];
+      var outPath = datasPath + '/';
+      console.log(imgToScript);
+      console.log(outPath);
       
       var d = new Date();
       var currentTime = d.getTime();
@@ -184,17 +187,16 @@ module.exports = (function() { // Module creation for the main file of the serve
       var options = {
         mode: 'text',
         pythonPath: pythonPathNode,
-        args: [`-i ${imgToScript}`, `-o ${datasPath}`]
+        args: ['-i /home/user/Documents/Projet_S8/Papyrus_UI/Client/secure/Datas/88_a_r_CL.JPG', '-o /media/user/b1d909e3-b908-4a56-af28-b34e034db41e/Documents/Projet_S8/Papyrus_UI/Server/../Client/secure/Datas/']
       };
       
       PythonShell.run(tresholdScriptPath, options, function (err, results) {
         if (err) throw err;
-        
+        /*
         fs.rename(datasPath + '/out.png',datasPath + '/Treshold_on_' + img + '_' + currentTime + '.png', function (err) {
-        if (err) throw err;
-        console.log("INFO [TRESHOLD] : Image "+ img +"tresholded and renamed");
+          if (err) throw err;
+          console.log("INFO [TRESHOLD] : Image "+ img +"tresholded and renamed");
         });
-        
         var index = projects.names.indexOf(req.session.user);
   
         projects.refs[index].push('Treshold_on_' + img + '_' + currentTime);
@@ -220,7 +222,7 @@ module.exports = (function() { // Module creation for the main file of the serve
         fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
           if (err) throw err;
           console.log('INFO [TRESHOLD] : PapyrusTable updated !');
-        });
+        });*/
         
         res.sendStatus(200);
       });
