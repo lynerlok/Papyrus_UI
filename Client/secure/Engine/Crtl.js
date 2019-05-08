@@ -352,8 +352,6 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     }
   };
 
-
-
   $scope.ChangeVisual = function(visual){
  /*
   * name: genThbCanvas;

@@ -458,8 +458,6 @@ component.prototype.disass = function () {
                 Area.images[i].y = data[i].y;
                 Area.images[i].angle = data[i].angle;
                 Area.scale = data[i].scaleFactorW;
-                //Area.images[i].scaleFactorW = data[i].scaleFactorW;
-                //Area.images[i].scaleFactorH = data[i].scaleFactorH;
                 Area.images[i].image.width = Area.images[i].image.width*Area.scale;
                 Area.images[i].image.height = Area.images[i].image.height*Area.scale;
               }

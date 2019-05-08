@@ -399,6 +399,14 @@ module.exports = (function() { // Module creation for the main file of the serve
       
       if(!req.body || req.session.user === "main") return res.sendStatus(400);
       
+      for (var i=0,i<PapyrusMainFile.PapyrusTable.length,i++){
+        if (PapyrusMainFile.PapyrusTable[i].Ref === req.body.compound){
+          if (PapyrusMainFile.PapyrusTable[i].Owner !== req.session.user) return res.sendStatus(400);
+        }
+      }
+      
+      if ( ! req.body.compound.includes("Compound-") return res.sendStatus(400);
+      
       del.sync([datasPath+'/'+req.body.compound+'.*'],{force:true});
       
       var l = PapyrusMainFile.PapyrusTable.length;
