@@ -71,6 +71,7 @@ var Area = {
     this.y = 0;
     this.oldX = 0;
     this.oldY = 0;
+    this.mode = "move";
     elem.appendChild(this.canvas); // Add the canvas in the canvas holder in the web page;
 
     this.interval = setInterval(updateArea, 30); // Set the refresh interval of the canvas (every 30ms);
@@ -147,6 +148,13 @@ var Area = {
       Area.x = e.clientX - left;
       Area.y = e.clientY - top;
 
+      if (Area.mode == "rotate") {
+        var dx = e.clientX - Area.selection.x;
+        var dy = e.clientY - Area.selection.y;
+        Area.selection.angle = Math.atan2(dy, dx);
+        console.log(Area.selection.angle);
+      }
+      else {
       var diffX = Math.abs(Area.x-Area.oldX); //  diffX and Y are the difference between
       var diffY = Math.abs(Area.y-Area.oldY); //     last position and the new position;
 
@@ -190,8 +198,35 @@ var Area = {
       Area.oldY = Area.y;
 
       mouseIsDown = true;
+    }
     });
 
+    window.addEventListener('dblclick', function(e) {
+      var mx = e.clientX;
+      var my = e.clientY;
+
+      var i = Area.images.length-1; // Get the number of images in Area.images;
+
+      for (i; i >= 0; i--) {
+        if (Area.images[i].contains(mx,my)) { // See component.prototype.contains(mx,my) in the code below;
+          mouseIsDown = true;
+          Area.selection = Area.images[i]; // Select the good image;
+          Area.selection.setOpp = false;
+          Area.oldX = mx - left; // Initialize the first position to move the image in X and Y;
+          Area.oldY = my - top;
+        }
+        else {
+          Area.images[i].setOpp = true;
+        }
+      }
+      if (Area.mode == "move") {
+        Area.mode = "rotate";
+      }
+      else {
+        Area.mode = "move";
+        mouseIsDown = false;
+      }
+    })
     window.addEventListener('mousedown', function (e) {
       if (e.button == 0){ // Mousedown concern the left click only;
 
