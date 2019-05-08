@@ -173,13 +173,13 @@ module.exports = (function() { // Module creation for the main file of the serve
     if(req.session.isAuthenticated === "Success"){ // If the user is login;
       
       var img = req.body.img; // The body contain the image reference.
+      var imgSplit = img.split('/',10);
+      var imgSplit2 = imgSplit[5].split('.',10);
+      img = imgSplit2[0];
+      
       var len = PapyrusMainFile.PapyrusTable.length;
       
-      var imgSplit = img.split('/',10);
       var imgToScript = datasPath + '/' + imgSplit[imgSplit.length-1];
-      var outPath = datasPath + '/';
-      console.log(imgToScript);
-      console.log(outPath);
       
       var d = new Date();
       var currentTime = d.getTime();
@@ -187,15 +187,16 @@ module.exports = (function() { // Module creation for the main file of the serve
       var options = {
         mode: 'text',
         pythonPath: pythonPathNode,
-        args: ['-i /home/user/Documents/Projet_S8/Papyrus_UI/Client/secure/Datas/88_a_r_CL.JPG', '-o /media/user/b1d909e3-b908-4a56-af28-b34e034db41e/Documents/Projet_S8/Papyrus_UI/Server/../Client/secure/Datas/']
+        pythonOptions: ['-u'],
+        args: [`-i ${imgToScript}`, `-o ${datasPath}`]
       };
       
       PythonShell.run(tresholdScriptPath, options, function (err, results) {
         if (err) throw err;
-        /*
+
         fs.rename(datasPath + '/out.png',datasPath + '/Treshold_on_' + img + '_' + currentTime + '.png', function (err) {
           if (err) throw err;
-          console.log("INFO [TRESHOLD] : Image "+ img +"tresholded and renamed");
+          console.log("INFO [TRESHOLD] : Image "+ img +" tresholded and renamed");
         });
         var index = projects.names.indexOf(req.session.user);
   
@@ -210,7 +211,7 @@ module.exports = (function() { // Module creation for the main file of the serve
         var newPapyrus = {};
         newPapyrus['Ref']='Treshold_on_' + img + '_' + currentTime;
         newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime + '_thb';
-        newPapyrus['RCL']= datasPath + '/Treshold_on_' + img + '_' + currentTime + '.png';
+        newPapyrus['RCL']= 'Datas/Treshold_on_' + img + '_' + currentTime + '.png';
         newPapyrus['VCL']='null';
         newPapyrus['RIR']='null';
         newPapyrus['VIR']='null';
@@ -222,8 +223,10 @@ module.exports = (function() { // Module creation for the main file of the serve
         fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
           if (err) throw err;
           console.log('INFO [TRESHOLD] : PapyrusTable updated !');
-        });*/
+        });
         
+        del.sync([datasPath+'out.png','!'+datasPath]);
+
         res.sendStatus(200);
       });
     }

@@ -8,7 +8,7 @@ from scipy import misc
 import random
 
 def typeDir(str):
-    if(not os.path.isdir(str)):
+    if(not os.path.isdir(str[1:])):
         raise argparse.ArgumentTypeError("{0} is not a directory.".format(str))
     return str
 
@@ -21,12 +21,13 @@ argParser = argparse.ArgumentParser(description='Perform fake process an image a
 argParser.add_argument('-i', type=str, required=True, help="image path")
 argParser.add_argument('-o', '--outputDir', type=typeDir, required=True, help="output directory")
 args = argParser.parse_args()
+imgSource = args.i[1:]
+destDir = args.outputDir[1:]
 
-image = cv2.imread(args.i,0)
-
+image = cv2.imread(imgSource,0)
 ret = computeStuff(image)
 
-cv2.imwrite(args.outputDir+"/out.png", ret)
+cv2.imwrite(destDir + '/out.png', ret)
 
 
 
