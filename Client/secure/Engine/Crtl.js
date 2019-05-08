@@ -37,7 +37,10 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
 
     $rootScope.changeAttr = function(src,ref){
       var exists = false;
-
+      if (ref.toUpperCase().includes('TRESHOLD')) {
+        alert("this image has been obtained after a treshold its version can't be changed !")
+        return;
+      }
       var newref = ref.replace("_thb","");
       var l = Area.images.length;
       for(var i = l-1; i >= 0; i--){
@@ -49,6 +52,9 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
       }
 
       if (exists == false) {
+        if (ref.toUpperCase().includes('TRESHOLD')) {
+          return;
+        }
         Area.images.push(new component(src,newref)); // add the image in the canvas if doesn't exist in Area.images.
         getRealSize(newref); //display the image based the dimension of the real papyrus fragment.
       }
@@ -354,11 +360,12 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.ChangeVisual = function(visual){
  /*
-  * name: genThbCanvas;
+  * name: ChangeVisual;
   * @param : nothing;
   * @return : nothing:
   * This function modify the source's suffix of the images in the canvas to the suffix correponding at the desired version of the fragments.
   */
+
     var l = Area.images.length;
     var RCLsuffix = "r_CL.JPG";
     var RIRsuffix = "r_IR.JPG";
@@ -366,6 +373,9 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
     var VIRsuffix = "v_IR.JPG";
 
     for (var i = 0; i < l; i++) {
+       if (Area.images[i].ref.toUpperCase().includes('TRESHOLD')) {
+         continue;
+      }
       if (visual === "RCL") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,RCLsuffix);}
       if (visual === "RIR") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,RIRsuffix);}
       if (visual === "VCL") {Area.images[i].image.src = Area.images[i].image.src.replace(/.{8}$/,VCLsuffix);}
