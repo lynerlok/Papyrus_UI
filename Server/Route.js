@@ -60,7 +60,7 @@ var convertPath = '/usr/bin/convert';
 
 //    Scripts path;
 
-var pythonPathNode = '/usr/bin/python';
+var pythonPathNode = '/usr/bin/python3.6';
 var tresholdScriptPath = __dirname + '/Scripts/treshold.py';
 
 // Server path;
