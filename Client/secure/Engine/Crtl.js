@@ -26,7 +26,7 @@
  * More informations at : https://docs.angularjs.org/guide/controller;
  */
 
-papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScope) {
+papyrus.controller('PictCrtl', ['$scope','$rootScope','$http', function($scope,$rootScope,$http) {
 /*
  * name: PictCrtl;
  * type: AngularJS controller;
@@ -59,7 +59,26 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope', function($scope,$rootScop
         getRealSize(newref); //display the image based the dimension of the real papyrus fragment.
       }
     }
+
+    $scope.RemoveImageServer = function(ref){
+      var dataToSend = JSON.stringify({"ref" : ref});
+      // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+      console.log(dataToSend);
+      $http({ // Post all datas to server;
+        method : "POST", // Method accepted by the server is POST;
+        url : "/secure/removeImg", // The URL where the server accept this type of POST;
+        data : dataToSend, // Put the data to send here;
+        dataType: 'json', // The type of data is JSON;
+        contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+      }).then(function(response) {
+        alert("Image removed from server"); // If the image sucessfuly uploaded alert user;
+      }, function(response) {
+        alert("Error while removing file from server !!"); // If the upload fail alert user;
+      });
+    };
 }]);
+
+
 
 papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 /*
@@ -196,24 +215,9 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 }]);
 
 papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
-  
-  $scope.RemoveImageServer = function(){
-    var dataToSend = JSON.stringify({"ref" : Area.selection.ref});
-    // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
 
-    $http({ // Post all datas to server;
-      method : "POST", // Method accepted by the server is POST;
-      url : "/secure/removeImg", // The URL where the server accept this type of POST;
-      data : dataToSend, // Put the data to send here;
-      dataType: 'json', // The type of data is JSON;
-      contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
-    }).then(function(response) {
-      alert("Image removed from server"); // If the image sucessfuly uploaded alert user;
-    }, function(response) {
-      alert("Error while removing file from server !!"); // If the upload fail alert user;
-    });
-  };
-  
+
+
   $scope.MetaDatas = function(){
  /*
   * name: genThbCanvas;
@@ -302,7 +306,8 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       dataType: 'json', // The type of data is JSON;
       contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
     }).then(function(response) {
-      alert("Image sucessfuly tresholded ! (refresh to view modification)"); // If the image sucessfuly uploaded alert user;
+      alert("Image sucessfuly tresholded ! (the page will refresh to show modification)"); // If the image sucessfuly uploaded alert user;
+      window.location.reload();
     }, function(response) {
       alert("Error while uploading file !!"); // If the upload fail alert user;
     });
