@@ -466,10 +466,12 @@ component.prototype.disass = function () {
 
         });
       });
-      $.post("/secure/DestroyCMP",{compound: refImg},
+      $.get("/csrf", function(data, status, xhr){
+        $.post("/secure/DestroyCMP",{compound: refImg, csrf: xhr.getResponseHeader('X-CSRF-Token')},
           function(data, status){
             console.log("Compound destroyed !");
           });
+      });
     }
 	}
 }

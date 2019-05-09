@@ -215,21 +215,18 @@
       <!-- END TAB 2 : FORM -->
 
       <!-- TAB 3 : WORKING DIR -->
-      <div id="wd" class="tab w3-center">
+      <div id="wd" ng-controller="wdForm" class="tab w3-center">
         <h2>Créez votre repertoire de travail</h2>
-        <form action="wd" class="w3-container w3-card-4 w3-padding-16" ng-submit="login()" method="post">
-          <p>
-            <input name="username" id="username" class="formFieldWD w3-input" type="text" placeholder="Identifiants ou nom de projet" ng-model="username" required />
-          </p>
-          <p>
-            <input name="password" id="password" class="formFieldWD w3-input" type="password" placeholder="Entrez votre mot de passe" ng-model="password" required />
-          </p>
-
-          <p>
-            <button type="submit" ng-disabled="form.$invalid" class="w3-button w3-section w3-teal w3-ripple">Créer répertoire</button>
-          </p>
-
+         <form novalidate class="simple-form" autocomplete="off">
+          <input name="username" id="username" class="formFieldWD w3-input" type="text" placeholder="Identifiants ou nom de projet" type="text" ng-model="wd.name" required />
+          <br/>
+          <input name="password" id="password" class="formFieldWD w3-input" type="password" placeholder="Entrez votre mot de passe" ng-model="wd.pass" required />
+          <br/>
+  
+          <input type="submit" ng-disabled="form.$invalid"  class="w3-button w3-section w3-teal w3-ripple" ng-click="getCsrf(wd)" value="Créer un répertoire" />
+          
         </form>
+  
         <form action="rd" method="get">
           <input id="submitRD" type="submit" value="Supprimer répertoire" class="w3-red w3-button w3-padding-16 w3-ripple" />
         </form>

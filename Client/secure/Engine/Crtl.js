@@ -59,26 +59,31 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope','$http', function($scope,$
         getRealSize(newref); //display the image based the dimension of the real papyrus fragment.
       }
     }
-
+    
     $scope.RemoveImageServer = function(ref){
-      var dataToSend = JSON.stringify({"ref" : ref});
-      // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-      console.log(dataToSend);
-      $http({ // Post all datas to server;
-        method : "POST", // Method accepted by the server is POST;
-        url : "/secure/removeImg", // The URL where the server accept this type of POST;
-        data : dataToSend, // Put the data to send here;
-        dataType: 'json', // The type of data is JSON;
-        contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+    
+      $http({
+        type: "GET",
+        url: '/csrf',
       }).then(function(response) {
-        alert("Image removed from server"); // If the image sucessfuly uploaded alert user;
-      }, function(response) {
-        alert("Error while removing file from server !!"); // If the upload fail alert user;
+        var dataToSend = JSON.stringify({"ref" : ref,"csrf" : response.headers('X-CSRF-Token')});
+        // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+    
+        $http({ // Post all datas to server;
+          method : "POST", // Method accepted by the server is POST;
+          url : "/secure/removeImg", // The URL where the server accept this type of POST;
+          data : dataToSend, // Put the data to send here;
+          dataType: 'json', // The type of data is JSON;
+          contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+        }).then(function(response) {
+          alert("Image removed from server"); // If the image sucessfuly uploaded alert user;
+        }, function(response) {
+          alert("Error while removing file from server !!"); // If the upload fail alert user;
+        });
       });
     };
+  
 }]);
-
-
 
 papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 /*
@@ -196,28 +201,31 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
       Area.images[i].scaleFactorW = Area.scale;
       Area.images[i].scaleFactorH = Area.scale;
     }
-
-    var dataToSend = JSON.stringify([{ "imgCompound" : img}].concat([{ "areaImages" : Area.images, "src" : Area.images[0].image.src}]));
-    // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-
-    $http({ // Post all datas to server;
-      method : "POST", // Method accepted by the server is POST;
-      url : "/secure/compUpload", // The URL where the server accept this type of POST;
-      data : dataToSend, // Put the data to send here;
-      dataType: 'json', // The type of data is JSON;
-      contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+    
+    $http({
+      type: "GET",
+      url: '/csrf',
     }).then(function(response) {
-      alert("Image uploaded"); // If the image sucessfuly uploaded alert user;
-    }, function(response) {
-      alert("Error while uploading file !!"); // If the upload fail alert user;
+       var dataToSend = JSON.stringify([{ "imgCompound" : img, "csrf" : response.headers('X-CSRF-Token') }].concat([{ "areaImages" : Area.images, "src" : Area.images[0].image.src}]));
+      // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+  
+      $http({ // Post all datas to server;
+        method : "POST", // Method accepted by the server is POST;
+        url : "/secure/compUpload", // The URL where the server accept this type of POST;
+        data : dataToSend, // Put the data to send here;
+        dataType: 'json', // The type of data is JSON;
+        contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+      }).then(function(response) {
+        alert("Image uploaded"); // If the image sucessfuly uploaded alert user;
+      }, function(response) {
+        alert("Error while uploading file !!"); // If the upload fail alert user;
+      });
     });
 	};
 }]);
 
 papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
-
-
-
+  
   $scope.MetaDatas = function(){
  /*
   * name: genThbCanvas;
@@ -296,22 +304,29 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * @return : nothing:
   * This function generate the canvas image in a local URL.
   */
-    var dataToSend = JSON.stringify({ "img" : Area.selection.image.src});
-    // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-
-    $http({ // Post all datas to server;
-      method : "POST", // Method accepted by the server is POST;
-      url : "/secure/treshold", // The URL where the server accept this type of POST;
-      data : dataToSend, // Put the data to send here;
-      dataType: 'json', // The type of data is JSON;
-      contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+  
+    $http({
+      type: "GET",
+      url: '/csrf',
     }).then(function(response) {
-      alert("Image sucessfuly tresholded ! (the page will refresh to show modification)"); // If the image sucessfuly uploaded alert user;
-      window.location.reload();
-    }, function(response) {
-      alert("Error while uploading file !!"); // If the upload fail alert user;
+      var dataToSend = JSON.stringify({ "img" : Area.selection.image.src, "csrf" : response.headers('X-CSRF-Token')});
+      // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+    
+      $http({ // Post all datas to server;
+        method : "POST", // Method accepted by the server is POST;
+        url : "/secure/treshold", // The URL where the server accept this type of POST;
+        data : dataToSend, // Put the data to send here;
+        dataType: 'json', // The type of data is JSON;
+        contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+      }).then(function(response) {
+        alert("Image sucessfuly tresholded ! (refresh to view modification)"); // If the image sucessfuly uploaded alert user;
+        window.location.reload();
+      }, function(response) {
+        alert("Error while uploading file !!"); // If the upload fail alert user;
+      });
+      
     });
-
+    
   };
 
   $scope.RemoveImage = function(){
@@ -568,3 +583,34 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   }
 
 }]);
+
+papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
+
+  $scope.getCsrf = function(wd){
+    
+    $http({
+      type: "GET",
+      url: '/csrf',
+    }).then(function(response) {
+      var dataToSend = JSON.stringify({ "username" : wd.name, "password" : wd.pass, "csrf" : response.headers('X-CSRF-Token')});
+      // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+    
+      $http({ // Post all datas to server;
+        method : "POST", // Method accepted by the server is POST;
+        url : '/secure/wd', // The URL where the server accept this type of POST;
+        data : dataToSend, // Put the data to send here;
+        dataType: 'json', // The type of data is JSON;
+        contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+      }).then(function(response) {
+        alert("Working directory sucessfuly added");
+         window.location.reload();
+      }, function(response) {
+        alert("Error while creating working directory !!"); // If the upload fail alert user;
+      });
+      
+    });
+    
+  };
+      
+}]);
+  
