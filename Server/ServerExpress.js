@@ -88,6 +88,7 @@ app.use(session({
             expires: expiryDate
           }
 }));
+app.disable('x-powered-by');
 app.use(router);
 
 console.log("Create HTTP server...");

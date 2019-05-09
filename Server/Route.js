@@ -38,7 +38,7 @@ var crypto = require('crypto');
 var del = require('del');
 var PapyrusMainFile = require('./PapyrusTable.js');
 var {PythonShell} = require('python-shell');
-var helmet = require('helmet');
+//var helmet = require('helmet');
 
 var router = express.Router(); // Use Router to set route for the server;
 
@@ -49,7 +49,7 @@ function puts(error, stdout, stderr) { console.log("[INFO] Execute convert on im
 
 // Utility path for the server (part 2 see part 1 in ServerExpress.js). Edit at your own risk !
 
-// System path
+// System path 
 //    Mandatory path;
 
 var passwordPath = __dirname + '/passwd.json';
@@ -82,6 +82,7 @@ var createProjectPath = '/secure/wd';
 var removeProjectPath = '/secure/rd';
 var compUploadPath = '/secure/compUpload';
 var destroyCMPPath = '/secure/DestroyCMP';
+var destroyImgPath = '/secure/removeImg';
 var metadatasPath = '/secure/metadatas';
 
 //    Script path to run script on the server (not system path);
@@ -97,27 +98,38 @@ var jsonFile = fs.readFileSync(projectsPath, 'utf8');
 var projects = JSON.parse(jsonFile);
 
 module.exports = (function() { // Module creation for the main file of the server;
-
+  
   router.use(function(req, res, next) {
+		res.setHeader('Referrer-Policy', 'no-referrer'); // or same-origin
+		res.setHeader('X-XSS-Protection', '1; mode=block');
+		res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+		res.setHeader('Strict-Transport-Security', 'max-age=5184000 ; includeSubDomains');
+		res.setHeader('X-Content-Type-Options', 'nosniff');
+		res.setHeader('X-Frame-Options', 'deny');
+		res.setHeader('Content-Security-Policy', "default-src 'self' ; font-src 'self' use.fontawesome.com ; style-src 'self' use.fontawesome.com www.w3schools.com 'unsafe-inline'; script-src 'self' code.angularjs.org ajax.googleapis.com 'unsafe-inline'");
 		res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
 		res.setHeader('Pragma', 'no-cache');
 		res.setHeader('Expires', 0);
 		res.setHeader('Surrogate-Control', 'no-store');
-
+    res.setHeader('Public-Key-Pins', 'pin-sha256="qvFAlNcPepF8XPAe+Hj/1sOMoIzPKqAlhl3hsFEH7tg="; \
+								pin-sha256="LM/+L4/KK/O1MlrufMk7UXkgrsF9U/4IBwHR7VIIfLc="; \
+								pin-sha256="QRG3nNFoIoIiF4677675m9NC8qBlirSJPYIxvG498ZY="; \
+								max-age=36500');
+  
     return next();
   });
-
-  router.use(helmet());
-
+  
+  //router.use(helmet()); // Or you can use helmet but be careful at the setup; uncomment helmet in the top of the document;
+  
   router.use('/secure', function (req, res, next) {
     if (req.session.isAuthenticated === "Success"){
         return next();
     } else {
       res.status(403).send('Hmm sorry access denied !');
     };
-
+    
   });
-
+  
   router.use(express.static(__dirname + '/../Client/'));
 
   router.get(interfacePath, function(req, res){ // Route : when GET interface.html redirect to the page if user is login or '/' otherwise;
@@ -128,11 +140,11 @@ module.exports = (function() { // Module creation for the main file of the serve
       res.redirect(mainPath);
     }
   });
-
+	
   router.get(mainPath, function(req, res){ // Route : when GET '/' redirect to index.html;
     res.redirect(indexPath);
   });
-
+  
   router.get(logoutPath, function(req, res){ // Route : when GET '/logout' redirect to '/';
     var user = req.session.user;
 	   req.session.destroy(function(){ // On logout remove session file server side;
@@ -140,27 +152,27 @@ module.exports = (function() { // Module creation for the main file of the serve
 	   });
 	   res.redirect(mainPath); // Redirect to '/';
 	});
-
+	
   router.get(removeProjectPath, function(req, res){ // Route : when GET rd make some action and redirect to logout;
     if(req.session.isAuthenticated === "Success" && req.session.user !== "main"){ // If the user is log in and the user is not main (main is for creation);
       var index = creds.users.indexOf(req.session.user); // Search the user in user array;
       if (index !== -1) creds.users.splice(index, 1); // Remove user from user array...
       if (index !== -1) creds.passwords.splice(index, 1); // ... and his password from password array;
-
+      
       var index = projects.names.indexOf(req.session.user);
       if (index !== -1) projects.names.splice(index, 1); // Remove project name from projects array...
       if (index !== -1) projects.refs.splice(index, 1); // ... and remove all image reference associate (it doesn't remove any file !);
-
+      
       fs.writeFile(passwordPath,JSON.stringify(creds), (err) => { // Save password file in case of server crash;
         if (err) throw err;
         console.log('INFO [USER REMOVED]: Passwords Files Updated !'); // Log info for server;
       });
-
+      
       fs.writeFile(projectsPath,JSON.stringify(projects), (err) => { // Save projects file in case of server crash;
           if (err) throw err;
           console.log('INFO [USER REMOVED] : ImageRef updated !'); // Log info for server;
         });
-
+      
       res.redirect(logoutPath); // Redirect on logout;
     }
     else {
@@ -171,45 +183,44 @@ module.exports = (function() { // Module creation for the main file of the serve
 
   router.post(tresholdPath,function(req,res){ // Route : when POST treshold (body contains img ref) make some action and send 200 OK;
     if(req.session.isAuthenticated === "Success"){ // If the user is login;
-
-      var img = req.body.img; // The body contain the image reference.
-      var imgSplit = img.split('/',10);
-      var imgSplit2 = imgSplit[5].split('.',10);
+      
+      var img = req.body.img; // The body contain the image path.
+      var imgSplit = img.split('/',10); // img path processing to extract only the image name (XXXX_X_XX.JPG for example)
+      
+      var imgSplit2 = imgSplit[5].split('.',10); // img path processing to extract only the file name without extension (for rename function below)
       img = imgSplit2[0];
-
+      
       var len = PapyrusMainFile.PapyrusTable.length;
-
+      
       var imgToScript = datasPath + '/' + imgSplit[imgSplit.length-1];
-
+      
       var d = new Date();
       var currentTime = d.getTime();
-
+      
       var options = {
         mode: 'text',
         pythonPath: pythonPathNode,
         pythonOptions: ['-u'],
         args: [`-i ${imgToScript}`, `-o ${datasPath}`]
       };
-
+      
       PythonShell.run(tresholdScriptPath, options, function (err, results) {
-        if (err) throw err;
+        if (err) throw 'An error occurs on treshold execution :' + err;
 
         fs.rename(datasPath + '/out.png',datasPath + '/Treshold_on_' + img + '_' + currentTime + '.png', function (err) {
-          if (err) throw err;
+          if (err) throw 'ERROR [TRESHOLD] : An occur when Node rename out.png into tresholded image : ' + err;
           console.log("INFO [TRESHOLD] : Image "+ img +" tresholded and renamed");
         });
         var index = projects.names.indexOf(req.session.user);
-
+  
         projects.refs[index].push('Treshold_on_' + img + '_' + currentTime);
-
+      
         fs.writeFile(projectsPath,JSON.stringify(projects), (err) => {
-          if (err) throw err;
+          if (err) throw 'FATAL ERROR [TRESHOLD] : An occur when Node refresh projects file : ' + err;
           console.log('INFO [TRESHOLD] : ImageRef JSON of user '+req.session.user+' updated !');
         });
-
-        var len = PapyrusMainFile.PapyrusTable.length;
-        img2 = img.replace(/.{5}$/,"");
-        console.log(img2);
+        
+        
         var newPapyrus = {};
         newPapyrus['Ref']='Treshold_on_' + img + '_' + currentTime;
         newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime + '_thb';
@@ -217,20 +228,33 @@ module.exports = (function() { // Module creation for the main file of the serve
         newPapyrus['VCL']='null';
         newPapyrus['RIR']='null';
         newPapyrus['VIR']='null';
-      for (var i = 0; i < len; i++) {
-        if (PapyrusMainFile.PapyrusTable[i]['RCL'].includes("/"+img2)) {
-          newPapyrus['MetaDatas']=PapyrusMainFile.PapyrusTable[i]['MetaDatas'];
+        
+        newPapyrus['MetaDatas']='null';
+        
+        for (var i=0;i<PapyrusMainFile.PapyrusTable.length;i++){
+          if (PapyrusMainFile.PapyrusTable[i].RCL.includes(img)){
+            newPapyrus['MetaDatas']=PapyrusMainFile.PapyrusTable[i].MetaDatas;
+          }
+          if (PapyrusMainFile.PapyrusTable[i].VCL.includes(img)){
+            newPapyrus['MetaDatas']=PapyrusMainFile.PapyrusTable[i].MetaDatas;
+          }
+          if (PapyrusMainFile.PapyrusTable[i].RIR.includes(img)){
+            newPapyrus['MetaDatas']=PapyrusMainFile.PapyrusTable[i].MetaDatas;
+          }
+          if (PapyrusMainFile.PapyrusTable[i].VIR.includes(img)){
+            newPapyrus['MetaDatas']=PapyrusMainFile.PapyrusTable[i].MetaDatas;
+          }
         }
-      }
+        
         newPapyrus['Owner']=req.session.user;
-
+         
         PapyrusMainFile.PapyrusTable.push(newPapyrus);
-
+        
         fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
-          if (err) throw err;
+          if (err) throw 'FATAL ERROR [TRESHOLD] : An occur when Node refresh PapyrusTable file : ' + err;
           console.log('INFO [TRESHOLD] : PapyrusTable updated !');
         });
-
+        
         del.sync([datasPath+'out.png','!'+datasPath]);
 
         res.sendStatus(200);
@@ -241,13 +265,13 @@ module.exports = (function() { // Module creation for the main file of the serve
         res.redirect(mainPath);
     }
 	});
-
+  
   router.post(loginPath,async function(req,res){
 		if(!req.body) return res.sendStatus(400);
-
+	  
 		var user=req.body.username;
 		var pwd=req.body.password;
-
+  
 	  if (creds.users.includes(user)) {
 	    var index = creds.users.indexOf(user);
 	    try {
@@ -264,18 +288,18 @@ module.exports = (function() { // Module creation for the main file of the serve
 	    }
 	  }
 	  else {return res.sendStatus(400)}
-
+	  
 	});
-
+  
   router.get(refPath, function(req,res){
     var i=0;
     var j=0;
     var JsonTableSend = [];
-
+    
     if (req.session.isAuthenticated === "Success"){
 
       var index = projects.names.indexOf(req.session.user);
-
+      
       if (projects.refs[index][0] === "all"){
         JsonTableSend = PapyrusMainFile.PapyrusTable;
       }
@@ -291,7 +315,7 @@ module.exports = (function() { // Module creation for the main file of the serve
       res.send(JSON.stringify(JsonTableSend));
     }
     else {res.redirect("/");}
- 	});
+ 	});   
 
 	router.post(createProjectPath,async function(req,res){
 		if(req.session.isAuthenticated === "Success"){
@@ -299,31 +323,31 @@ module.exports = (function() { // Module creation for the main file of the serve
       var pwd=req.body.password;
       var imgRefs=req.body.imgRefs;
       imgRefs = ["all"]
-
+      
       var index = creds.users.indexOf(user);
       if (index === -1){
         var salt = crypto.randomBytes(32);
         try {
-          var hashPass = await argon2i.hash(pwd, salt);
+          var hashPass = await argon2i.hash(pwd, salt); 
         } catch(err) {
           console.log("Error while hashing password : "+err);
         }
-        creds.users.push(user);
+        creds.users.push(user); 
         creds.passwords.push(hashPass);
-
+        
         projects.names.push(user);
         projects.refs.push(imgRefs);
-
+        
         fs.writeFile(passwordPath,JSON.stringify(creds), (err) => {
           if (err) throw err;
           console.log('INFO [USER CREATED] : Passwords Files Updated !');
         });
-
+        
         fs.writeFile(projectsPath,JSON.stringify(projects), (err) => {
           if (err) throw err;
           console.log('INFO [USER CREATED] : ImageRef updated !');
         });
-
+      
         res.redirect(logoutPath);
       }
       else {
@@ -333,45 +357,45 @@ module.exports = (function() { // Module creation for the main file of the serve
     }
     else {return res.sendStatus(400)}
 	});
-
+  
   router.post(compUploadPath,function(req,res){
-
+    
     if(req.session.isAuthenticated === "Success"){
-
+      
       if(!req.body || req.session.user === "main") return res.sendStatus(400);
       var img = new Buffer.from(req.body[0].imgCompound, 'base64');
       var imgArray = req.body[1].areaImages;
       var src = req.body[1].src;
-
+      
       var d = new Date();
       var currentTime = d.getTime();
-
+      
       fs.writeFile(datasPath + '/Compound-'+currentTime+'.png',img, "binary", (err) => {
         if (err) throw err;
         console.log('INFO : Compound '+ currentTime + ' saved !');
       });
-
+      
       if (fs.existsSync(convertPath)) {
         exec('convert '+ datasPath + '/Compound-'+currentTime+'.png' + ' -trim ' + datasPath + '/Compound-'+currentTime+'.png' , puts);
       }
-
+      
       fs.writeFile(datasPath + '/Compound-'+currentTime+'.json',JSON.stringify(imgArray), (err) => {
         if (err) throw err;
         console.log('INFO : Image table '+ currentTime + ' saved !');
       });
-
+      
       res.sendStatus(200);
-
+      
       var index = projects.names.indexOf(req.session.user);
 
       projects.refs[index].push('Compound-'+currentTime);
-
+    
       fs.writeFile(projectsPath,JSON.stringify(projects), (err) => {
         if (err) throw err;
         console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
       });
-
-
+      
+      
       var newPapyrus = {};
       newPapyrus['Ref']='Compound-'+currentTime;
       newPapyrus['THB']='Compound-'+currentTime+'_thb';
@@ -381,40 +405,45 @@ module.exports = (function() { // Module creation for the main file of the serve
       newPapyrus['VIR']='null';
       newPapyrus['MetaDatas']='null';
       newPapyrus['Owner']=req.session.user;
-
+      
       if (src.search("r_CL") != -1) {newPapyrus['RCL']= 'Datas' + '/Compound-'+currentTime+'.png'};
       if (src.search("r_IR") != -1) {newPapyrus['RIR']= 'Datas' + '/Compound-'+currentTime+'.png'};
       if (src.search("v_CL") != -1) {newPapyrus['VCL']= 'Datas' + '/Compound-'+currentTime+'.png'};
       if (src.search("v_IR") != -1) {newPapyrus['VIR']= 'Datas' + '/Compound-'+currentTime+'.png'};
-
+      
       PapyrusMainFile.PapyrusTable.push(newPapyrus);
-
+      
       fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
         if (err) throw err;
         console.log('INFO : PapyrusTable updated !');
       });
-
+      
     }
     else {res.redirect(mainPath);}
 
   });
-
+  
   router.post(destroyCMPPath,function(req,res){
-
+    
     if(req.session.isAuthenticated === "Success"){
-
+      
+      var found = false;
+      
       if(!req.body || req.session.user === "main") return res.sendStatus(400);
-
+      
       for (var i=0;i<PapyrusMainFile.PapyrusTable.length;i++){
         if (PapyrusMainFile.PapyrusTable[i].Ref === req.body.compound){
+          found = true;
           if (PapyrusMainFile.PapyrusTable[i].Owner !== req.session.user) return res.sendStatus(400);
         }
       }
-
+      
+      if (! found) return res.sendStatus(400);
+      
       if ( ! req.body.compound.includes("Compound-")) return res.sendStatus(400);
-
+      
       del.sync([datasPath+'/'+req.body.compound+'.*'],{force:true});
-
+      
       var l = PapyrusMainFile.PapyrusTable.length;
 
       for (var i=0;i<l;i++){
@@ -422,35 +451,86 @@ module.exports = (function() { // Module creation for the main file of the serve
           PapyrusMainFile.PapyrusTable.splice(i,1);
         }
       }
-
+      
       fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
         if (err) throw err;
         console.log('INFO : PapyrusTable updated !');
       });
-
+      
       var nameIndex = projects.names.indexOf(req.session.user);
       var index = projects.refs[nameIndex].indexOf(req.body.compound);
-
+      
       projects.refs[nameIndex].splice(index,1);
-
+      
       fs.writeFile(projectsPath,JSON.stringify(projects), (err) => {
         if (err) throw err;
         console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
       });
-
-      res.sendStatus(200);
+  
+      res.sendStatus(200);  
     }
     else {res.redirect(mainPath);}
 
   });
-
-  router.post(metadatasPath,function(req,res){ // Prototype to modify metadatas of one papyrus;
-
+  
+  router.post(destroyImgPath,function(req,res){
+    
     if(req.session.isAuthenticated === "Success"){
-      res.sendStatus(200);
+      
+      var found = false;
+      
+      if(!req.body || req.session.user === "main") return res.sendStatus(400);
+      
+      for (var i=0;i<PapyrusMainFile.PapyrusTable.length;i++){
+        if (PapyrusMainFile.PapyrusTable[i].Ref === req.body.ref){
+          found = true;
+          if (PapyrusMainFile.PapyrusTable[i].Owner !== req.session.user) return res.sendStatus(400);
+        }
+      }
+      
+      if (! found) return res.sendStatus(400);
+      
+      del.sync([datasPath+'/'+req.body.ref+'.*'],{force:true});
+      
+      var l = PapyrusMainFile.PapyrusTable.length;
+
+      for (var i=0;i<l;i++){
+        if (PapyrusMainFile.PapyrusTable[i].Ref === req.body.ref) {
+          PapyrusMainFile.PapyrusTable.splice(i,1);
+        }
+      }
+      
+      fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
+        if (err) throw err;
+        console.log('INFO : PapyrusTable updated !');
+      });
+      
+      var nameIndex = projects.names.indexOf(req.session.user);
+      var index = projects.refs[nameIndex].indexOf(req.body.ref);
+      
+      projects.refs[nameIndex].splice(index,1);
+      
+      fs.writeFile(projectsPath,JSON.stringify(projects), (err) => {
+        if (err) throw err;
+        console.log('INFO : ImageRef JSON of user '+req.session.user+' updated !');
+      });
+  
+      res.sendStatus(200);  
     }
     else {res.redirect(mainPath);}
 
   });
-	return router;
+  
+  router.post(metadatasPath,function(req,res){ // Prototype to modify metadatas of one papyrus;
+    
+    // Just a skeleton nothing append...
+    
+    if(req.session.isAuthenticated === "Success"){
+      res.sendStatus(200);  
+    }
+    else {res.redirect(mainPath);}
+    
+  });
+	
+  return router;
 })();

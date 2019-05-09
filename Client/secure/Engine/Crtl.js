@@ -196,7 +196,24 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 }]);
 
 papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
+  
+  $scope.RemoveImageServer = function(){
+    var dataToSend = JSON.stringify({"ref" : Area.selection.ref});
+    // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
 
+    $http({ // Post all datas to server;
+      method : "POST", // Method accepted by the server is POST;
+      url : "/secure/removeImg", // The URL where the server accept this type of POST;
+      data : dataToSend, // Put the data to send here;
+      dataType: 'json', // The type of data is JSON;
+      contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+    }).then(function(response) {
+      alert("Image removed from server"); // If the image sucessfuly uploaded alert user;
+    }, function(response) {
+      alert("Error while removing file from server !!"); // If the upload fail alert user;
+    });
+  };
+  
   $scope.MetaDatas = function(){
  /*
   * name: genThbCanvas;
