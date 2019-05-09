@@ -207,7 +207,9 @@ module.exports = (function() { // Module creation for the main file of the serve
           console.log('INFO [TRESHOLD] : ImageRef JSON of user '+req.session.user+' updated !');
         });
 
-
+        var len = PapyrusMainFile.PapyrusTable.length;
+        img2 = img.replace(/.{5}$/,"");
+        console.log(img2);
         var newPapyrus = {};
         newPapyrus['Ref']='Treshold_on_' + img + '_' + currentTime;
         newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime + '_thb';
@@ -215,7 +217,11 @@ module.exports = (function() { // Module creation for the main file of the serve
         newPapyrus['VCL']='null';
         newPapyrus['RIR']='null';
         newPapyrus['VIR']='null';
-        newPapyrus['MetaDatas']='null';
+      for (var i = 0; i < len; i++) {
+        if (PapyrusMainFile.PapyrusTable[i]['RCL'].includes("/"+img2)) {
+          newPapyrus['MetaDatas']=PapyrusMainFile.PapyrusTable[i]['MetaDatas'];
+        }
+      }
         newPapyrus['Owner']=req.session.user;
 
         PapyrusMainFile.PapyrusTable.push(newPapyrus);
