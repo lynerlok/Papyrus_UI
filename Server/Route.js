@@ -279,32 +279,37 @@ module.exports = (function() { // Module creation for the main file of the serve
 	});
 
   router.post(loginPath,async function(req,res){
-		if(!req.body) return res.sendStatus(400);
-
-		var user=req.body.username;
-		var pwd=req.body.password;
-
-	  if (creds.users.includes(user)) {
-	    var index = creds.users.indexOf(user);
-	    try {
-	      if (await argon2i.verify(creds.passwords[index],pwd)) {
-          req.session.isAuthenticated = "Success";
-          req.session.user = user;
-          // Make CSRF protection token;
-          var secret = crypto.randomBytes(32);
-          var salt = crypto.randomBytes(32);
-          req.session.csrfToken = await argon2i.hash(secret, salt);
-          // END CSRF TOKEN GENERATION;
-          console.log("INFO : User log in :"+user);
-          res.redirect(interfacePath);
-	      } else {
-	        res.sendStatus(400);
-	      }
-	    } catch (err) {
-	      console.log("ERROR while verifying hash password : "+err);
-	    }
-	  }
-	  else {return res.sendStatus(400)}
+    if(req.session.isAuthenticated !== "Success"){ // If the user is login;
+      
+      if(!req.body) return res.sendStatus(400);
+  
+      var user=req.body.username;
+      var pwd=req.body.password;
+  
+      if (creds.users.includes(user)) {
+        var index = creds.users.indexOf(user);
+        try {
+          if (await argon2i.verify(creds.passwords[index],pwd)) {
+            req.session.isAuthenticated = "Success";
+            req.session.user = user;
+            // Make CSRF protection token;
+            var secret = crypto.randomBytes(32);
+            var salt = crypto.randomBytes(32);
+            req.session.csrfToken = await argon2i.hash(secret, salt);
+            // END CSRF TOKEN GENERATION;
+            console.log("INFO : User log in :"+user);
+            res.redirect(interfacePath);
+          } else {
+            res.sendStatus(400);
+          }
+        } catch (err) {
+          console.log("ERROR while verifying hash password : "+err);
+        }
+      }
+      else {return res.sendStatus(400)}
+      
+    }
+    else {return res.send("Vous êtes déjà identifié").status(200)}
 
 	});
 

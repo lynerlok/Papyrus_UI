@@ -72,3 +72,7 @@ z-index:10;
   text-decoration: none;
   display: block;
 }
+
+.metaHolder {
+z-index:9;
+}
