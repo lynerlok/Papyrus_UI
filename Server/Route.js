@@ -280,12 +280,12 @@ module.exports = (function() { // Module creation for the main file of the serve
 
   router.post(loginPath,async function(req,res){
     if(req.session.isAuthenticated !== "Success"){ // If the user is login;
-      
+
       if(!req.body) return res.sendStatus(400);
-  
+
       var user=req.body.username;
       var pwd=req.body.password;
-  
+
       if (creds.users.includes(user)) {
         var index = creds.users.indexOf(user);
         try {
@@ -307,7 +307,7 @@ module.exports = (function() { // Module creation for the main file of the serve
         }
       }
       else {return res.sendStatus(400)}
-      
+
     }
     else {return res.send("Vous êtes déjà identifié").status(200)}
 
@@ -534,11 +534,11 @@ module.exports = (function() { // Module creation for the main file of the serve
 
       var l = PapyrusMainFile.PapyrusTable.length;
 
-      for (var i=0;i<l-1;i++){
+      for (var i=l-1;i>=0;i--){
         console.log(PapyrusMainFile.PapyrusTable[i].Ref);
+        console.log(i);
         if (PapyrusMainFile.PapyrusTable[i].Ref === req.body.ref) {
           PapyrusMainFile.PapyrusTable.splice(i,1);
-
         }
       }
 
