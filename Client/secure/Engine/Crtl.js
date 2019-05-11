@@ -303,6 +303,12 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * This function generate the canvas image in a local URL.
   */
 
+window.sessionStorage.setItem("image", JSON.stringify(Area.images)); //on sauvegarde le contenu de Area.images MAIS pas possible de sauvegarder Area.images.image (voir après window.reload)
+//on teste de récupérer le contenu de Area.images.image un à un: c'est OK!
+window.sessionStorage.setItem("src", JSON.stringify(Area.images[0].image.src));
+window.sessionStorage.setItem("width", JSON.stringify(Area.images[0].image.width));
+window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.height));
+
     $http({
       type: "GET",
       url: '/csrf',
@@ -322,7 +328,16 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       }, function(response) {
         alert("Error while uploading file !!"); // If the upload fail alert user;
       });
-
+      var storedarray = JSON.parse(sessionStorage.getItem("image"));
+      var storedwidth = JSON.parse(sessionStorage.getItem("width"));
+      var storedheight = JSON.parse(sessionStorage.getItem("height"));
+      var storeSrc = JSON.parse(sessionStorage.getItem("src"));
+      //on recrée un objet image avec le contenu de Area.images.images :: Ca ne marche pas (pas la même structure et j'imagine qu'il y a d'autre infrmation manquantes)
+      tets = storedarray;
+      test[0].image.src = storedSrc;
+      test[0].image.width = storedwidth;
+      test[0].image.height = storeheight;
+      Area.images.push(test[0]);
     });
 
   };
@@ -609,7 +624,7 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
     });
 
   };
-  
+
   $scope.getCsrfRD = function(rd){
 
     $http({
