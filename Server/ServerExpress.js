@@ -1,7 +1,7 @@
 /*
  * ServerExpress.js
  *
- * Elisabeth Gueux, Salome Mialon, Quentin Piet, Axel Polin
+ * Copyright (C) 2019 Elisabeth Gueux, Salome Mialon, Quentin Piet, Axel Polin
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,10 +27,9 @@
  * ** Express to facilitate development.
  * ** FS to manipulate filesystem.
  * ** HTTPS to create HTTPS connection with client.
- * **
+ * ** body-parser to parse body on POST request.
+ * ** crypto and uuid to generate number.
  */
- 
- // Continuer le comment !!
  
 var express = require("express");
 var fs = require("fs");
@@ -88,10 +87,10 @@ app.use(session({
             expires: expiryDate
           }
 }));
-app.disable('x-powered-by');
+app.disable('x-powered-by'); // Disable x-powered-by header to avoid fingerprinting (but not totaly);
 app.use(router);
 
-console.log("Create HTTP server...");
+console.log("Create HTTPS server...");
 
 https.createServer(serverCredentials, app).listen(portHTTPS);
 
