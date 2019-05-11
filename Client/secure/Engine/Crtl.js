@@ -36,11 +36,14 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope','$http', function($scope,$
 
 
     $rootScope.changeAttr = function(src,ref){
-      var exists = false;
-      if (ref.toUpperCase().includes('TRESHOLD')) {
-        alert("this image has been obtained after a treshold its version can't be changed !")
+
+      if (ref.toUpperCase().includes('TRESHOLD') && src == "null") {
+        alert('if you want to display this tresholded image, please, choose Recto_CL')
         return;
       }
+
+      var exists = false;
+
       var newref = ref.replace("_thb","");
       var l = Area.images.length;
       for(var i = l-1; i >= 0; i--){
@@ -48,27 +51,22 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope','$http', function($scope,$
             exists = true;
             Area.images[i].image.src = src; // Change the source of the image if the image exist in Area.images.
           }
-
       }
-
       if (exists == false) {
-        if (ref.toUpperCase().includes('TRESHOLD')) {
-          return;
-        }
         Area.images.push(new component(src,newref)); // add the image in the canvas if doesn't exist in Area.images.
         getRealSize(newref); //display the image based the dimension of the real papyrus fragment.
       }
     }
-    
+
     $scope.RemoveImageServer = function(ref){
-    
+
       $http({
         type: "GET",
         url: '/csrf',
       }).then(function(response) {
         var dataToSend = JSON.stringify({"ref" : ref,"csrf" : response.headers('X-CSRF-Token')});
         // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-    
+
         $http({ // Post all datas to server;
           method : "POST", // Method accepted by the server is POST;
           url : "/secure/removeImg", // The URL where the server accept this type of POST;
@@ -82,7 +80,7 @@ papyrus.controller('PictCrtl', ['$scope','$rootScope','$http', function($scope,$
         });
       });
     };
-  
+
 }]);
 
 papyrus.controller('RepeatPapyrus', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
@@ -201,14 +199,14 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
       Area.images[i].scaleFactorW = Area.scale;
       Area.images[i].scaleFactorH = Area.scale;
     }
-    
+
     $http({
       type: "GET",
       url: '/csrf',
     }).then(function(response) {
        var dataToSend = JSON.stringify([{ "imgCompound" : img, "csrf" : response.headers('X-CSRF-Token') }].concat([{ "areaImages" : Area.images, "src" : Area.images[0].image.src}]));
       // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-  
+
       $http({ // Post all datas to server;
         method : "POST", // Method accepted by the server is POST;
         url : "/secure/compUpload", // The URL where the server accept this type of POST;
@@ -225,7 +223,7 @@ papyrus.controller('UploadImage', ['$scope','$rootScope','$http', function($scop
 }]);
 
 papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
-  
+
   $scope.MetaDatas = function(){
  /*
   * name: genThbCanvas;
@@ -304,14 +302,14 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * @return : nothing:
   * This function generate the canvas image in a local URL.
   */
-  
+
     $http({
       type: "GET",
       url: '/csrf',
     }).then(function(response) {
       var dataToSend = JSON.stringify({ "img" : Area.selection.image.src, "csrf" : response.headers('X-CSRF-Token')});
       // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-    
+
       $http({ // Post all datas to server;
         method : "POST", // Method accepted by the server is POST;
         url : "/secure/treshold", // The URL where the server accept this type of POST;
@@ -324,9 +322,9 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       }, function(response) {
         alert("Error while uploading file !!"); // If the upload fail alert user;
       });
-      
+
     });
-    
+
   };
 
   $scope.RemoveImage = function(){
@@ -432,7 +430,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.ChangeLight = function(){
  /*
-  * name: genThbCanvas;
+  * name: ChangeLight;
   * @param : nothing;
   * @return : nothing:
   * This function change the backgroud color of the canvas (light/dark modes)
@@ -454,7 +452,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.BestMatches = function(){
     /*
-     * name: genThbCanvas;
+     * name: BestMatches;
      * @param : nothing;
      * @return : nothing:
      * This function returns the best matches of the selected fragment.
@@ -587,14 +585,14 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 
   $scope.getCsrf = function(wd){
-    
+
     $http({
       type: "GET",
       url: '/csrf',
     }).then(function(response) {
       var dataToSend = JSON.stringify({ "username" : wd.name, "password" : wd.pass, "csrf" : response.headers('X-CSRF-Token')});
       // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
-    
+
       $http({ // Post all datas to server;
         method : "POST", // Method accepted by the server is POST;
         url : '/secure/wd', // The URL where the server accept this type of POST;
@@ -607,10 +605,9 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
       }, function(response) {
         alert("Error while creating working directory !!"); // If the upload fail alert user;
       });
-      
+
     });
-    
+
   };
-      
+
 }]);
-  
