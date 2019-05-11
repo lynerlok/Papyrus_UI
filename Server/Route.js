@@ -101,8 +101,8 @@ var projects = JSON.parse(jsonFile);
 module.exports = (function() { // Module creation for the main file of the server;
 
   router.use(function(req, res, next) {
-		res.setHeader('Referrer-Policy', 'no-referrer'); // or same-origin
-		res.setHeader('X-XSS-Protection', '1; mode=block');
+		res.setHeader('Referrer-Policy', 'no-referrer'); // or same-origin ( send or not send the referrer that is the question );
+		res.setHeader('X-XSS-Protection', '1; mode=block'); // Enable Cross-Site-Scripting protection on the client web browser;
 		res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
 		res.setHeader('Strict-Transport-Security', 'max-age=5184000 ; includeSubDomains');
 		res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -155,8 +155,13 @@ module.exports = (function() { // Module creation for the main file of the serve
 	   res.redirect(mainPath); // Redirect to '/';
 	});
 
-  router.get(removeProjectPath, function(req, res){ // Route : when GET rd make some action and redirect to logout;
+  router.post(removeProjectPath, function(req, res){ // Route : when GET rd make some action and redirect to logout;
     if(req.session.isAuthenticated === "Success" && req.session.user !== "main"){ // If the user is log in and the user is not main (main is for creation);
+      
+      if (!req.body.csrf) return res.sendStatus(400);
+      var csrf = req.body.csrf;
+      if (csrf !== req.session.csrfToken) return res.sendStatus(400);
+      
       var index = creds.users.indexOf(req.session.user); // Search the user in user array;
       if (index !== -1) creds.users.splice(index, 1); // Remove user from user array...
       if (index !== -1) creds.passwords.splice(index, 1); // ... and his password from password array;

@@ -584,7 +584,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
 papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 
-  $scope.getCsrf = function(wd){
+  $scope.getCsrfWD = function(wd){
 
     $http({
       type: "GET",
@@ -604,6 +604,32 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
          window.location.reload();
       }, function(response) {
         alert("Error while creating working directory !!"); // If the upload fail alert user;
+      });
+
+    });
+
+  };
+  
+  $scope.getCsrfRD = function(rd){
+
+    $http({
+      type: "GET",
+      url: '/csrf',
+    }).then(function(response) {
+      var dataToSend = JSON.stringify({"csrf" : response.headers('X-CSRF-Token')});
+      // ^- Create a JSON string with concatenation of img txt and the Area.images array (see Area);
+
+      $http({ // Post all datas to server;
+        method : "POST", // Method accepted by the server is POST;
+        url : '/secure/rd', // The URL where the server accept this type of POST;
+        data : dataToSend, // Put the data to send here;
+        dataType: 'json', // The type of data is JSON;
+        contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
+      }).then(function(response) {
+        alert("Votre répertoire a été supprimé !");
+         window.location.reload();
+      }, function(response) {
+        alert("Error while deleting working directory !!"); // If RD fail alert user;
       });
 
     });

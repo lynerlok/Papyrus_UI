@@ -223,12 +223,12 @@
           <input name="password" id="password" class="formFieldWD w3-input" type="password" placeholder="Entrez votre mot de passe" ng-model="wd.pass" required />
           <br/>
   
-          <input type="submit" ng-disabled="form.$invalid"  class="w3-button w3-section w3-teal w3-ripple" ng-click="getCsrf(wd)" value="Créer un répertoire" />
+          <input type="submit" ng-disabled="form.$invalid"  class="w3-button w3-section w3-teal w3-ripple" ng-click="getCsrfWD(wd)" value="Créer un répertoire" />
           
         </form>
   
-        <form action="rd" method="get">
-          <input id="submitRD" type="submit" value="Supprimer répertoire" class="w3-red w3-button w3-padding-16 w3-ripple" />
+        <form novalidate class="simple-form">
+          <input id="submitRD" type="submit"  class="w3-red w3-button w3-padding-16 w3-ripple" ng-click="getCsrfRD(rd)" value="Supprimer répertoire" />
         </form>
         <p class="w3-center w3-padding-16"><span class="fas fa-exclamation-triangle w3-red"></span> <i>Supprimer son repertoire est irréversible !</i> <span class="fas fa-exclamation-triangle w3-red"></span></p>
       </div>
