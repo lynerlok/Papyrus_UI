@@ -317,7 +317,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
         dataType: 'json', // The type of data is JSON;
         contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
       }).then(function(response) {
-        alert("Image sucessfuly tresholded ! (refresh to view modification)"); // If the image sucessfuly uploaded alert user;
+        alert("Le serveur n'a retourné aucune erreur !"); // If the image sucessfuly uploaded alert user and/or the server return no error;
         window.location.reload();
       }, function(response) {
         alert("Error while uploading file !!"); // If the upload fail alert user;
@@ -607,8 +607,8 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
         dataType: 'json', // The type of data is JSON;
         contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
       }).then(function(response) {
-        alert("Working directory sucessfuly added");
-         window.location.reload();
+        alert("Le serveur n'a retourné aucune erreur !");
+        window.location.reload();
       }, function(response) {
         alert("Error while creating working directory !!"); // If the upload fail alert user;
       });
@@ -639,7 +639,7 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
         dataType: 'json', // The type of data is JSON;
         contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
       }).then(function(response) {
-        alert("Votre répertoire a été supprimé !");
+        alert("Le serveur n'a retourné aucune erreur !");
          window.location.reload();
       }, function(response) {
         alert("Error while deleting working directory !!"); // If RD fail alert user;
