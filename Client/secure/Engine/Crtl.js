@@ -622,7 +622,7 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
  * 
  * name: getCsrfRD
  * @param : working directory
- * @return
+ * @return : nothing
  * This function allow to remove your working directory on the server with the CSRF protection;
  */
     $http({
