@@ -226,7 +226,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.MetaDatas = function(){
  /*
-  * name: genThbCanvas;
+  * name: MetaDatas;
   * @param : nothing;
   * @return : nothing:
   * This function allow to display the  metadatas of the selected fragment.
@@ -297,12 +297,12 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.Treshold = function(){
  /*
-  * name: genThbCanvas;
+  * name: Treshold;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function ask the server for treshold an image.
   */
-
+  
     $http({
       type: "GET",
       url: '/csrf',
@@ -322,24 +322,24 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       }, function(response) {
         alert("Error while uploading file !!"); // If the upload fail alert user;
       });
-
+      
     });
 
   };
 
   $scope.RemoveImage = function(){
  /*
-  * name: genThbCanvas;
+  * name: RemoveImage;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function remove an image from server.
   */
     if (Area.selection != null) {Area.selection.remove()}
   };
 
   $scope.Rescale = function(){
     /*
-     * name: genThbCanvas;
+     * name: Rescale;
      * @param : nothing;
      * @return : nothing:
      * This function set the Area.scale property to 1.
@@ -351,7 +351,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.ZoomOut = function(){
  /*
-  * name: genThbCanvas;
+  * name: ZoomOut;
   * @param : nothing;
   * @return : nothing:
   * This function reduces the Area.scale property value (used to rescale the Area).
@@ -361,7 +361,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.ZoomIn = function(){
  /*
-  * name: genThbCanvas;
+  * name: ZoomIn;
   * @param : nothing;
   * @return : nothing:
   * This function increases the Area.scale property value (used to rescale the Area).
@@ -371,7 +371,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.RotateLeft = function(){
  /*
-  * name: genThbCanvas;
+  * name: RotateLeft;
   * @param : nothing;
   * @return : nothing:
   * This function reduce the Area.selection.angle property used to rotate the selected image (counter clock-wise rotation).
@@ -383,7 +383,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.RotateRight = function(){
  /*
-  * name: genThbCanvas;
+  * name: RotateRight;
   * @param : nothing;
   * @return : nothing:
   * This function increases the Area.selection.angle property used to rotate the selected image (clock-wise rotation).
@@ -420,7 +420,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.DisassCompound = function(){
  /*
-  * name: genThbCanvas;
+  * name: DisassCompound;
   * @param : nothing;
   * @return : nothing:
   * This function allows to disassemble a previously generated compound .
@@ -585,6 +585,13 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 
   $scope.getCsrfWD = function(wd){
+/*
+ * 
+ * name: getCsrfWD
+ * @param : working directory
+ * @return
+ * This function allow to create a new working directory on the server with the CSRF protection;
+ */
 
     $http({
       type: "GET",
@@ -609,9 +616,15 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
     });
 
   };
-  
-  $scope.getCsrfRD = function(rd){
 
+  $scope.getCsrfRD = function(rd){
+/*
+ * 
+ * name: getCsrfRD
+ * @param : working directory
+ * @return : nothing
+ * This function allow to remove your working directory on the server with the CSRF protection;
+ */
     $http({
       type: "GET",
       url: '/csrf',
