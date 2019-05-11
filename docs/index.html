@@ -1,0 +1,3003 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="fr" > 
+<head><title></title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="Manual-dev.tex"> 
+<link rel="stylesheet" type="text/css" href="Manual-dev.css"> 
+</head><body 
+>
+<!--l. 40--><p class="noindent" >
+                                                                                       
+                                                                                       
+<div class="center" 
+>
+<!--l. 42--><p class="noindent" >
+<!--l. 44--><p class="noindent" ><img 
+src="Univ_Bordeaux.png" alt="PIC"  
+><span 
+class="LinBiolinumT-tlf-t1-x-x-120">&#x00A0;</span><br /><br />
+<span 
+class="LinBiolinumT-tlf-sc-t1-x-x-172">Manuel utilisateur</span><br /><br />
+<span 
+class="LinBiolinumTB-tlf-t1-x-x-207">Application Web de Visualisation et de</span>
+<span 
+class="LinBiolinumTB-tlf-t1-x-x-207">Manipulation de Fragments de Documents</span>
+<span 
+class="LinBiolinumTB-tlf-t1-x-x-207">Anciens</span><br /><br />
+<img 
+src="ImagePapyrus.jpg" alt="PIC"  
+><br /><br />
+<div class="minipage"><div class="flushleft" 
+>
+<!--l. 54--><p class="noindent" >
+ <span 
+class="LinBiolinumT-tlf-sc-t1-x-x-144">GUEUX Elisabeth</span><br />
+<span 
+class="LinBiolinumT-tlf-sc-t1-x-x-144">MIALON Salom</span><span 
+class="LinBiolinumT-tlf-sc-t1-x-x-144">é</span><br />
+<span 
+class="LinBiolinumT-tlf-sc-t1-x-x-144">PIET Quentin</span><br />
+<span 
+class="LinBiolinumT-tlf-sc-t1-x-x-144">POLIN Axel</span></div></div>
+<!--l. 63--><p class="noindent" ><span 
+class="LinBiolinumT-tlf-t1-x-x-120">13 Mai 2019</span>
+</div>
+                                                                                       
+                                                                                       
+<!--l. 69--><p class="noindent" >
+                                                                                       
+                                                                                       
+<!--l. 71--><p class="indent" >
+                                                                                       
+                                                                                       
+                                                                                       
+                                                                                       
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Table des matières</h2>
+   <div class="tableofcontents">
+   <span class="chapterToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">Interface graphique</a></span>
+<br />   &#x00A0;<span class="sectionToc" >1.1 <a 
+href="#x1-30001.1" id="QQ2-1-3">Les diflérents éléments de l&#8217;interface</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >1.1.1 <a 
+href="#x1-40001.1.1" id="QQ2-1-4">Entête</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >1.1.2 <a 
+href="#x1-50001.1.2" id="QQ2-1-5">Panneau latéral</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >1.1.3 <a 
+href="#x1-80001.1.3" id="QQ2-1-8">Barre de fonctionnalités</a></span>
+<br />   &#x00A0;<span class="sectionToc" >1.2 <a 
+href="#x1-90001.2" id="QQ2-1-9">fonctionnalités clavier</a></span>
+<br />   <span class="chapterToc" >2 <a 
+href="#x1-100002" id="QQ2-1-10">Serveur</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.1 <a 
+href="#x1-110002.1" id="QQ2-1-11">Avant-propos</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.2 <a 
+href="#x1-120002.2" id="QQ2-1-12">Discussion concernant la sécurité</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.1 <a 
+href="#x1-130002.2.1" id="QQ2-1-13">Utilisation exclusive du protocole HTTPS</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.2 <a 
+href="#x1-140002.2.2" id="QQ2-1-14">Certiffcats de sécurité</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.3 <a 
+href="#x1-150002.2.3" id="QQ2-1-15">Sécurisation des en-tête HTTP</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.4 <a 
+href="#x1-160002.2.4" id="QQ2-1-16">Protection contre les attaques CSRF</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.5 <a 
+href="#x1-180002.2.5" id="QQ2-1-18">Protection des mots de passes</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.6 <a 
+href="#x1-190002.2.6" id="QQ2-1-19">Choix de développement : non utilisation de base de données</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.7 <a 
+href="#x1-200002.2.7" id="QQ2-1-20">Avertissements d&#8217;OWASP ZAP et BurpSuite Professional</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.2.8 <a 
+href="#x1-270002.2.8" id="QQ2-1-27">Quelques avertissements</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.3 <a 
+href="#x1-310002.3" id="QQ2-1-31">Intégration de scripts côté serveur</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.3.1 <a 
+href="#x1-320002.3.1" id="QQ2-1-32">Intégration JavaScript</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.3.2 <a 
+href="#x1-330002.3.2" id="QQ2-1-33">Intégration Python</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.4 <a 
+href="#x1-340002.4" id="QQ2-1-34">Ajout de fonctionnalités dans les composants d&#8217;Area côté clients</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.4.1 <a 
+href="#x1-350002.4.1" id="QQ2-1-35">Ajout de fonctionnalités dans ToolsCommand</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >2.4.2 <a 
+href="#x1-360002.4.2" id="QQ2-1-36">Ajout de fonctionnalité dans un composant</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.5 <a 
+href="#x1-370002.5" id="QQ2-1-37">Liens vers des références</a></span>
+   </div>
+<!--l. 77--><p class="indent" >
+                                                                                       
+                                                                                       
+                                                                                       
+                                                                                       
+   <h2 class="chapterHead"><span class="titlemark">Chapitre&#x00A0;1</span><br /><a 
+ id="x1-20001"></a>Interface graphique</h2>
+   <h3 class="sectionHead"><span class="titlemark">1.1    </span> <a 
+ id="x1-30001.1"></a>Les diflérents éléments de l&#8217;interface</h3>
+<!--l. 84--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.1.1    </span> <a 
+ id="x1-40001.1.1"></a>Entête</h4>
+<!--l. 86--><p class="noindent" ><span 
+class="LinLibertineTB-tlf-t1-x-x-120">1- Canvas : </span>renvoie à l&#8217;interface de visualistaion et manipulation des fragments.<br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">2- Cr</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">éer un r</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">épertoire : </span>permet de créer un nouvel utilisateur/projet. Une fois créé, renvoie à la
+page d&#8217;authentiffcation Rentrer les nouveaux identiffants pour se connecter à la nouvelle
+session.<br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">3- Sauvegarder l&#8217;assemblage : </span>permet de sauvegarder l&#8217;assemblage créé dans le canvas à partir des
+fragments et de l&#8217;importer sous la forme d&#8217;une entité unique.<br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">4- Log out : </span>permet de quitter la session actuelle.
+<!--l. 95--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.1.2    </span> <a 
+ id="x1-50001.1.2"></a>Panneau latéral</h4>
+<!--l. 96--><p class="noindent" >Le panneau latéral comporte les miniatures et les références des papyrus utilisables pour une session
+donnée.
+   <h5 class="subsubsectionHead"><a 
+ id="x1-60001.1.2"></a>importation des fragments dans le canvas</h5>
+<!--l. 98--><p class="noindent" >Pour aficher un fragment dans le canvas : <br 
+class="newline" /><br 
+class="newline" />1- eflectuer un glisser-déposer de la miniature du fragment d&#8217;intérêt vers le canvas. L&#8217;image afichée
+est la version recto-couleur (RCL) du fragment. <br 
+class="newline" />
+<!--l. 104--><p class="indent" >   <span 
+class="LinLibertineTBI-tlf-t1-">Nb : Ceffle fonctionnalit</span><span 
+class="LinLibertineTBI-tlf-t1-">é n&#8217;est pas utilisable sur les appareils tactiles. </span><br 
+class="newline" /><br 
+class="newline" />2- Cliquer sur cette miniature afiche une liste de 4 versions disponible pour le fragment désiré (R/V :
+IR/CL). Cliquer sur une des 4 options permet d&#8217;importer la version correspondante du
+fragment.
+   <h5 class="subsubsectionHead"><a 
+ id="x1-70001.1.2"></a>modiffer la version afichée (fragment par fragment)</h5>
+<!--l. 109--><p class="noindent" >Cette option permet de visualiser diflérentes version d&#8217;un fragment, sans modiffer la version de
+l&#8217;ensemble des fragments afichés dans le canvas.
+<!--l. 114--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.1.3    </span> <a 
+ id="x1-80001.1.3"></a>Barre de fonctionnalités</h4>
+                                                                                       
+                                                                                       
+<div class="center" 
+>
+<!--l. 117--><p class="noindent" >
+<!--l. 118--><p class="noindent" ><img 
+src="barre_fonctio_leg.png" alt="PIC"  
+><br /><br />
+</div>
+<!--l. 122--><p class="noindent" ><span 
+class="LinLibertineTB-tlf-t1-x-x-120">1- Best matches : </span>retourne les fragments les plus susceptibles d&#8217;être associés avec le fragment
+sélectionné ainsi que les scores de correspondance associés aux fragments retournés. Cliquer sur une
+miniature affn d&#8217;importer l&#8217;image correspondante dans le canvas. Les scores sont obtenus via
+l&#8217;exécution d&#8217;algorithmes de traitement d&#8217;images. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">2- Mode de visualisation : </span>permet de modiffer la version afichée pour l&#8217;ensemble des fragments
+présents dans le canvas. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">3- Dark/light mode : </span>permet de modiffer la couleur du canvas (bleu sombre/blanc). <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">4- D</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">ésassemblage : </span>permet de désassembler un assemblage préalablement généré à partir de
+plusieurs fragments. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">5- Rotation vers la droite : </span>permet de faire pivoter le fragment sélectionné vers la droite.
+<br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">6- Rotation vers la gauche : </span>permet de faire pivoter le fragment sélectionné vers la gauche.
+<br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">7- Remise </span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">à l&#8217;</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">échelle :  </span>permet de retrouver la taille que présentaient les fragment au moment de
+leur importation dans le canvas. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">8- Zoom avant : </span>eflectue un zoom avant sur l&#8217;ensemble des fragments. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">9- Zoom arri</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">ère : </span>eflectue un zoom arrière sur l&#8217;ensemble des fragments. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">10- Supprimer une image : </span>supprime le fragment sélectionné du canvas. Il est toujours possible de
+le ré-importer à partir du panneau latéral. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">11- Treshold : </span>eflectue une opération de seuillage sur le fragment sélectionné et retourne l&#8217;image
+obtenue. <br 
+class="newline" /><br 
+class="newline" /><span 
+class="LinLibertineTB-tlf-t1-x-x-120">12- Afichage des m</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">éta-donn</span><span 
+class="LinLibertineTB-tlf-t1-x-x-120">ées : </span>Afiche les informations sur la langue et les dimensions du
+fragment sélectionné.
+<!--l. 147--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.2    </span> <a 
+ id="x1-90001.2"></a>fonctionnalités clavier</h3>
+<!--l. 153--><p class="noindent" >
+                                                                                       
+                                                                                       
+                                                                                       
+                                                                                       
+   <h2 class="chapterHead"><span class="titlemark">Chapitre&#x00A0;2</span><br /><a 
+ id="x1-100002"></a>Serveur</h2>
+   <h3 class="sectionHead"><span class="titlemark">2.1    </span> <a 
+ id="x1-110002.1"></a>Avant-propos</h3>
+<!--l. 158--><p class="noindent" >Cette section est à destination des développeurs. Sera abordé ici : les considérations de sécurité côté
+serveur, le protocole d&#8217;intégration de scripts côté serveur, le protocole d&#8217;ajout de fonctionnalités
+dans les composants d&#8217;Area côté client. Enffn, vous trouverez une liste de liens vers les références
+des technologies utilisées.
+<!--l. 160--><p class="indent" >   Pour toute question, réclamation ou exploit découvert veuillez poster une issue sur <a 
+href="https://github.com/axel-polin/Papyrus_UI/issues" >Papyrus_UI</a>
+ou contacter directement Axel Polin à univ_apolin@protonmail.com
+<!--l. 162--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2.2    </span> <a 
+ id="x1-120002.2"></a>Discussion concernant la sécurité</h3>
+<!--l. 164--><p class="noindent" ><span 
+class="LinLibertineTI-tlf-t1-x-x-120">Avertissement : les d</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">éveloppeurs initiaux ont s</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">écuris</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">é le serveur </span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">à l&#8217;aide de paquets et de conffguration de</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">base. Cette note de s</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">écurit</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">é concerne uniquement la partie NodeJS. Aucune conffguration n&#8217;a </span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">ét</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">é</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">construite pour la partie hardware du serveur, ni pour la partie ffrewall ou tout autre logiciel ext</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">érieur </span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">à</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">NodeJS. Cette note est informative. Cela signiffe qu&#8217;elle ne couvre pas tout les aspects de</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">s</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">écurit</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">é de l&#8217;information et qu&#8217;elle ne remplace pas une politique de cyberd</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">éfense appropri</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">é.</span>
+<br 
+class="newline" />
+<!--l. 166--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.1    </span> <a 
+ id="x1-130002.2.1"></a>Utilisation exclusive du protocole HTTPS</h4>
+<!--l. 168--><p class="noindent" >Le serveur est conffguré pour fonctionner exclusivement en HTTPS ce comportement ne devrait pas
+être modiffé.
+<!--l. 170--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.2    </span> <a 
+ id="x1-140002.2.2"></a>Certiffcats de sécurité</h4>
+<!--l. 172--><p class="noindent" >Dans un soucis d&#8217;harmonisation entre les diflérents outils de sécurité utilisés dans cette application
+l&#8217;algorithme de chiflrement des données utilisé est <span 
+class="LinLibertineTI-tlf-t1-x-x-120">Elliptic curve digital signature algorithm (ECDSA)</span>.
+La courbe utilisée dans algorithme ECDSA est secp256k1. Cette courbe devrait être robuste
+jusqu&#8217;en 2050 environ (voir <a 
+href="https://www.ssi.gouv.fr/uploads/2015/01/RGS_v-2-0_B1.pdf" ><span 
+class="LinLibertineT-tlf-t1-x-x-109">R</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">éf</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">érentiel G</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">én</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">éral de S</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">écurit</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">é version 2.0 Annexe B1 M</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">écanismes</span>
+<span 
+class="LinLibertineT-tlf-t1-x-x-109">cryptographiques R</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">ègles et recommandations concernant le choix et le dimensionnement des</span>
+<span 
+class="LinLibertineT-tlf-t1-x-x-109">m</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">écanismes cryptographiques Version 2.03 du 21 f</span><span 
+class="LinLibertineT-tlf-t1-x-x-109">évrier 2014</span></a>) Ces mesures devront être respecté à
+l&#8217;avenir.
+<!--l. 175--><p class="indent" >   Voici le protocole permettant de générer des certiffcats (ainsi que leur clé correspondante) :
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">openssl ecparam -name secp256k1 -out secp256k1.pem </span><br 
+class="newline" />puis <br 
+class="newline" /><span 
+class="LinLibertineTI-tlf-t1-x-x-120">openssl ecparam -in secp256k1.pem -genkey -noout -out secp256k1-key.pem </span><br 
+class="newline" />
+<!--l. 180--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.3    </span> <a 
+ id="x1-150002.2.3"></a>Sécurisation des en-tête HTTP</h4>
+<!--l. 182--><p class="noindent" >Voici les paramètres de requête ffxés par défaut dans le serveur : <br 
+class="newline" />
+                                                                                       
+                                                                                       
+      <ul class="itemize1">
+      <li class="itemize">Cache-Control : no-store, no-cache, must-revalidate, proxy-revalidate
+      </li>
+      <li class="itemize">Pragma : no-cache
+      </li>
+      <li class="itemize">Expires : 0
+      </li>
+      <li class="itemize">Surrogate-Control : no-store
+      </li>
+      <li class="itemize">X-DNS-Prefetch-Control : ofl
+      </li>
+      <li class="itemize">X-Frame-Options : SAMEORIGIN
+      </li>
+      <li class="itemize">X-Download-Options : noopen
+      </li>
+      <li class="itemize">X-Content-Type-Options : nosnifl
+      </li>
+      <li class="itemize">X-XSS-Protection : 1 ; mode=block
+      </li>
+      <li class="itemize">X-CSRF-Token : $argon2i$v=19$m=4096,t=3,p=1$&#x003C;HASH&#x003E;
+      </li>
+      <li class="itemize">Strict-Transport-Security : max-age=15552000 ; includeSubDomains
+      </li>
+      <li class="itemize">Accept-Ranges : bytes
+      </li>
+      <li class="itemize">ETag : W/"XXXXXXXX"
+      </li>
+      <li class="itemize">Public-Key-Pins   :   &#8217;pin-sha256="&#x003C;KEY1BASE64&#x003E;" ;   &#x00A0;pin-sha256="&#x003C;KEY2BASE64&#x003E;" ;
+      &#x00A0;pin-sha256="&#x003C;KEY3BASE64&#x003E;" ; &#x00A0;max-age=36500&#8217;
+      </li></ul>
+<!--l. 205--><p class="indent" >   Il s&#8217;agit d&#8217;un en-tête classique avec les éléments de sécurité de base : protection contre les attaques de
+type XSS <span class="footnote-mark"><a 
+href="Manual-dev2.html#fn1x3"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-15001f1"></a> ,
+CSRF <span class="footnote-mark"><a 
+href="Manual-dev3.html#fn2x3"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x1-15002f2"></a> .
+Le dernier paramètre permet de changer de certiffcat si l&#8217;un d&#8217;entre eux est compromit (remplacer
+&#x003C;KEY1BASE64&#x003E; par la clé codé en Base64). L&#8217;en-tête X-CSRF-Token permet de fournir une clé
+unique au client depuis le serveur. Ceci permet de protéger le client des attaques CSRF. Les
+paramètres de cet en-tête ne devrait pas être supprimé.
+   <h4 class="subsectionHead"><span class="titlemark">2.2.4    </span> <a 
+ id="x1-160002.2.4"></a>Protection contre les attaques CSRF</h4>
+<!--l. 210--><p class="noindent" >La protection contre les attaques CSRF est construite de la manière suivante : le serveur et le client
+partage une clé secrète présente dans chaque échange risqué. Ici la phrase secrète est intégrée aux
+en-têtes HTTP dans le paramètre X-CSRF-Token. Le serveur enregistre la clé dans le ffchier de
+session de l&#8217;utilisateur. Il compare ensuite la clé enregistré à la clé fournit par le client dans ses
+requêtes. Les requêtes sensibles protégées par ce procédé sont toutes les requête POST sauf celle du
+                                                                                       
+                                                                                       
+login et du prototype pour les métadonnées.
+<!--l. 213--><p class="indent" >   Construction côté serveur (requête POST) mise en place :
+   <!--l. 215-->
+<div class="lstlisting" id="listing-1"><span class="label"><a 
+ id="x1-16001r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Make</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">CSRF</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">protection</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">token</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16002r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">secret</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">crypto</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">randomBytes</span><span 
+class="LinLibertineT-tlf-t1-">(32)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16003r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">salt</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">crypto</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">randomBytes</span><span 
+class="LinLibertineT-tlf-t1-">(32)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16004r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">session</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">csrfToken</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">await</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">argon2i</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">hash</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">secret</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">salt</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16005r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">END</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">CSRF</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">TOKEN</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">GENERATION</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+<!--l. 223--><p class="indent" >   Construction côté serveur (requête POST) veriffcation :
+   <!--l. 225-->
+<div class="lstlisting" id="listing-2"><span class="label"><a 
+ id="x1-16006r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(!</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">return</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">res</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">sendStatus</span><span 
+class="LinLibertineT-tlf-t1-">(400)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16007r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16008r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">!==</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">session</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">csrfToken</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">return</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">res</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">sendStatus</span><span 
+class="LinLibertineT-tlf-t1-">(400)</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+<!--l. 231--><p class="indent" >
+                                                                                       
+                                                                                       
+<!--l. 233--><p class="indent" >   Côté client (exemple pour suppression de repertoire utilisateur) :
+   <!--l. 235-->
+<div class="lstlisting" id="listing-3"><span class="label"><a 
+ id="x1-16009r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$http</span><span 
+class="LinLibertineT-tlf-t1-">({</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16010r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">type</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">GET</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16011r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">url</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16012r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">then</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">response</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16013r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">dataToSend</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">JSON</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">stringify</span><span 
+class="LinLibertineT-tlf-t1-">({</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">response</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">headers</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">X</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">CSRF</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">Token</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16014r6"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">6</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">^</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Create</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">a</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">JSON</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">string</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">with</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">concatenation</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">of</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">txt</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">and</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">array</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">see</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16015r7"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">7</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16016r8"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">8</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$http</span><span 
+class="LinLibertineT-tlf-t1-">({</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Post</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">all</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">datas</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">to</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">server</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16017r9"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">9</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">method</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">POST</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Method</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">accepted</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">by</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">server</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">is</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">POST</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16018r10"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">10</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">url</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">secure</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">rd</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">The</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">URL</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">where</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">server</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">accept</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">this</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">type</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">of</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">POST</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16019r11"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">11</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">dataToSend</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Put</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">to</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">send</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">here</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16020r12"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">12</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">dataType</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">json</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">The</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">type</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">of</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">is</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">JSON</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16021r13"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">13</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">contentType</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">application</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">json</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">charset</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">utf</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">8</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Content</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">Type</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">for</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">server</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">and</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">communication</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16022r14"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">14</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">then</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">response</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16023r15"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">15</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">alert</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">Votre</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">repertoire</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">a</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">ete</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">supprime</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">!</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16024r16"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">16</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">window</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">location</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">reload</span><span 
+class="LinLibertineT-tlf-t1-">()</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16025r17"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">17</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">},</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">response</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16026r18"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">18</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">alert</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">Error</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">while</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">deleting</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">working</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">directory</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">!!</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">If</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">RD</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">fail</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">alert</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">user</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16027r19"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">19</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16028r20"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">20</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-16029r21"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">21</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+   <h5 class="subsubsectionHead"><a 
+ id="x1-170002.2.4"></a>Login CSRF : avertissement pour le futur</h5>
+<!--l. 261--><p class="noindent" >Un utilisateur non enregistré (login) n&#8217;est pas protégé contre les attaques CSRF tant qu&#8217;il n&#8217;est pas
+logué. Ceci concerne tout les utilisateurs même ceux qui ont un projet enregistré dans le serveur. Le
+protocole de protection CSRF respecte les recommandations de sécurité actuelle cependant il faudra
+peut-être corriger cela dans de futures versions selon les prochaines recommandations de
+sécurité.
+<!--l. 264--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.5    </span> <a 
+ id="x1-180002.2.5"></a>Protection des mots de passes</h4>
+<!--l. 266--><p class="noindent" >Les mots de passe sont hashés dans le serveur à l&#8217;aide de l&#8217;algorithme
+Argon2i <span class="footnote-mark"><a 
+href="Manual-dev4.html#fn3x3"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x1-18001f3"></a> .
+Cet algorithme est la nouvelle référence des fonctions de hashage. Sauf choix délibéré celui-ci
+devrait être conservé.
+   <h4 class="subsectionHead"><span class="titlemark">2.2.6    </span> <a 
+ id="x1-190002.2.6"></a>Choix de développement : non utilisation de base de données</h4>
+<!--l. 270--><p class="noindent" >Les utilisateurs et les projets sont gérés à l&#8217;aide de ffchier JSON. Étant donné que
+le traffc prévu ne sera pas très élevé il n&#8217;a pas été nécessaire de paramétrer des
+bases de données. De plus, l&#8217;absence de base de données supprime le risque de
+SQLi <span class="footnote-mark"><a 
+href="Manual-dev5.html#fn4x3"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x1-19001f4"></a> .
+Les futures développeur pourront modiffer ce comportement s&#8217;il le souhaite il n&#8217;y a pas de
+contre-indication dans la mesure où les règles contenus dans ces ffchiers sont respectés : <a 
+href="https://raw.githubusercontent.com/OWASP/CheatSheetSeries/master/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.md" >SQLi
+prévention Cheat Sheet</a> , <a 
+href="https://raw.githubusercontent.com/OWASP/CheatSheetSeries/master/cheatsheets/Query_Parameterization_Cheat_Sheet.md" >Paramétrage Requête</a> <br 
+class="newline" />
+<!--l. 274--><p class="indent" >
+                                                                                       
+                                                                                       
+   <h4 class="subsectionHead"><span class="titlemark">2.2.7    </span> <a 
+ id="x1-200002.2.7"></a>Avertissements d&#8217;OWASP ZAP et BurpSuite Professional</h4>
+<!--l. 278--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-210002.2.7"></a>ZAP</h5>
+<!--l. 280--><p class="noindent" >Zap détecte un seul problème de sécurité : <span 
+class="LinLibertineTI-tlf-t1-x-x-120">Inclusion de ffchier source JavaScript inter-domaine </span>son
+statut est priorité basse. En eflet, l&#8217;application importe des ffchiers JavaScript depuis d&#8217;autres
+domaine que celui du serveur. Cela ne pose pas de problème tant que les conditions suivantes
+sont respéctées : <span 
+class="LinLibertineTI-tlf-t1-x-x-120">S&#8217;assurer que les ffchiers source JavaScript soient charg</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">és uniquement </span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">à</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">partir de sources ffables, et que les sources ne peuvent </span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">être contr</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">ôl</span><span 
+class="LinLibertineTI-tlf-t1-x-x-120">és par les utilisateurs de</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">l&#8217;application</span>.
+<!--l. 282--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-220002.2.7"></a>BurpSuite</h5>
+<!--l. 284--><p class="noindent" >BurpSuite détecte la même erreur que ZAP. Il retourne en plus une information de type <span 
+class="LinLibertineTI-tlf-t1-x-x-120">Input</span>
+<span 
+class="LinLibertineTI-tlf-t1-x-x-120">returned in response (reffiected)</span>. Cependant il semble s&#8217;agir d&#8217;un faux positif, le problème existe mais
+ne semble pas exploitable. Si un future développeur remarque un problème de sécurité lié à cette
+issue merci de se référer aux détails suivant :
+<!--l. 286--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-230002.2.7"></a>Issue detail</h5>
+<!--l. 288--><p class="noindent" >The value of the URL path fflename is copied into the application&#8217;s response.
+<!--l. 290--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-240002.2.7"></a>Issue background</h5>
+<!--l. 292--><p class="noindent" >Reffiection of input arises when data is copied from a request and echoed into the application&#8217;s
+immediate response.
+<!--l. 294--><p class="indent" >   Input being returned in application responses is not a vulnerability in its own right. However, it
+is a prerequisite for many client-side vulnerabilities, including cross-site scripting, open redirection,
+content spooffng, and response header injection. Additionally, some server-side vulnerabilities such
+as SQL injection are often easier to identify and exploit when input is returned in responses. In
+applications where input retrieval is rare and the environment is resistant to automated testing (for
+example, due to a web application ffrewall), it might be worth subjecting instances of it to focused
+manual testing.
+<!--l. 296--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-250002.2.7"></a>Vulnerability classiffcations</h5>
+<!--l. 298--><p class="noindent" ><a 
+href="https://cwe.mitre.org/data/definitions/20.html" >CWE-20: Improper Input Validation</a> <br 
+class="newline" /><a 
+href="https://cwe.mitre.org/data/definitions/116.html" >CWE-116: Improper Encoding or Escaping of Output</a>
+                                                                                       
+                                                                                       
+<!--l. 301--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-260002.2.7"></a>Request/Response (ffltered)</h5>
+<!--l. 303--><p class="noindent" >Request : GET /secure/interface.htmlajijp5w4f7 HTTP/1.1 <br 
+class="newline" />Response : &#x003C;pre&#x003E;Cannot GET /secure/interface.htmlajijp5w4f7&#x003C;/pre&#x003E; <br 
+class="newline" />
+<!--l. 306--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.8    </span> <a 
+ id="x1-270002.2.8"></a>Quelques avertissements</h4>
+<!--l. 308--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-280002.2.8"></a>Utilisation du serveur</h5>
+<!--l. 310--><p class="noindent" >N&#8217;utilisez pas <span 
+class="LinLibertineTBI-tlf-t1-x-x-120">node debug [...]</span>, utilisez plutôt <span 
+class="LinLibertineTBI-tlf-t1-x-x-120">node inspect [...]</span>. Cette recommandation fait suite à
+l&#8217;exploit suivant : <a 
+href="https://www.exploit-db.com/exploits/42793" >NodeJS Debugger - Command Injection (Metasploit)</a>
+<!--l. 313--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-290002.2.8"></a>Code HTML côté client</h5>
+<!--l. 315--><p class="noindent" >Pour des raisons de facilité de maintenance du serveur les pages web appellent des scripts hors
+domaine. Les domaines utilisés sont sécurisés mais ne dépendent pas du domaine de
+l&#8217;application. Ce comportement peut-être modiffé en téléchargeant directement les scripts
+correspondant dans l&#8217;arborescence du serveur. Ainsi le client ne dépendra que du domaine de
+l&#8217;application.
+<!--l. 320--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x1-300002.2.8"></a>Liens utiles</h5>
+<!--l. 322--><p class="noindent" >Voici une liste non-exhaustive de sites web ou ressources utiles :
+<!--l. 324--><p class="indent" >   <a 
+href="https://www.ssi.gouv.fr/" >Site web de l&#8217;agence nationale de la sécurité des systèmes d&#8217;information</a>
+<!--l. 326--><p class="indent" >   <a 
+href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project" >Site web de OWASP Zed Attack Proxy Project</a>
+<!--l. 328--><p class="indent" >   <a 
+href="https://portswigger.net/" >Site web de portswigger web security</a>
+<!--l. 330--><p class="indent" >   <a 
+href="https://www.exploit-db.com/" >Site web d&#8217;exploit database</a>
+<!--l. 332--><p class="indent" >
+                                                                                       
+                                                                                       
+   <h3 class="sectionHead"><span class="titlemark">2.3    </span> <a 
+ id="x1-310002.3"></a>Intégration de scripts côté serveur</h3>
+<!--l. 336--><p class="noindent" >Deux types de scripts peuvent être utilisés : JavaScript et Python.
+<!--l. 338--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.3.1    </span> <a 
+ id="x1-320002.3.1"></a>Intégration JavaScript</h4>
+<!--l. 340--><p class="noindent" >Après avoir crée votre script il faut le charger de la manière suivante : <span 
+class="LinLibertineTI-tlf-t1-x-x-120">require(/path/to/JavaScript.js)</span>.
+Il vaut ne pas polluer le Global Scope. Utilisez <span 
+class="LinLibertineTI-tlf-t1-x-x-120">module.exports.&#x003C;FONCTION&#x003E;</span>.
+<!--l. 342--><p class="indent" >   Ensuite voici le déroulement :
+<!--l. 344--><p class="indent" >   1/ Importer le script.
+   <!--l. 346-->
+<div class="lstlisting" id="listing-4"><span class="label"><a 
+ id="x1-32001r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">ScriptPath</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">require</span><span 
+class="LinLibertineT-tlf-t1-">(/</span><span 
+class="LinLibertineT-tlf-t1-">path</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">to</span><span 
+class="LinLibertineT-tlf-t1-">/&#x003C;</span><span 
+class="LinLibertineT-tlf-t1-">script</span><span 
+class="LinLibertineT-tlf-t1-">&#x003E;.</span><span 
+class="LinLibertineT-tlf-t1-">js</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+<!--l. 350--><p class="indent" >   2/ Préparer le bloc de requête de la manière suivante.
+<!--l. 352--><p class="indent" >   La requête est post ou get. Si POST, les variables d&#8217;entrée se trouve dans req.body ; si GET les
+variables d&#8217;entrée se trouve dans res.params ou req.query cf <a 
+href="https://expressjs.com/en/api.html" >Express API</a>
+<!--l. 354--><p class="indent" >   Voici un exemple avec POST.
+   <!--l. 356-->
+<div class="lstlisting" id="listing-5"><span class="label"><a 
+ id="x1-32002r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">router</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">post</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">tresholdPath</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">res</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Route</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">when</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">POST</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">treshold</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">contains</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">ref</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">make</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">some</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">action</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">and</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">send</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">200</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">OK</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32003r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">session</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">isAuthenticated</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">===</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">Success</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">If</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">user</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">is</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">login</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32004r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">\\</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">[...]</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">INSTRUCTIONS</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32005r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32006r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">The</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">contain</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">reference</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32007r6"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">6</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32008r7"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">7</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">\\</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">lancer</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">des</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">fonctions</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">issuent</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">du</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">script</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">importer</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">sur</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">les</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">donnees</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">de</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">la</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">requete</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32009r8"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">8</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">\\</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">gerer</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">les</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">erreurs</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">et</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">renvoie</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">au</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">serveur</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-32010r9"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">9</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+<!--l. 369--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.3.2    </span> <a 
+ id="x1-330002.3.2"></a>Intégration Python</h4>
+<!--l. 371--><p class="noindent" >L&#8217;intégration des scripts python est indirect. Le module python-shell est déjà installé et intégré au
+serveur.
+<!--l. 373--><p class="indent" >   Voici les étapes pour intégrer le script :
+<!--l. 375--><p class="indent" >   1/ Créer la variable de path du script.
+   <!--l. 377-->
+<div class="lstlisting" id="listing-6"><span class="label"><a 
+ id="x1-33001r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">ScriptPath</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">__dirname</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">+</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">Scripts</span><span 
+class="LinLibertineT-tlf-t1-">/&#x003C;</span><span 
+class="LinLibertineT-tlf-t1-">script</span><span 
+class="LinLibertineT-tlf-t1-">&#x003E;.</span><span 
+class="LinLibertineT-tlf-t1-">py</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+<!--l. 381--><p class="indent" >   2/ Préparer le bloc de requête de la manière suivante.
+<!--l. 383--><p class="indent" >   La requête est post ou get. Si POST, les variables d&#8217;entrée se trouvent dans req.body ; si GET les
+variables d&#8217;entrée se trouvent dans res.params ou req.query cf <a 
+href="https://expressjs.com/en/api.html" >Express API</a>
+<!--l. 385--><p class="indent" >   Voici un exemple avec POST.
+   <!--l. 387-->
+<div class="lstlisting" id="listing-7"><span class="label"><a 
+ id="x1-33002r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">router</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">post</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">tresholdPath</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">res</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Route</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">when</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">POST</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">treshold</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">contains</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">ref</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">make</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">some</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">action</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">and</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">send</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">200</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">OK</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33003r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">session</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">isAuthenticated</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">===</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">Success</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">If</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">user</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">is</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">login</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33004r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">\\</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">[...]</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">INSTRUCTIONS</span>
+   </div>
+<!--l. 393--><p class="indent" >   Récupération des éléments de la requête et paramétrage des options (voir <a 
+href="https://www.npmjs.com/package/python-shell" >Github
+python-shell</a>)
+   <!--l. 395-->
+<div class="lstlisting" id="listing-8"><span class="label"><a 
+ id="x1-33007r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">img</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">The</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">body</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">contain</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">reference</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33008r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33009r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">options</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33010r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">mode</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">text</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33011r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">pythonPath</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x003C;</span><span 
+class="LinLibertineT-tlf-t1-">path</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">to</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">python</span><span 
+class="LinLibertineT-tlf-t1-">&#x003E;,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33012r6"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">6</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">args</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">[&#8216;</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">imgToScript</span><span 
+class="LinLibertineT-tlf-t1-">}&#8216;,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#8216;</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">o</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">datasPath</span><span 
+class="LinLibertineT-tlf-t1-">}&#8216;]</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33013r7"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">7</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">};</span>
+                                                                                       
+                                                                                       
+   </div>
+<!--l. 405--><p class="indent" >   Démarrer le script : en cas d&#8217;erreur retourner l&#8217;erreur, sinon traiter les résultats et renvoyer au
+client 200 OK
+   <!--l. 407-->
+<div class="lstlisting" id="listing-9"><span class="label"><a 
+ id="x1-33014r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">PythonShell</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">run</span><span 
+class="LinLibertineT-tlf-t1-">(&#x003C;</span><span 
+class="LinLibertineT-tlf-t1-">your</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">script</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">path</span><span 
+class="LinLibertineT-tlf-t1-">&#x003E;,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">options</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">err</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">results</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33015r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">err</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">throw</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">err</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33016r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">[...]</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">INSTRUCTIONS</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33017r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">res</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">sendStatus</span><span 
+class="LinLibertineT-tlf-t1-">(200)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33018r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33019r6"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">6</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33020r7"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">7</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">else</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33021r8"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">8</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">console</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">log</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">WARNING</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">TRESHOLD</span><span 
+class="LinLibertineT-tlf-t1-">]</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Access</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Denied</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">+</span><span 
+class="LinLibertineT-tlf-t1-">req</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">session</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">user</span><span 
+class="LinLibertineT-tlf-t1-">+</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33022r9"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">9</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">res</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">redirect</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">mainPath</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33023r10"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">10</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-33024r11"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">11</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span>
+   </div>
+<!--l. 421--><p class="indent" >   Voila pour le protocole de base.
+<!--l. 423--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2.4    </span> <a 
+ id="x1-340002.4"></a>Ajout de fonctionnalités dans les composants d&#8217;Area côté clients</h3>
+<!--l. 425--><p class="noindent" >Le &#8217;canvas&#8217; possède des composants (les images). Il existe deux manière d&#8217;altérer ces composants. La
+première sont les fonctions intégré directement dans les composants : contains, remove,
+disass. La seconde sont les fonctions présente dans Crtl.js et notamment dans le contrôleur
+&#8217;ToolsCommand&#8217;.
+<!--l. 428--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.4.1    </span> <a 
+ id="x1-350002.4.1"></a>Ajout de fonctionnalités dans ToolsCommand</h4>
+<!--l. 430--><p class="noindent" >L&#8217;altération d&#8217;un composant à travers ToolsCommand passe par Area.selection qui contient le
+composant séléctionné. Vous pouvez suivre l&#8217;exemple suivant :
+   <!--l. 433-->
+<div class="lstlisting" id="listing-10"><span class="label"><a 
+ id="x1-35001r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">$scope</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">RotateLeft</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">()</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35002r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35003r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">name</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">RotateLeft</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35004r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">@param</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">nothing</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35005r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">@return</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">nothing</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35006r6"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">6</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">This</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">reduce</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">selection</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">angle</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">property</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">used</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">to</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">rotate</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">selected</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">counter</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">clock</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">wise</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">rotation</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35007r7"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">7</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35008r8"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">8</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">selection</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">!=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">null</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35009r9"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">9</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">selection</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">angle</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">5</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Math</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">PI</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">180;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35010r10"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">10</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-35011r11"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">11</span></span><span 
+class="LinLibertineT-tlf-t1-">};</span>
+   </div>
+<!--l. 447--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.4.2    </span> <a 
+ id="x1-360002.4.2"></a>Ajout de fonctionnalité dans un composant</h4>
+<!--l. 449--><p class="noindent" >L&#8217;ajout de fonctionnalité directement dans un composant passe par des prototype de
+fonctions.
+<!--l. 451--><p class="indent" >
+                                                                                       
+                                                                                       
+<!--l. 453--><p class="indent" >   Voici un exemple : <!--l. 454-->
+<div class="lstlisting" id="listing-11"><span class="label"><a 
+ id="x1-36001r1"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">1</span></span><span 
+class="LinLibertineT-tlf-t1-">component</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">prototype</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">disass</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">()</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36002r2"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">2</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36003r3"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">3</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">index</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">indexOf</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">this</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Search</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">object</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">in</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36004r4"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">4</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">index</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x003E;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">1)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">//</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">If</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">the</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">object</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">is</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">found</span><span 
+class="LinLibertineT-tlf-t1-">...</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36005r5"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">5</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">refImg</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">index</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">ref</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36006r6"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">6</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">refImg</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">substr</span><span 
+class="LinLibertineT-tlf-t1-">(0,8)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">===</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">Compound</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36007r7"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">7</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">tmpImg</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">index</span><span 
+class="LinLibertineT-tlf-t1-">];</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36008r8"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">8</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">get</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">Datas</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">+</span><span 
+class="LinLibertineT-tlf-t1-">refImg</span><span 
+class="LinLibertineT-tlf-t1-">+</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">json</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">status</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36009r9"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">9</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">get</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">secure</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">ref</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">tableJSON</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">status</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36010r10"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">10</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36011r11"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">11</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">table</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">JSON</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">parse</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">tableJSON</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36012r12"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">12</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">[];</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36013r13"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">13</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">l</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">length</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36014r14"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">14</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">l2</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">table</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">length</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36015r15"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">15</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36016r16"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">16</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">for</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">=0;</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">&#x003C;</span><span 
+class="LinLibertineT-tlf-t1-">l</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">++)</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36017r17"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">17</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">for</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">var</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">j</span><span 
+class="LinLibertineT-tlf-t1-">=0;</span><span 
+class="LinLibertineT-tlf-t1-">j</span><span 
+class="LinLibertineT-tlf-t1-">&#x003C;</span><span 
+class="LinLibertineT-tlf-t1-">l2</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">j</span><span 
+class="LinLibertineT-tlf-t1-">++)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36018r18"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">18</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">if</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">table</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">j</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">Ref</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">===</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">ref</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36019r19"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">19</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">push</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">new</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">component</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">table</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">j</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">RCL</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">table</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">j</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">Ref</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36020r20"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">20</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">x</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">x</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36021r21"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">21</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">y</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">y</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36022r22"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">22</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">angle</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">angle</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36023r23"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">23</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">scale</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">scaleFactorW</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36024r24"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">24</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">width</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">width</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">scale</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36025r25"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">25</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">height</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">=</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">images</span><span 
+class="LinLibertineT-tlf-t1-">[</span><span 
+class="LinLibertineT-tlf-t1-">i</span><span 
+class="LinLibertineT-tlf-t1-">].</span><span 
+class="LinLibertineT-tlf-t1-">image</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">height</span><span 
+class="LinLibertineT-tlf-ts-1">*</span><span 
+class="LinLibertineT-tlf-t1-">Area</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">scale</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36026r26"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">26</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36027r27"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">27</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36028r28"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">28</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36029r29"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">29</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36030r30"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">30</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36031r31"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">31</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36032r32"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">32</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">get</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">status</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">xhr</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36033r33"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">33</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">$</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">post</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">secure</span><span 
+class="LinLibertineT-tlf-t1-">/</span><span 
+class="LinLibertineT-tlf-t1-">DestroyCMP</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">,{</span><span 
+class="LinLibertineT-tlf-t1-">compound</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">refImg</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">csrf</span><span 
+class="LinLibertineT-tlf-t1-">:</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">xhr</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">getResponseHeader</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">X</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">CSRF</span><span 
+class="cmsy-10">-</span><span 
+class="LinLibertineT-tlf-t1-">Token</span><span 
+class="LinLibertineT-tlf-t1-">&#8217;</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">},</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36034r34"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">34</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">function</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">data</span><span 
+class="LinLibertineT-tlf-t1-">,</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">status</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">{</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36035r35"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">35</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">console</span><span 
+class="LinLibertineT-tlf-t1-">.</span><span 
+class="LinLibertineT-tlf-t1-">log</span><span 
+class="LinLibertineT-tlf-t1-">(</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">Compound</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">destroyed</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">!</span><span 
+class="LinLibertineT-tlf-t1-">"</span><span 
+class="LinLibertineT-tlf-t1-">)</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36036r36"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">36</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36037r37"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">37</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">})</span><span 
+class="LinLibertineT-tlf-t1-">;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36038r38"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">38</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36039r39"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">39</span></span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><span 
+class="LinLibertineT-tlf-t1-">}</span><span 
+class="LinLibertineT-tlf-t1-">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-36040r40"></a><span 
+class="LinLibertineT-tlf-t1-x-x-60">40</span></span><span 
+class="LinLibertineT-tlf-t1-">}</span>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">2.5    </span> <a 
+ id="x1-370002.5"></a>Liens vers des références</h3>
+<!--l. 499--><p class="noindent" ><a 
+href="https://expressjs.com/en/api.html" >Express API</a> <br 
+class="newline" /><a 
+href="https://nodejs.org/api/index.html" >NodeJS API</a> <br 
+class="newline" /><a 
+href="https://www.npmjs.com/" >NPM pour les dépendances</a> <br 
+class="newline" /><a 
+href="https://www.owasp.org/index.php/" >OWASP index, voir Reference à gauche</a> <br 
+class="newline" /><a 
+href="https://cwe.mitre.org/" >Common Weakness Enumeration</a> <br 
+class="newline" />
+    
+</body></html> 
+
+                                                                                       
+
+

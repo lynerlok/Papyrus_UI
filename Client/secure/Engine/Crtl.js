@@ -226,7 +226,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.MetaDatas = function(){
  /*
-  * name: genThbCanvas;
+  * name: MetaDatas;
   * @param : nothing;
   * @return : nothing:
   * This function allow to display the  metadatas of the selected fragment.
@@ -297,18 +297,12 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
 
   $scope.Treshold = function(){
  /*
-  * name: genThbCanvas;
+  * name: Treshold;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function ask the server for treshold an image.
   */
-
-window.sessionStorage.setItem("image", JSON.stringify(Area.images)); //on sauvegarde le contenu de Area.images MAIS pas possible de sauvegarder Area.images.image (voir après window.reload)
-//on teste de récupérer le contenu de Area.images.image un à un: c'est OK!
-window.sessionStorage.setItem("src", JSON.stringify(Area.images[0].image.src));
-window.sessionStorage.setItem("width", JSON.stringify(Area.images[0].image.width));
-window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.height));
-
+  
     $http({
       type: "GET",
       url: '/csrf',
@@ -328,33 +322,24 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
       }, function(response) {
         alert("Error while uploading file !!"); // If the upload fail alert user;
       });
-      var storedarray = JSON.parse(sessionStorage.getItem("image"));
-      var storedwidth = JSON.parse(sessionStorage.getItem("width"));
-      var storedheight = JSON.parse(sessionStorage.getItem("height"));
-      var storeSrc = JSON.parse(sessionStorage.getItem("src"));
-      //on recrée un objet image avec le contenu de Area.images.images :: Ca ne marche pas (pas la même structure et j'imagine qu'il y a d'autre infrmation manquantes)
-      tets = storedarray;
-      test[0].image.src = storedSrc;
-      test[0].image.width = storedwidth;
-      test[0].image.height = storeheight;
-      Area.images.push(test[0]);
+      
     });
 
   };
 
   $scope.RemoveImage = function(){
  /*
-  * name: genThbCanvas;
+  * name: RemoveImage;
   * @param : nothing;
   * @return : nothing:
-  * This function generate the canvas image in a local URL.
+  * This function remove an image from server.
   */
     if (Area.selection != null) {Area.selection.remove()}
   };
 
   $scope.Rescale = function(){
     /*
-     * name: genThbCanvas;
+     * name: Rescale;
      * @param : nothing;
      * @return : nothing:
      * This function set the Area.scale property to 1.
@@ -366,7 +351,7 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
 
   $scope.ZoomOut = function(){
  /*
-  * name: genThbCanvas;
+  * name: ZoomOut;
   * @param : nothing;
   * @return : nothing:
   * This function reduces the Area.scale property value (used to rescale the Area).
@@ -376,7 +361,7 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
 
   $scope.ZoomIn = function(){
  /*
-  * name: genThbCanvas;
+  * name: ZoomIn;
   * @param : nothing;
   * @return : nothing:
   * This function increases the Area.scale property value (used to rescale the Area).
@@ -386,7 +371,7 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
 
   $scope.RotateLeft = function(){
  /*
-  * name: genThbCanvas;
+  * name: RotateLeft;
   * @param : nothing;
   * @return : nothing:
   * This function reduce the Area.selection.angle property used to rotate the selected image (counter clock-wise rotation).
@@ -398,7 +383,7 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
 
   $scope.RotateRight = function(){
  /*
-  * name: genThbCanvas;
+  * name: RotateRight;
   * @param : nothing;
   * @return : nothing:
   * This function increases the Area.selection.angle property used to rotate the selected image (clock-wise rotation).
@@ -435,7 +420,7 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
 
   $scope.DisassCompound = function(){
  /*
-  * name: genThbCanvas;
+  * name: DisassCompound;
   * @param : nothing;
   * @return : nothing:
   * This function allows to disassemble a previously generated compound .
@@ -600,6 +585,13 @@ window.sessionStorage.setItem("height", JSON.stringify(Area.images[0].image.heig
 papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$rootScope,$http){
 
   $scope.getCsrfWD = function(wd){
+/*
+ * 
+ * name: getCsrfWD
+ * @param : working directory
+ * @return
+ * This function allow to create a new working directory on the server with the CSRF protection;
+ */
 
     $http({
       type: "GET",
@@ -626,7 +618,13 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
   };
 
   $scope.getCsrfRD = function(rd){
-
+/*
+ * 
+ * name: getCsrfRD
+ * @param : working directory
+ * @return
+ * This function allow to remove your working directory on the server with the CSRF protection;
+ */
     $http({
       type: "GET",
       url: '/csrf',

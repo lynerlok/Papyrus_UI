@@ -436,7 +436,12 @@ component.prototype.remove = function() {
 }
 
 component.prototype.disass = function () {
-
+/*
+ * name: component.disass
+ * @param : nothing;
+ * @return : nothing;
+ * Description : Disass a compound.
+ */
   var index = Area.images.indexOf(this); // Search the object in Area.images;
 	if (index > -1) { // If the object is found...
     var refImg = Area.images[index].ref;
