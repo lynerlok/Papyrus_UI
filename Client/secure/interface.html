@@ -80,7 +80,7 @@
             <i class="fas fa-search-plus"></i>
           </button>
 
-          <button ng-click="Rescale()" class="w3-button w3-right" title="Rotate left">
+          <button ng-click="Rescale()" class="w3-button w3-right" title="Resize image at 1:1">
             <i class="fas fa-bullseye"></i>
           </button>
 
@@ -101,7 +101,7 @@
           </button>
 
           <div class="w3-right">
-            <button class="w3-button" ng-click="AccFunc('visual')" title="visualization mode">
+            <button class="w3-button" ng-click="AccFunc('visual')" title="Switch view">
                 <i class="fas fa-adjust"></i>
             </button>
             <div id="visual" class="dropup-content w3-bar-block w3-border">
@@ -118,10 +118,11 @@
           </button>
 
           <div id="matches" class="w3-modal">
-            <div id="modalwrapper" class="w3-modal-content">
-              <div class="w3-container w3-white">
+            <div id="modalwrapper" class="w3-modal-content w3-opacity">
+              <div class="w3-container w3-black">
                 <span ng-click="quitModal()" id ="quitModal" class="w3-button w3-display-topright ">&times;</span>
                 <div id="scores"></div>
+                </br>
               </div>
             </div>
           </div>
