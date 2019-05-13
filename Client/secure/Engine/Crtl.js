@@ -302,7 +302,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
   * @return : nothing:
   * This function ask the server for treshold an image.
   */
-  
+
     $http({
       type: "GET",
       url: '/csrf',
@@ -322,7 +322,7 @@ papyrus.controller('ToolsCommand', ['$scope','$rootScope','$http', function($sco
       }, function(response) {
         alert("Error while uploading file !!"); // If the upload fail alert user;
       });
-      
+
     });
 
   };
@@ -586,7 +586,7 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
 
   $scope.getCsrfWD = function(wd){
 /*
- * 
+ *
  * name: getCsrfWD
  * @param : working directory
  * @return
@@ -607,7 +607,7 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
         dataType: 'json', // The type of data is JSON;
         contentType: 'application/json; charset=utf-8' // Content-Type for the server and the communication;
       }).then(function(response) {
-        alert("Le serveur n'a retourné aucune erreur !");
+        alert("new directory successfully created ! You can now log out of this session and reconnet to the new project !");
         window.location.reload();
       }, function(response) {
         alert("Error while creating working directory !!"); // If the upload fail alert user;
@@ -619,7 +619,7 @@ papyrus.controller('wdForm', ['$scope','$rootScope','$http', function($scope,$ro
 
   $scope.getCsrfRD = function(rd){
 /*
- * 
+ *
  * name: getCsrfRD
  * @param : working directory
  * @return : nothing

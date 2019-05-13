@@ -106,24 +106,24 @@ module.exports = (function() { // Module creation for the main file of the serve
  * @param : nothing
  * @return : nothing
  * This the core function of the Router;
- * 
+ *
  */
 
 // **** BEGIN router.use ****
 
   router.use(function(req, res, next) {
 /*
- * 
+ *
  * name: router.use
  * @param
  * @return
  * All of the traffic throw in this function;
- * 
+ *
  */
     // See https://www.owasp.org/index.php/OWASP_Secure_Headers_Project ;
-    
+
     // [DANGER SECTION] EDIT HEADERS at your OWN risks
-    
+
 		res.setHeader('Referrer-Policy', 'no-referrer'); // or same-origin ( send or not send the referrer that is the question );
 		res.setHeader('X-XSS-Protection', '1; mode=block');
     res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -137,12 +137,12 @@ module.exports = (function() { // Module creation for the main file of the serve
 		res.setHeader('Surrogate-Control', 'no-store');
     res.setHeader('Feature-Policy', "camera: 'none'; payment: 'none'; microphone: 'none'");
 		res.setHeader('Content-Security-Policy', "default-src 'self' data:; font-src 'self' use.fontawesome.com ; style-src 'self' use.fontawesome.com www.w3schools.com 'unsafe-inline'; script-src 'self' code.angularjs.org ajax.googleapis.com 'unsafe-inline'");
-		
+
     res.setHeader('Public-Key-Pins', 'pin-sha256="qvFAlNcPepF8XPAe+Hj/1sOMoIzPKqAlhl3hsFEH7tg="; \
 								pin-sha256="LM/+L4/KK/O1MlrufMk7UXkgrsF9U/4IBwHR7VIIfLc="; \
 								pin-sha256="QRG3nNFoIoIiF4677675m9NC8qBlirSJPYIxvG498ZY="; \
 								max-age=36500'); // Change pins according your certificate;
-    
+
     if (req.session.isAuthenticated === "Success") res.setHeader('X-CSRF-Token', req.session.csrfToken); // CSRF protection don't REMOVE !
 // CSRF protection is set only for logged users but you should set for non-logged user too;
 
@@ -153,12 +153,12 @@ module.exports = (function() { // Module creation for the main file of the serve
 
   router.use('/secure', function (req, res, next) { // For all request on /secure/* ...
 /*
- * 
+ *
  * name: router.use
  * @param
  * @return
  * All of the traffic throw in this function;
- * 
+ *
  */
     if (req.session.isAuthenticated === "Success"){ // ... if the user is authenticated ...
         return next(); // ... continue
@@ -186,11 +186,11 @@ module.exports = (function() { // Module creation for the main file of the serve
   router.get(mainPath, function(req, res){ // Route : when GET '/' redirect to index.html;
     res.redirect(indexPath);
   });
-  
+
   router.get('/csrf',function(res,res){ // A simple route to get the header for the CSRF protection;
     return res.sendStatus(200); // Simply return 200 Ok (and a header);
   });
-  
+
   router.get(refPath, function(req,res){ // Route : when get the papyrus images references path send references;
     var i=0;
     var j=0;
@@ -229,7 +229,7 @@ module.exports = (function() { // Module creation for the main file of the serve
     if(req.session.isAuthenticated !== "Success"){ // If the user is login;
 
       if(!req.body) return res.sendStatus(400); // If the user send no parameters send 400 ERROR;
-      
+
       // PARAMS
       var user=req.body.username;
       var pwd=req.body.password;
@@ -239,7 +239,7 @@ module.exports = (function() { // Module creation for the main file of the serve
         try {
           if (await argon2i.verify(creds.passwords[index],pwd)) { // Check if password match with the password in the server JSON;
             // SET PARAMS in req.session
-            
+
             req.session.isAuthenticated = "Success";
             req.session.user = user;
             // Make CSRF protection token;
@@ -247,8 +247,8 @@ module.exports = (function() { // Module creation for the main file of the serve
             var salt = crypto.randomBytes(32);
             req.session.csrfToken = await argon2i.hash(secret, salt);
             // END CSRF TOKEN GENERATION;
-            
-            
+
+
             console.log("INFO : User log in :"+user);
             res.redirect(interfacePath);
           } else {
@@ -264,7 +264,7 @@ module.exports = (function() { // Module creation for the main file of the serve
     else {return res.send("Vous êtes déjà identifié").status(200)}
 
 	});
-  
+
   router.post(tresholdPath,function(req,res){ // Route : when POST treshold (body contains img ref) make some action and send 200 OK;
     if(req.session.isAuthenticated === "Success"){ // If the user is login;
 
@@ -301,28 +301,28 @@ module.exports = (function() { // Module creation for the main file of the serve
 
       PythonShell.run(tresholdScriptPath, options, function (err, results) { // Run the script;
         if (err) throw 'An error occurs on treshold execution :' + err;
-        
+
         // Save and rename the image;
-        
+
         fs.rename(datasPath + '/out.png',datasPath + '/Treshold_on_' + img + '_' + currentTime + '.png', function (err) {
           if (err) throw 'ERROR [TRESHOLD] : An occur when Node rename out.png into tresholded image : ' + err;
           console.log("INFO [TRESHOLD] : Image "+ img +" tresholded and renamed");
         });
-        
+
         // Alter the projects array;
-        
+
         var index = projects.names.indexOf(req.session.user);
         projects.refs[index].push('Treshold_on_' + img + '_' + currentTime);
-        
+
         // Save the projects array;
-        
+
         fs.writeFile(projectsPath,JSON.stringify(projects), (err) => {
           if (err) throw 'FATAL ERROR [TRESHOLD] : An occur when Node refresh projects file : ' + err;
           console.log('INFO [TRESHOLD] : ImageRef JSON of user '+req.session.user+' updated !');
         });
 
         // Create a new papyrus for the papyrus table;
-        
+
         var newPapyrus = {};
         newPapyrus['Ref']='Treshold_on_' + img + '_' + currentTime;
         newPapyrus['THB']='Treshold_on_' + img + '_' + currentTime + '_thb';
@@ -368,14 +368,14 @@ module.exports = (function() { // Module creation for the main file of the serve
         res.redirect(mainPath);
     }
 	});
-  
+
 	router.post(createProjectPath,async function(req,res){ // Route : for the project creation;
 		if(req.session.isAuthenticated === "Success"){
 
       if (!req.body.csrf) return res.sendStatus(400); // CSRF protection verification
       var csrf = req.body.csrf; // Is actually the good user who make the request or very bas crasher ?;
       if (csrf !== req.session.csrfToken) return res.sendStatus(400); // If it's a very bad crasher return 400 ERROR;
-      
+
       // GET params;
       var user=req.body.username;
       var pwd=req.body.password;
@@ -395,9 +395,9 @@ module.exports = (function() { // Module creation for the main file of the serve
 
         projects.names.push(user);
         projects.refs.push(imgRefs);
-        
+
         // Write files to save configuration;
-        
+
         fs.writeFile(passwordPath,JSON.stringify(creds), (err) => {
           if (err) throw err;
           console.log('INFO [USER CREATED] : Passwords Files Updated !');
@@ -407,8 +407,7 @@ module.exports = (function() { // Module creation for the main file of the serve
           if (err) throw err;
           console.log('INFO [USER CREATED] : ImageRef updated !');
         });
-
-        res.redirect(logoutPath);
+        res.redirect(mainPath);
       }
       else {
         res.redirect(interfacePath);
@@ -420,11 +419,11 @@ module.exports = (function() { // Module creation for the main file of the serve
 
   router.post(removeProjectPath, function(req, res){ // Route : when POST rd make some action and redirect to logout;
     if(req.session.isAuthenticated === "Success" && req.session.user !== "main"){ // If the user is log in and the user is not main (main is for creation);
-      
+
       if (!req.body.csrf) return res.sendStatus(400);
       var csrf = req.body.csrf;
       if (csrf !== req.session.csrfToken) return res.sendStatus(400);
-      
+
       var index = creds.users.indexOf(req.session.user); // Search the user in user array;
       if (index !== -1) creds.users.splice(index, 1); // Remove user from user array...
       if (index !== -1) creds.passwords.splice(index, 1); // ... and his password from password array;
@@ -467,16 +466,16 @@ module.exports = (function() { // Module creation for the main file of the serve
 
       var d = new Date();
       var currentTime = d.getTime(); // Timestamp;
-      
+
       // Write the binary image;
-      
+
       fs.writeFile(datasPath + '/Compound-'+currentTime+'.png',img, "binary", (err) => {
         if (err) throw err;
         console.log('INFO : Compound '+ currentTime + ' saved !');
       });
-      
+
       // Perform a crop on image with imagemagick convert to keep only the compound and not the blank of the canvas;
-      
+
       if (fs.existsSync(convertPath)) {
         exec('convert '+ datasPath + '/Compound-'+currentTime+'.png' + ' -trim ' + datasPath + '/Compound-'+currentTime+'.png' , puts);
       }
@@ -486,7 +485,7 @@ module.exports = (function() { // Module creation for the main file of the serve
         if (err) throw err;
         console.log('INFO : Image table '+ currentTime + ' saved !');
       });
-      
+
       // Update the projects array and save it;
       var index = projects.names.indexOf(req.session.user);
 
@@ -519,9 +518,9 @@ module.exports = (function() { // Module creation for the main file of the serve
         if (err) throw err;
         console.log('INFO : PapyrusTable updated !');
       });
-      
+
       res.sendStatus(200);
-      
+
     }
     else {res.redirect(mainPath);}
 
@@ -589,7 +588,7 @@ module.exports = (function() { // Module creation for the main file of the serve
       var found = false;
       var index = null;
       var imageArray = [];
-      
+
       if(!req.body || req.session.user === "main") return res.sendStatus(400);
 
       if (!req.body.csrf) return res.sendStatus(400);
@@ -601,22 +600,22 @@ module.exports = (function() { // Module creation for the main file of the serve
           found = true;
           index = i;
           imageArray.push(PapyrusMainFile.PapyrusTable[i]);
-          
+
           if (PapyrusMainFile.PapyrusTable[i].Owner !== req.session.user) {return res.sendStatus(400);};
         }
       }
 
       if (! found) return res.sendStatus(400);
-      
+
       // Remove all files associate to the image;
       del.sync([datasPath+'/../'+imageArray.RCL],{force:true});
       del.sync([datasPath+'/../'+imageArray.VCL],{force:true});
       del.sync([datasPath+'/../'+imageArray.RIR],{force:true});
       del.sync([datasPath+'/../'+imageArray.VIR],{force:true});
       del.sync([datasPath+'/../'+imageArray.MetaDatas],{force:true});
-      
+
       // Update papyrusTable array, projects array and save in respective files;
-      
+
       PapyrusMainFile.PapyrusTable.splice(index,1);
 
       fs.writeFile(PapyrusTablePath,JSON.stringify(PapyrusMainFile.PapyrusTable), (err) => {
