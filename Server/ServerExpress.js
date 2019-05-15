@@ -92,6 +92,6 @@ app.use(router);
 
 console.log("Create HTTPS server...");
 
-https.createServer(serverCredentials, app).listen(portHTTPS);
+https.createServer(serverCredentials, app).listen(portHTTPS); // Node only accept real IP address and not resolve name (like localhost) in native configuration !
 
 console.log("Done !");
