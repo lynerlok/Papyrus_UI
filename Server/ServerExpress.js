@@ -92,6 +92,12 @@ app.use(router);
 
 console.log("Create HTTPS server...");
 
-https.createServer(serverCredentials, app).listen(portHTTPS,"127.0.0.1"); // Node only accept real IP address and not resolve name (like localhost) in native configuration !
+//Listen on both 127.0.0.1 and external ip adress.
+// Node only accept real IP address and not resolve name (like localhost) in native configuration !
+// So loacalhost and 127.0.0.1 is different for node but not for the OS !
+// You don't listen on localhost and 127.0.0.1 in the same time !
+
+https.createServer(serverCredentials, app).listen(portHTTPS,"127.0.0.1"); // or localhost
+//https.createServer(serverCredentials, app).listen(portHTTPS,"<IPADDR>"); // Choose your IP ADDR !
 
 console.log("Done !");
